@@ -10,6 +10,6 @@
 using namespace std;
 
 int main(int argc, const char * argv[]) {
-    cout << "Hello from Gal Hamelech" << endl;
+    cout << "Hello, from yuval motherfucker????" << endl;
     return 0;
 }
