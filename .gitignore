@@ -1,3 +1,4 @@
 Targil3.xcodeproj
 *.pdf
 .DS_Store
+CMakeLists.txt
