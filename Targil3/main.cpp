@@ -5,7 +5,8 @@
 //  Created by Gal Raykin on 13/06/2020.
 //  Copyright © 2020 Gal Raykin. All rights reserved.
 //
-
+#include "skeleton_View.h"
+#include "skeletonController.h"
 #include <iostream>
 using namespace std;
 

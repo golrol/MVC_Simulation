@@ -1,3 +1,5 @@
+#include <iostream>
+#include "Geometry.h"
 /* View object
 The View class encapsulates the data and functions needed to generate the map display, and control its properties. It has a "memory" for the names and locations of the to-be-plotted objects.
 
@@ -24,7 +26,7 @@ public:
 	
 	// Removes the name and its location; no error if the name is not present.
 	void update_remove(const std::string& name);
-	
+
 	// prints out the current map
 	void draw() const;
 
