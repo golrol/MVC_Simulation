@@ -34,24 +34,12 @@ void printAccordingToDigits(){/*helper function*/
     
 }
 void View::draw() const {
-    int i,j;
+    int i, j;
     int yMarks = origin.y + (size * scale) - scale; /*highest number to print*/
     int emptyLines = (size-1) % MARKS_SPACE;
-    yMarks = yMarks - emptyLines * scale; /*first mark after empty lines*/
     
-    for (i=0 ; i<emptyLines ; i++){/*print empty lines*/
-        cout << "    ";
-        j=size;
-        while(j--){
-            cout << ".";
-            if (j != 0)
-                cout << " ";
-        }
-        cout << endl;
-    }
-    
-    for (i=0 ; i<size-emptyLines ; i++){/*print lines with marks*/
-        if (i % 3 == 0){
+    for (i=0 ; i<size ; i++){/*print lines with marks*/
+        if (i % 3 == emptyLines){
             //TODO: magic numbers
             if (yMarks > -1 && yMarks < 10)
                 cout << "  " << yMarks << " ";
@@ -65,9 +53,15 @@ void View::draw() const {
         }
         j=size;
         while(j--){
-            cout << ".";
-            if (j != 0)
-                cout << " ";
+            if (true){
+             //TODO: check if something is here
+            }
+            else{
+                cout << ". ";
+            }
+            Point tmp(origin.x + (size-j)*scale - scale, origin.y + size*scale - i*scale - scale);
+//            tmp.print();
+//            cout << endl;
         }
         cout << endl;
         yMarks = yMarks - scale;
@@ -94,10 +88,8 @@ void View::draw() const {
         xMarks += (scale*MARKS_SPACE);
     }
     cout << endl;
-    
-    
 }
 
 View::View()
-:size(25), scale(2), origin(-20,-10){}
+:size(25), scale(2), origin(0, 0){}
 

@@ -1,4 +1,5 @@
 #include <iostream>
+#include <vector>
 #include "Geometry.h"
 enum {MARKS_SPACE=3};
 /* View object
@@ -52,5 +53,4 @@ private:
     int size;
     double scale;
     Point origin;
-    
 };

@@ -7,6 +7,7 @@
 //
 #include "skeleton_View.h"
 #include "skeletonController.h"
+#include "Thug.h"
 #include <iostream>
 using namespace std;
 
