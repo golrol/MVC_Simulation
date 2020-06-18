@@ -1,5 +1,6 @@
 #include <iostream>
 #include "Geometry.h"
+enum {MARKS_SPACE=3};
 /* View object
 The View class encapsulates the data and functions needed to generate the map display, and control its properties. It has a "memory" for the names and locations of the to-be-plotted objects.
 
@@ -18,7 +19,7 @@ public:
 	// default ctor: sets the default size, scale, and origin, outputs constructor message
 	View(); 
     // dtor
-    ~View();
+    ~View(){}
 	
 	// Saves the supplied name and location for future use in a draw() call
 	// If the name is already present,the new location replaces the previous one.
@@ -46,4 +47,10 @@ public:
 	/*
 		YOUR EXTRA DECLARATIONS GO HERE
 	*/
+    
+private:
+    int size;
+    double scale;
+    Point origin;
+    
 };
