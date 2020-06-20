@@ -53,7 +53,7 @@ void View::draw() const {
         }
         j=size;
         while(j--){
-            if (true){
+            if (false){
              //TODO: check if something is here
             }
             else{

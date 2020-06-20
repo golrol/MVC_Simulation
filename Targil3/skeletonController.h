@@ -1,3 +1,7 @@
+#ifndef Controller_h
+#define Controller_h
+
+
 /* Controller
 This class is responsible for controlling the Model and View according to interactions
 with the user.
@@ -14,3 +18,5 @@ public:
 private:
 	View* view_ptr;
 };
+
+#endif /* Controller_h */

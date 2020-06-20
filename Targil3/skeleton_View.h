@@ -1,3 +1,6 @@
+#ifndef skeleton_View_h
+#define skeleton_View_h
+
 #include <iostream>
 #include <vector>
 #include "Geometry.h"
@@ -54,3 +57,5 @@ private:
     double scale;
     Point origin;
 };
+
+#endif /* skeleton_View_h */
