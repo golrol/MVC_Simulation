@@ -46,10 +46,10 @@ public:
 	
 	// Saves the supplied name and location for future use in a draw() call
 	// If the name is already present,the new location replaces the previous one.
-	void update_location(const std::string& name, const Point& location);
+	void update_location(const string& name, const Point& location);
 	
 	// Removes the name and its location; no error if the name is not present.
-	void update_remove(const std::string& name);
+	void update_remove(const string& name);
 
 	// prints out the current map
 	void draw() const;
@@ -70,6 +70,7 @@ public:
 	/*
 		YOUR EXTRA DECLARATIONS GO HERE
 	*/
+    set<pair<Point, string> >::iterator findByName(const string& name);/*helper*/
     
 private:
     int size;

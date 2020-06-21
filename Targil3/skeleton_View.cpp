@@ -28,11 +28,19 @@
 	YOUR ADDITIONAL IMPLEMENTATIONS GO HERE
 */
 
-
-
-void printAccordingToDigits(){/*helper function*/
+set<pair<Point, string> >::iterator View::findByName(const string& name){
+    auto setIterator = objectsSet.begin();
+    string shortName = name.substr(0, 2);
     
+    for(; setIterator != objectsSet.end() ; setIterator++){
+        if ((*setIterator).second == shortName)
+            return setIterator;
+    }
+    return objectsSet.end();
 }
+
+
+
 void View::draw() const {
     int i, j;
     int yMarks = origin.y + (size * scale) - scale; /*highest number to print*/
@@ -97,5 +105,13 @@ void View::update_location(const string &name, const Point& location) {
     string shortName = name.substr(0, 2); /*take only first two letters*/
     objectsSet.insert(make_pair(location, shortName));
 }
+
+void View::update_remove(const string &name) {
+    auto setIterator = findByName(name);
+    
+    if (setIterator != objectsSet.end())
+        objectsSet.erase(setIterator);
+}
+
 
 
