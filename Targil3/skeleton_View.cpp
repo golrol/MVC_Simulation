@@ -117,3 +117,20 @@ void View::set_size(int size_) {
     this->size = size_;
 }
 
+void View::set_scale(double scale_) { 
+    this->scale = scale_;
+}
+
+void View::set_origin(Point origin_) { 
+    this->origin = origin_;
+}
+
+void View::set_defaults() { 
+    this->size = 25;
+    this->scale = 2;
+    this->origin = Point(0,0);
+}
+
+
+
+

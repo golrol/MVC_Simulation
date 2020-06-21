@@ -35,6 +35,14 @@ int main(int argc, const char * argv[]) {
     v.draw();
     v.update_remove("Yuval");
     v.draw();
+    v.set_size(10);
+    v.draw();
+    v.set_scale(1);
+    v.draw();
+    v.set_origin(Point(-1,-1));
+    v.draw();
+    v.set_defaults();
+    v.draw();
     
     return 0;
 }
