@@ -4,6 +4,7 @@
 #include <iostream>
 #include <vector>
 #include <map>
+#include <set>
 #include "Geometry.h"
 
 enum {MARKS_SPACE=3};
@@ -20,6 +21,22 @@ Usage:
 4. As needed, change the origin, scale, or displayed size of the map with the appropriate functions. Since the view "remembers" the previously updated information, immediately calling the draw function will print out a map showing the previous objects using the new settings.
 */
 
+struct classcomp {
+    bool operator() (const pair<Point, string>& lhs, const pair<Point, string>& rhs) const{
+        if (lhs.first.y > rhs.first.y)
+            return true;
+        else if (lhs.first.y == rhs.first.y){
+            if (lhs.first.x < lhs.first.x)
+                return true;
+            else
+                return false;
+        }
+        else{
+            return false;
+        }
+    }
+};
+
 class View {
 public:
 	// default ctor: sets the default size, scale, and origin, outputs constructor message
@@ -29,7 +46,7 @@ public:
 	
 	// Saves the supplied name and location for future use in a draw() call
 	// If the name is already present,the new location replaces the previous one.
-	void update_location(const std::string& name, Point location);
+	void update_location(const std::string& name, const Point& location);
 	
 	// Removes the name and its location; no error if the name is not present.
 	void update_remove(const std::string& name);
@@ -58,7 +75,7 @@ private:
     int size;
     double scale;
     Point origin;
-    map<Point, string> objectsMap;
+    set<pair<Point, string>, classcomp> objectsSet;
     
 };
 

@@ -30,8 +30,9 @@ int main(int argc, const char * argv[]) {
 
 
 
-//    View v;
-//    v.draw();
+    View v;
+    v.update_location("Yuval", Point(20, 30));
+    v.draw();
     
     return 0;
 }

@@ -37,6 +37,7 @@ void View::draw() const {
     int i, j;
     int yMarks = origin.y + (size * scale) - scale; /*highest number to print*/
     int emptyLines = (size-1) % MARKS_SPACE;
+    auto setItarator = objectsSet.begin();
     
     for (i=0 ; i<size ; i++){/*print lines with marks*/
         if (i % 3 == emptyLines){
@@ -53,15 +54,14 @@ void View::draw() const {
         }
         j=size;
         while(j--){
-            if (false){
-             //TODO: check if something is here
+            Point currentLocation(origin.x + (size-j)*scale - scale, origin.y + size*scale - i*scale - scale);
+            if (currentLocation == (*setItarator).first){
+                cout << (*setItarator).second;
+                setItarator++;
             }
             else{
                 cout << ". ";
             }
-            Point tmp(origin.x + (size-j)*scale - scale, origin.y + size*scale - i*scale - scale);
-//            tmp.print();
-//            cout << endl;
         }
         cout << endl;
         yMarks = yMarks - scale;
@@ -92,4 +92,10 @@ void View::draw() const {
 
 View::View()
 :size(25), scale(2), origin(0, 0){}
+
+void View::update_location(const string &name, const Point& location) {
+    string shortName = name.substr(0, 2); /*take only first two letters*/
+    objectsSet.insert(make_pair(location, shortName));
+}
+
 
