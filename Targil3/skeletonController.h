@@ -1,5 +1,7 @@
 #ifndef Controller_h
 #define Controller_h
+#include "skeleton_View.h"
+#include "Validation.h"
 
 
 /* Controller

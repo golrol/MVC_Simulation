@@ -103,17 +103,6 @@ int intValidation(string str){
     return retVal;
 }
 
-///*Tokenize with space delimiter*/
-bool commandValidation(string strLine){
-    vector<string> commandVec;
-    string token;
-    stringstream ssLine;
-    ssLine.str(strLine);
-    while (getline(ssLine, token, ' ')) {
-        commandVec.push_back(token);/*put the string in the vector*/
-    }
-    }
-
 
 /*Tokenize line by line from file*/
 void tokenizeFile(string fileName){
