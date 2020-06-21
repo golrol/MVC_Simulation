@@ -16,8 +16,9 @@ enum {MAX_NAME_SIZE = 16 , AGENT_ARGUMENT_NUM = 4 , CASTLES_ARGUMENT_NUM = 4 , F
 double doubleValidation(string str);
 Point pointValidation(string str);
 bool nameValidation(string str);
+int intValidation(string str);
 
-void tokenizeCommend(string strLine);
+bool commandValidation(string strLine);
 
 void tokenizeFile(string fileName);
 

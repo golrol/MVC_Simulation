@@ -80,27 +80,96 @@ bool nameValidation(string str){
     }
     return true;
 }
-
-/*Tokenize with space delimiter*/
-void TokenizeCommend(string strLine) {
-    string token;
-    vector<string> tokens;
-    stringstream ssLine;
+/*Check if the string is valid int*/
+int intValidation(string str){
+    stringstream ssInt;
     /*reset stringstream*/
-    ssLine.str("");
-    ssLine.clear();
+    ssInt.str("");
+    ssInt.clear();
+    int i,retVal;
+    for (i=0;i<str.size();i++){
+        if(str.at(i)<'0' || str.at(i)>'9') {
+            if(str.at(i)=='-' && i==0)/*if the number is negative*/
+                continue;
+            }
+        else{
+            cout << "throw here exception not int" << endl;
+            //TODO: throw exception & end the run of the function
+            }
+    }
+    /*get to this code only if valid int*/
+    ssInt.str(str);
+    ssInt>>retVal;
+    return retVal;
+}
+
+///*Tokenize with space delimiter*/
+bool commandValidation(string strLine){
+    vector<string> commandVec;
+    string token;
+    stringstream ssLine;
     ssLine.str(strLine);
     while (getline(ssLine, token, ' ')) {
-        tokens.push_back(token);/*put the string in the vector*/
+        commandVec.push_back(token);/*put the string in the vector*/
     }
-    //TODO: remove cout
-    cout << "the number of words in the line is : " << tokens.size() << endl;
-    int i;
-    for(i=0;i<tokens.size();i++){
-        //TODO: remove cout
-        cout <<tokens.at(i) << " size: " <<tokens.at(i).size()<< endl;
+    if(commandVec.empty()){
+        if(commandVec[0] == "default"){
+            if(commandVec.size()!=1){
+                //TODO: throw exception (to many arguments)
+            }
+        }
+        else if(commandVec[0] == "size"){
+            if(commandVec.size()!=2)
+                //TODO: throw exception (to many arguments)
+            try {
+                int x = intValidation(commandVec[1])
+            }
+            catch (...) {
+
+            }
+        }
+        else if(commandVec[0] == "zoom"){
+
+        }
+        else if(commandVec[0] == "pen"){
+
+        }
+        else if(commandVec[0] == "show"){
+
+        }
+        else if(commandVec[0] == "create"){
+
+        }
+        else if(true){//TODO: check if commandVec[0} is a name of existing agent
+            if(commandVec[1] == "course"){
+
+            }
+            else if(commandVec[1] == "position"){
+
+            }
+            else if(commandVec[1] == "destination"){
+
+            }
+            else if(commandVec[1] == "position") {
+
+            }
+            else if(commandVec[1] == "stop") {
+
+            }
+            else if(commandVec[1] == "attack") {
+
+            }
+        }
+
     }
-}
+    else {/*if commandVec is empty*/
+        //TODO: throw exception (no command)
+    }
+
+
+
+    }
+
 
 /*Tokenize line by line from file*/
 void tokenizeFile(string fileName){
