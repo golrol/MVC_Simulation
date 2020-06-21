@@ -103,7 +103,7 @@ int intValidation(string str){
     return retVal;
 }
 
-///*Tokenize line with space delimiter*/
+/*Tokenize line with space delimiter*/
 vector<string> tokenizeLine(const string& strLine){
     vector<string> commandVec;
     string token;
@@ -119,6 +119,7 @@ bool defaultValidation(const string& strLine){
     vector<string> vec(tokenizeLine(strLine));
     if(vec.size()!=1){
         //TODO: throw exception (wrong number of arguments)
+        return false;
     }
     else
         return true;
@@ -128,6 +129,7 @@ int sizeValidation(const string& strLine){
     int retVal;
     if(vec.size()!=2){
         //TODO: throw exception (wrong number of arguments)
+        return false;
     }
     else{
         try {
@@ -147,6 +149,7 @@ int zoomValidation(const string& strLine){
     int retVal;
     if(vec.size()!=2){
         //TODO: throw exception (wrong number of arguments)
+        return false;
     }
     else{
         try {
@@ -166,6 +169,7 @@ Point panValidation(const string& strLine){
     double x,y;
     if(vec.size()!=3){
         //TODO: throw exception (wrong number of arguments)
+        return Point();
     }
     try {
         x = intValidation(vec[1]);
@@ -174,7 +178,9 @@ Point panValidation(const string& strLine){
     catch (...) {
         //TODO: throw exception (argument number 2 or 3 isn't double)
     }
+    
     Point retVal(x,y);
+    return retVal;
 }
 bool showValidation(const string& strLine){
     vector<string> vec(tokenizeLine(strLine));

@@ -15,21 +15,25 @@ void Controller::run() {
     getline(ssLine, firstWord, ' ');
     
     if(firstWord == "default"){
-        
+        defaultValidation(strLine);
+        view_ptr->set_defaults();
     }
     else if(firstWord == "size"){
-        
+        view_ptr->set_size(sizeValidation(strLine));
     }
     else if(firstWord == "zoom"){
-        
+        view_ptr->set_scale(zoomValidation(strLine));
     }
-    else if(firstWord == "pen"){
-        
+    else if(firstWord == "pan"){
+        view_ptr->set_origin(panValidation(strLine));
     }
     else if(firstWord == "show"){
-        
+        showValidation(strLine);
+        view_ptr->draw();
     }
     else if(firstWord == "create"){
+        //TODO: check if already exists
+        createValidation(strLine);
         
     }
     else {/*case where the first word is an agent's name*/
