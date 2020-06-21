@@ -3,6 +3,7 @@
 
 #include <vector>
 #include "Agent.h"
+#include "Structure.h"
 
 class Model{
 public:
@@ -11,6 +12,8 @@ public:
     
 private:
     vector<Agent> agentsVec;
+    vector<Structure> structuresVec;
+    int time;
     
 };
 
