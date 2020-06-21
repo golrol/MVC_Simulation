@@ -178,15 +178,32 @@ Point panValidation(const string& strLine){
 }
 bool showValidation(const string& strLine){
     vector<string> vec(tokenizeLine(strLine));
+    if(vec.size()!=1){
+        //TODO: throw exception (wrong number of arguments)
+    }
+    else
+        return true;
 }
 bool statusValidation(const string& strLine){
     vector<string> vec(tokenizeLine(strLine));
+    if(vec.size()!=1){
+        //TODO: throw exception (wrong number of arguments)
+    }
+    else
+        return true;
 }
 bool goValidation(const string& strLine){
     vector<string> vec(tokenizeLine(strLine));
+    vector<string> vec(tokenizeLine(strLine));
+    if(vec.size()!=1){
+        //TODO: throw exception (wrong number of arguments)
+    }
+    else
+        return true;
 }
 bool createValidation(const string& strLine){
     vector<string> vec(tokenizeLine(strLine));
+
 }
 pair<Point,int> courseValidation(const string& strLine){
     vector<string> vec(tokenizeLine(strLine));
