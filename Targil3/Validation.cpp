@@ -200,7 +200,6 @@ bool statusValidation(const string& strLine){
 }
 bool goValidation(const string& strLine){
     vector<string> vec(tokenizeLine(strLine));
-    vector<string> vec(tokenizeLine(strLine));
     if(vec.size()!=1){
         //TODO: throw exception (wrong number of arguments)
     }
