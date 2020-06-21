@@ -189,6 +189,7 @@ bool showValidation(const string& strLine){
     }
     else
         return true;
+    return false;
 }
 bool statusValidation(const string& strLine){
     vector<string> vec(tokenizeLine(strLine));
@@ -197,6 +198,7 @@ bool statusValidation(const string& strLine){
     }
     else
         return true;
+    return false;
 }
 bool goValidation(const string& strLine){
     vector<string> vec(tokenizeLine(strLine));
@@ -205,25 +207,31 @@ bool goValidation(const string& strLine){
     }
     else
         return true;
+    return false;
 }
 bool createValidation(const string& strLine){
     vector<string> vec(tokenizeLine(strLine));
-
+    return false;
 }
 pair<Point,int> courseValidation(const string& strLine){
     vector<string> vec(tokenizeLine(strLine));
+    return make_pair(Point(),0);
 }
 pair<Point,int> positionValidation(const string& strLine){
     vector<string> vec(tokenizeLine(strLine));
+    return make_pair(Point(),0);
 }
 string destinationValidation(const string& strLine){
     vector<string> vec(tokenizeLine(strLine));
+    return "";
 }
 bool stopValidation(const string& strLine){
     vector<string> vec(tokenizeLine(strLine));
+    return false;
 }
 string attackValidation(const string& strLine){
     vector<string> vec(tokenizeLine(strLine));
+    return "";
 }
 
 
