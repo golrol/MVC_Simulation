@@ -28,7 +28,7 @@
 	YOUR ADDITIONAL IMPLEMENTATIONS GO HERE
 */
 
-set<pair<Point, string> >::iterator View::findByName(const string& name){
+set<pair<Point, string> >::const_iterator View::findByName(const string& name) const{
     auto setIterator = objectsSet.begin();
     string shortName = name.substr(0, 2);
     

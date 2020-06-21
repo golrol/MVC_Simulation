@@ -2,6 +2,7 @@
 #define Controller_h
 #include "skeleton_View.h"
 #include "Validation.h"
+#include "Model.h"
 
 
 /* Controller
@@ -18,7 +19,8 @@ public:
 	void run();
 
 private:
-	View* view_ptr;
+    shared_ptr<View> view_ptr;
+    shared_ptr<Model> model_ptr;
 };
 
 #endif /* Controller_h */

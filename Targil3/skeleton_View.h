@@ -70,7 +70,7 @@ public:
 	/*
 		YOUR EXTRA DECLARATIONS GO HERE
 	*/
-    set<pair<Point, string> >::iterator findByName(const string& name);/*helper*/
+    set<pair<Point, string> >::const_iterator findByName(const string& name) const;/*helper*/
     
 private:
     int size;

@@ -9,10 +9,13 @@ class Model{
 public:
     Model();
     ~Model();
+    void addAgent();
+    vector<shared_ptr<Agent>>::const_iterator findAgentByName(const string& name) const;
+    vector<shared_ptr<Structure>>::const_iterator findStructureByName(const string& name) const;
     
 private:
-    vector<Agent> agentsVec;
-    vector<Structure> structuresVec;
+    vector<shared_ptr<Agent> > agentsVec;
+    vector<shared_ptr<Structure> > structuresVec;
     int time;
     
 };

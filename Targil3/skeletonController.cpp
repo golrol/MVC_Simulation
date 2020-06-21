@@ -1,52 +1,59 @@
 #include "skeletonController.h"
 
-void func(string commandVec){
-    if(commandVec == "default"){
-        if(commandVec.size()!=1){
-            //TODO: throw exception (to many arguments)
-        }
-    }
-    else if(commandVec == "size"){
-        if(commandVec.size()!=2)
-            //TODO: throw exception (to many arguments)
-            try {
-                int x = intValidation(commandVec);
-            }
-        catch (...) {
-            
-        }
-    }
-    else if(commandVec == "zoom"){
-        
-    }
-    else if(commandVec == "pen"){
-        
-    }
-    else if(commandVec == "show"){
-        
-    }
-    else if(commandVec == "create"){
-        
-    }
-    else if(true){//TODO: check if commandVec[0} is a name of existing agent
-        if(commandVec == "course"){
-            
-        }
-        else if(commandVec == "position"){
-            
-        }
-        else if(commandVec == "destination"){
-            
-        }
-        else if(commandVec == "position") {
-            
-        }
-        else if(commandVec == "stop") {
-            
-        }
-        else if(commandVec == "attack") {
-            
-        }
-    }
+Controller::Controller()
+:view_ptr(new View), model_ptr(new Model){}
+
+Controller::~Controller() {}
+
+void Controller::run() {
+    //TODO: create a View instance.
+    string strLine, firstWord, secondWord;
+    stringstream ssLine;
     
+    getline(cin, strLine);
+    ssLine.str(strLine);
+    getline(ssLine, firstWord, ' ');
+    
+    if(firstWord == "default"){
+        
+    }
+    else if(firstWord == "size"){
+        
+    }
+    else if(firstWord == "zoom"){
+        
+    }
+    else if(firstWord == "pen"){
+        
+    }
+    else if(firstWord == "show"){
+        
+    }
+    else if(firstWord == "create"){
+        
+    }
+    else {/*case where the first word is an agent's name*/
+        //TODO: check if secont word is a name of existing agent
+        model_ptr->findAgentByName(firstWord);/*//TODO: throws exception if not found*/
+        
+        getline(ssLine, secondWord, ' ');
+        if(secondWord == "course"){
+            
+        }
+        else if(secondWord == "position"){
+            
+        }
+        else if(secondWord == "destination"){
+            
+        }
+        else if(secondWord == "position") {
+            
+        }
+        else if(secondWord == "stop") {
+            
+        }
+        else if(secondWord == "attack") {
+            
+        }
+    }
 }
