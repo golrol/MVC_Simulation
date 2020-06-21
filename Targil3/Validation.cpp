@@ -6,6 +6,7 @@ double doubleValidation(string str){
     /*reset stringstream*/
     ssDouble.str("");
     ssDouble.clear();
+    //TODO : remove cout
     cout << "the string send is " << str << endl;
     double retVal;
     int i,pointsCount=0;
@@ -23,6 +24,7 @@ double doubleValidation(string str){
         }
     }
     /*Get to this code only if valid double*/
+    //TODO : remove cout
     cout << "validation is fine" << endl;
     ssDouble.str(str);
     ssDouble>>retVal;
@@ -37,10 +39,12 @@ Point pointValidation(string str){
     /*Reset stringstream*/
     ssPoint.str("");
     ssPoint.clear();
+    //TODO : remove cout
     cout << "in PV : " << str <<endl;
     cout << str.size()<<endl;
     cout << str.at(0)<<endl;
     cout << str.at(str.size()-1)<<endl;
+
     if(str.at(0)!='(' && str.at(str.size())!=')'){/*check the first char of the point string*/
         //TODO : wrong input
         cout <<"throw here exception & end the function (first or last char check.) "<<endl;
@@ -49,6 +53,12 @@ Point pointValidation(string str){
     ssPoint.str(tmpStr);
     getline(ssPoint, strX, ',');/*read the 'X' part of the point*/
     getline(ssPoint, strY);/*read the 'Y' part of the point*/
+    if (strY.at(0) == ' '){
+        strY = strY.substr(1, strY.size()-1);/*remove space at the beginning*/
+    }
+    else
+        //TODO : throw exception.
+
     try {
         x = doubleValidation(strX);
         y = doubleValidation(strY);
@@ -63,6 +73,7 @@ Point pointValidation(string str){
 /*Check if the string is valid Name and return true if its valid*/
 bool nameValidation(string str){
     if(str.size()>MAX_NAME_SIZE){
+        //TODO : remove cout
         cout<<"Name is to long"<<endl;
         return false;
         //TODO : throw exception & end the function
@@ -82,9 +93,11 @@ void TokenizeCommend(string strLine) {
     while (getline(ssLine, token, ' ')) {
         tokens.push_back(token);/*put the string in the vector*/
     }
+    //TODO : remove cout
     cout << "the number of words in the line is : " << tokens.size() << endl;
     int i;
     for(i=0;i<tokens.size();i++){
+        //TODO : remove cout
         cout <<tokens.at(i) << " size: " <<tokens.at(i).size()<< endl;
     }
 }
@@ -115,8 +128,10 @@ void tokenizeFile(string fileName){
         }
 
         for (i = 0; i < tokens.size(); i++) {
+            //TODO : remove cout
             cout << tokens.at(i) << " size: " << tokens.at(i).size() << endl;
         }
+        //TODO : remove cout
         cout << "finish to tokenize line number"<< j << endl;
         j++;
     }
