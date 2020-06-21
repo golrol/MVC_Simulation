@@ -12,7 +12,7 @@ double doubleValidation(string str){
     int i,pointsCount=0;
     for (i=0;i<str.size();i++){
         if(str.at(i)<'0' || str.at(i)>'9') {
-            if(str.at(i)=='-' && i==0 || str.at(i)==' ' && i==0)/*if the number is negative or there is space in the beginning*/
+            if(str.at(i)=='-' && i==0)/*if the number is negative*/
                 continue;
             if (str.at(i) == '.' && pointsCount < 1) {/*check if not digit only 1 point allowed*/
                 pointsCount++;
@@ -56,8 +56,10 @@ Point pointValidation(string str){
     if (strY.at(0) == ' '){
         strY = strY.substr(1, strY.size()-1);/*remove space at the beginning*/
     }
-    else
+    else{
         //TODO : throw exception.
+    }
+
 
     try {
         x = doubleValidation(strX);
