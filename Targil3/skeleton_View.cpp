@@ -113,5 +113,7 @@ void View::update_remove(const string &name) {
         objectsSet.erase(setIterator);
 }
 
-
+void View::set_size(int size_) {
+    this->size = size_;
+}
 
