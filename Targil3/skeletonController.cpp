@@ -1,7 +1,10 @@
-if(commandVec[0] == "default"){
-if(commandVec.size()!=1){
-//TODO: throw exception (to many arguments)
-}
+
+{
+    if(commandVec[0] == "default"){
+        if(commandVec.size()!=1){
+            //TODO: throw exception (to many arguments)
+        }
+    }
 }
 else if(commandVec[0] == "size"){
 if(commandVec.size()!=2)
@@ -44,6 +47,4 @@ else if(commandVec[1] == "stop") {
 else if(commandVec[1] == "attack") {
 
 }
-}
-
 }
