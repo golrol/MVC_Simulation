@@ -3,7 +3,9 @@
 
 #include <iostream>
 #include <vector>
+#include <map>
 #include "Geometry.h"
+
 enum {MARKS_SPACE=3};
 /* View object
 The View class encapsulates the data and functions needed to generate the map display, and control its properties. It has a "memory" for the names and locations of the to-be-plotted objects.
@@ -56,6 +58,8 @@ private:
     int size;
     double scale;
     Point origin;
+    map<Point, string> objectsMap;
+    
 };
 
 #endif /* skeleton_View_h */
