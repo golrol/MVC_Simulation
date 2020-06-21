@@ -103,6 +103,107 @@ int intValidation(string str){
     return retVal;
 }
 
+///*Tokenize line with space delimiter*/
+vector<string> tokenizeLine(const string& strLine){
+    vector<string> commandVec;
+    string token;
+    stringstream ssLine;
+    ssLine.str(strLine);
+    while (getline(ssLine, token, ' ')) {
+        commandVec.push_back(token);/*put the string in the vector*/
+    }
+    return commandVec;/*return vector of string made of the command line*/
+    }
+
+bool defaultValidation(const string& strLine){
+    vector<string> vec(tokenizeLine(strLine));
+    if(vec.size()!=1){
+        //TODO: throw exception (wrong number of arguments)
+    }
+    else
+        return true;
+}
+int sizeValidation(const string& strLine){
+    vector<string> vec(tokenizeLine(strLine));
+    int retVal;
+    if(vec.size()!=2){
+        //TODO: throw exception (wrong number of arguments)
+    }
+    else{
+        try {
+            retVal = intValidation(vec[1]);
+        }
+        catch (...) {
+            //TODO: throw exception (argument number 2 isn't int)
+        }
+        if(retVal<=MIN_VIEW_SIZE || retVal > MAX_VIEW_SIZE) {
+            //TODO: throw exception (out of range)
+        }
+        return retVal;
+    }
+}
+int zoomValidation(const string& strLine){
+    vector<string> vec(tokenizeLine(strLine));
+    int retVal;
+    if(vec.size()!=2){
+        //TODO: throw exception (wrong number of arguments)
+    }
+    else{
+        try {
+            retVal = intValidation(vec[1]);
+        }
+        catch (...) {
+            //TODO: throw exception (argument number 2 isn't int)
+        }
+        if(retVal<1) {
+            //TODO: throw exception (out of range)
+        }
+        return retVal;
+    }
+}
+Point panValidation(const string& strLine){
+    vector<string> vec(tokenizeLine(strLine));
+    double x,y;
+    if(vec.size()!=3){
+        //TODO: throw exception (wrong number of arguments)
+    }
+    try {
+        x = intValidation(vec[1]);
+        y = intValidation(vec[2]);
+    }
+    catch (...) {
+        //TODO: throw exception (argument number 2 or 3 isn't double)
+    }
+    Point retVal(x,y);
+}
+bool showValidation(const string& strLine){
+    vector<string> vec(tokenizeLine(strLine));
+}
+bool statusValidation(const string& strLine){
+    vector<string> vec(tokenizeLine(strLine));
+}
+bool goValidation(const string& strLine){
+    vector<string> vec(tokenizeLine(strLine));
+}
+bool createValidation(const string& strLine){
+    vector<string> vec(tokenizeLine(strLine));
+}
+pair<Point,int> courseValidation(const string& strLine){
+    vector<string> vec(tokenizeLine(strLine));
+}
+pair<Point,int> positionValidation(const string& strLine){
+    vector<string> vec(tokenizeLine(strLine));
+}
+string destinationValidation(const string& strLine){
+    vector<string> vec(tokenizeLine(strLine));
+}
+bool stopValidation(const string& strLine){
+    vector<string> vec(tokenizeLine(strLine));
+}
+string attackValidation(const string& strLine){
+    vector<string> vec(tokenizeLine(strLine));
+}
+
 
 /*Tokenize line by line from file*/
 void tokenizeFile(string fileName){
