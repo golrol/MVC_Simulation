@@ -209,29 +209,117 @@ bool goValidation(const string& strLine){
         return true;
     return false;
 }
-bool createValidation(const string& strLine){
+Point createValidation(const string& strLine){
     vector<string> vec(tokenizeLine(strLine));
-    return false;
+    Point retVal;
+    if(vec.size()!=4 || vec.size() !=5){/*need to be 4 arguments for knight or 5 arguments for thug & peasant*/
+        //TODO: throw exception (wrong number of arguments)
+    }
+    try {
+        if(nameValidation(vec[1]));/*check if the second is  a valid names*/
+        if(vec[2] != "Knight" || vec[2] != "Peasant" || vec[2] != "Thug"){
+            //TODO: throw exception (invalide agent type)
+        }
+        if(vec[2]=="Knight"){
+            if(nameValidation(vec[3]));/*check if the third argument is valid name of a fort*/
+        }
+        else{/*its Peasant or thug*/
+            if(vec.size() ==5){
+                string strPoint = vec[3];
+                strPoint.append(vec[4]);/*append the tow argument to oe str and send it to pointValidation to get point*/
+                retVal = pointValidation(strPoint);
+            }
+        }
+    }
+    catch (...) {
+        //TODO: throw exception (invalide name)
+    }
+    return retVal;
 }
 pair<Point,int> courseValidation(const string& strLine){
     vector<string> vec(tokenizeLine(strLine));
-    return make_pair(Point(),0);
+    int deg , speed=0;
+    if(vec.size()!=2 || vec.size()!=3)/*need to be 2 arguments for knight & peasant or 3 arguments for thug*/{
+        //TODO: throw exception (wrong number of arguments)
+    }
+    try{
+        if(nameValidation(vec[0]));
+            deg = intValidation(vec[1]);/*check if the angel is valid*/
+            if(deg<0 || deg>360){
+                //TODO: throw exception (deg is out of range)
+            }
+        if(vec.size()==3) {
+            speed = intValidation(vec[1]);/*check if the angel is valid*/
+            if(speed<0 || speed>30){
+                //TODO: throw exception (speed is out of range)
+            }
+        }
+    }
+    catch (...) {
+        //TODO: throw exception
+    }
+    //TODO: need to see what to return here , cant make point of destination out of given arguments
+    return make_pair(Point(deg,speed),speed);
 }
 pair<Point,int> positionValidation(const string& strLine){
     vector<string> vec(tokenizeLine(strLine));
-    return make_pair(Point(),0);
+    Point retVal;
+    int speed=0;
+    if(vec.size()!=4 || vec.size()!=5)/*need to be 2 arguments for knight and peasant or 3 arguments for thug*/{
+        //TODO: throw exception (wrong number of arguments)
+    }
+    try {
+        if(nameValidation(vec[0]));
+        string strPoint = vec[2];
+        strPoint.append(vec[3]);/*append the tow argument to oe str and send it to pointValidation to get point*/
+        retVal = pointValidation(strPoint);
+        if(vec.size()==5){
+            speed = intValidation(vec[4]);
+        }
+    }
+    catch (...) {
+        //TODO: throw exception(invalide name)
+    }
+    return make_pair(retVal,speed);
 }
 string destinationValidation(const string& strLine){
     vector<string> vec(tokenizeLine(strLine));
+    if(vec.size()!=3){
+        //TODO: throw exception (wrong number of arguments)
+    }
+    try {
+        if(nameValidation(vec[0]) && nameValidation(vec[2]));
+    }
+    catch (...) {
+        //TODO: throw exception(invalide name)
+    }
     return "";
 }
 bool stopValidation(const string& strLine){
     vector<string> vec(tokenizeLine(strLine));
-    return false;
+    if(vec.size()!=2){
+        //TODO: throw exception (wrong number of arguments)
+    }
+    try {
+        if(nameValidation(vec[0]));
+    }
+    catch (...) {
+        //TODO: throw exception(invalide name)
+    }
+    return true;
 }
 string attackValidation(const string& strLine){
     vector<string> vec(tokenizeLine(strLine));
-    return "";
+    if(vec.size()!=3){
+        //TODO: throw exception (wrong number of arguments)
+    }
+    try {
+        if(nameValidation(vec[0]) && nameValidation(vec[2]));
+    }
+    catch (...) {
+        //TODO: throw exception(invalide name)
+    }
+    return vec[1];
 }
 
 

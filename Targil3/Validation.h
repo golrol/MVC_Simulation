@@ -20,6 +20,7 @@ bool nameValidation(string str);
 int intValidation(string str);
 
 vector<string> tokenizeLine(const string& strLine);
+/*validation function to all command in the program*/
 bool defaultValidation(const string& strLine);
 int sizeValidation(const string& strLine);
 int zoomValidation(const string& strLine);
@@ -27,7 +28,7 @@ Point panValidation(const string& strLine);
 bool showValidation(const string& strLine);
 bool statusValidation(const string& strLine);
 bool goValidation(const string& strLine);
-bool createValidation(const string& strLine);
+Point createValidation(const string& strLine);
 pair<Point,int> courseValidation(const string& strLine);
 pair<Point,int> positionValidation(const string& strLine);
 string destinationValidation(const string& strLine);
@@ -35,12 +36,20 @@ bool stopValidation(const string& strLine);
 string attackValidation(const string& strLine);
 
 
-
-
-
-
-
-
 void tokenizeFile(string fileName);
+
+/*inner calla of commandException to throw if found an error*/
+class CommandException{
+private:
+    string data;
+public:
+    CommandException(const string& str){
+        data = str;
+    }
+    ~CommandException(){}
+    void what(){
+        cout << data << endl;
+    }
+};
 
 #endif //AOOP_TARGIL3_VALIDATION_H
