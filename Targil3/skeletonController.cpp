@@ -1,11 +1,11 @@
 #include "skeletonController.h"
 
-Controller::Controller()
-:view_ptr(new View){}
+Controller::Controller(){}
 
 Controller::~Controller() {}
 
 void Controller::run() {
+    view_ptr.reset(new View);
     //TODO: create a View instance.
     string strLine, firstWord, secondWord;
     stringstream ssLine;
@@ -38,11 +38,12 @@ void Controller::run() {
     else if(firstWord == "create"){
         //TODO: check if already exists
         createValidation(strLine);
+        //Model::getInstance()->addAgent();
         
     }
     else {/*case where the first word is an agent's name*/
         //TODO: check if secont word is a name of existing agent
-        model_ptr->findAgentByName(firstWord);/*//TODO: throws exception if not found*/
+        Model::getInstance()->findAgentByName(firstWord); /*//TODO: throws exception if not found*/
         
         getline(ssLine, secondWord, ' ');
         if(secondWord == "course"){
