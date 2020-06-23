@@ -3,11 +3,9 @@
 /*Check if the string is valid Double and return it as Double variable*/
 double doubleValidation(string str){
     stringstream ssDouble;
-    /*reset stringstream*/
+    /*reset string stream*/
     ssDouble.str("");
     ssDouble.clear();
-    //TODO: remove cout
-    cout << "the string send is " << str << endl;
     double retVal;
     int i,pointsCount=0;
     for (i=0;i<str.size();i++){
@@ -18,17 +16,13 @@ double doubleValidation(string str){
                 pointsCount++;
                 continue;
             } else{
-                cout << "throw here exception & end the function (not digit or one ','.)" << endl;
-                //TODO: throw exception & end the run of the function
+                throw ssDouble ;/*throw stringstream*/
             }
         }
     }
     /*Get to this code only if valid double*/
-    //TODO: remove cout
-    cout << "validation is fine" << endl;
     ssDouble.str(str);
     ssDouble>>retVal;
-    cout << "retval double is : "<<retVal<<endl;
     return retVal;
 }
 /*Check if the string is valid Point and return it as Point variable*/
@@ -36,18 +30,12 @@ Point pointValidation(string str){
     stringstream ssPoint;
     string tmpStr,strX,strY;
     double x,y;
-    /*Reset stringstream*/
+    /*Reset string stream*/
     ssPoint.str("");
     ssPoint.clear();
-    //TODO: remove cout
-    cout << "in PV : " << str <<endl;
-    cout << str.size()<<endl;
-    cout << str.at(0)<<endl;
-    cout << str.at(str.size()-1)<<endl;
 
     if(str.at(0)!='(' && str.at(str.size())!=')'){/*check the first char of the point string*/
-        //TODO: wrong input
-        cout <<"throw here exception & end the function (first or last char check.) "<<endl;
+        throw ssPoint ;/*throw stringstream*/
     }
     tmpStr = str.substr(1,(str.size()-2));/*remove the '(' from the beginning and the ')' from the end of the string*/
     ssPoint.str(tmpStr);
@@ -57,14 +45,14 @@ Point pointValidation(string str){
         strY = strY.substr(1, strY.size()-1);/*remove space at the beginning*/
     }
     else{
-        //TODO: throw exception.
+        throw ssPoint ;/*throw stringstream*/
     }
     try {
         x = doubleValidation(strX);
         y = doubleValidation(strY);
     }
-    catch (...) {
-        //TODO: throw exception & end the function
+    catch (const stringstream& ss) {/*catch the exception thrown from "doubleValidation"*/
+        throw ssPoint ;/*throw stringstream*/
     }
     /*get to this code only if valid point*/
     return Point(x,y);
@@ -83,7 +71,7 @@ bool nameValidation(string str){
 /*Check if the string is valid int*/
 int intValidation(string str){
     stringstream ssInt;
-    /*reset stringstream*/
+    /*reset string stream*/
     ssInt.str("");
     ssInt.clear();
     int i,retVal;
@@ -93,8 +81,7 @@ int intValidation(string str){
                 continue;
             }
         else{
-            cout << "throw here exception not int" << endl;
-            //TODO: throw exception & end the run of the function
+            throw ssInt ;/*throw stringstream*/
             }
     }
     /*get to this code only if valid int*/
@@ -118,8 +105,7 @@ vector<string> tokenizeLine(const string& strLine){
 bool defaultValidation(const string& strLine){
     vector<string> vec(tokenizeLine(strLine));
     if(vec.size()!=1){
-        //TODO: throw exception (wrong number of arguments)
-        return false;
+        throw CommandException("Wrong number of arguments.");
     }
     else
         return true;
@@ -128,18 +114,17 @@ int sizeValidation(const string& strLine){
     vector<string> vec(tokenizeLine(strLine));
     int retVal;
     if(vec.size()!=2){
-        //TODO: throw exception (wrong number of arguments)
-        return false;
+        throw CommandException("Wrong number of arguments.");
     }
     else{
         try {
             retVal = intValidation(vec[1]);
         }
-        catch (...) {
-            //TODO: throw exception (argument number 2 isn't int)
+        catch (const stringstream& ss) {
+            throw CommandException("Second argument is not int.");
         }
         if(retVal<=MIN_VIEW_SIZE || retVal > MAX_VIEW_SIZE) {
-            //TODO: throw exception (out of range)
+            throw CommandException("Second argument is out of range.");
         }
         return retVal;
     }
@@ -148,18 +133,17 @@ int zoomValidation(const string& strLine){
     vector<string> vec(tokenizeLine(strLine));
     int retVal;
     if(vec.size()!=2){
-        //TODO: throw exception (wrong number of arguments)
-        return false;
+        throw CommandException("Wrong number of arguments.");
     }
     else{
         try {
             retVal = intValidation(vec[1]);
         }
-        catch (...) {
-            //TODO: throw exception (argument number 2 isn't int)
+        catch (const stringstream& ss) {
+            throw CommandException("Second argument is not int.");
         }
         if(retVal<1) {
-            //TODO: throw exception (out of range)
+            throw CommandException("Second argument is no positive number.");
         }
         return retVal;
     }
@@ -168,24 +152,22 @@ Point panValidation(const string& strLine){
     vector<string> vec(tokenizeLine(strLine));
     double x,y;
     if(vec.size()!=3){
-        //TODO: throw exception (wrong number of arguments)
-        return Point();
+        throw CommandException("Wrong number of arguments.");
     }
     try {
-        x = intValidation(vec[1]);
-        y = intValidation(vec[2]);
+        x = doubleValidation(vec[1]);
+        y = doubleValidation(vec[2]);
     }
-    catch (...) {
-        //TODO: throw exception (argument number 2 or 3 isn't double)
+    catch (const stringstream& ss) {
+        throw CommandException("Second or third argument is not double.");
     }
-    
     Point retVal(x,y);
     return retVal;
 }
 bool showValidation(const string& strLine){
     vector<string> vec(tokenizeLine(strLine));
     if(vec.size()!=1){
-        //TODO: throw exception (wrong number of arguments)
+        throw CommandException("Wrong number of arguments.");
     }
     else
         return true;
@@ -194,7 +176,7 @@ bool showValidation(const string& strLine){
 bool statusValidation(const string& strLine){
     vector<string> vec(tokenizeLine(strLine));
     if(vec.size()!=1){
-        //TODO: throw exception (wrong number of arguments)
+        throw CommandException("Wrong number of arguments.");
     }
     else
         return true;
@@ -203,7 +185,7 @@ bool statusValidation(const string& strLine){
 bool goValidation(const string& strLine){
     vector<string> vec(tokenizeLine(strLine));
     if(vec.size()!=1){
-        //TODO: throw exception (wrong number of arguments)
+        throw CommandException("Wrong number of arguments.");
     }
     else
         return true;
@@ -212,13 +194,13 @@ bool goValidation(const string& strLine){
 Point createValidation(const string& strLine){
     vector<string> vec(tokenizeLine(strLine));
     Point retVal;
-    if(vec.size()!=4 || vec.size() !=5){/*need to be 4 arguments for knight or 5 arguments for thug & peasant*/
-        //TODO: throw exception (wrong number of arguments)
+    if(vec.size()==4 || vec.size() ==5){/*need to be 4 arguments for knight or 5 arguments for thug & peasant*/
+        throw CommandException("Wrong number of arguments.");
     }
     try {
         if(nameValidation(vec[1]));/*check if the second is  a valid names*/
         if(vec[2] != "Knight" || vec[2] != "Peasant" || vec[2] != "Thug"){
-            //TODO: throw exception (invalide agent type)
+            throw CommandException("Third argument is not valid type.");
         }
         if(vec[2]=="Knight"){
             if(nameValidation(vec[3]));/*check if the third argument is valid name of a fort*/
@@ -231,32 +213,32 @@ Point createValidation(const string& strLine){
             }
         }
     }
-    catch (...) {
-        //TODO: throw exception (invalide name)
+    catch (const stringstream& ss) {
+        throw CommandException("InValide name or double");
     }
     return retVal;
 }
 pair<Point,int> courseValidation(const string& strLine){
     vector<string> vec(tokenizeLine(strLine));
     int deg , speed=0;
-    if(vec.size()!=2 || vec.size()!=3)/*need to be 2 arguments for knight & peasant or 3 arguments for thug*/{
-        //TODO: throw exception (wrong number of arguments)
+    if(vec.size()==2 || vec.size()==3)/*need to be 2 arguments for knight & peasant or 3 arguments for thug*/{
+        throw CommandException("Wrong number of arguments.");
     }
     try{
         if(nameValidation(vec[0]));
             deg = intValidation(vec[1]);/*check if the angel is valid*/
             if(deg<0 || deg>360){
-                //TODO: throw exception (deg is out of range)
+                throw CommandException("Deg is out of range.");
             }
         if(vec.size()==3) {
             speed = intValidation(vec[1]);/*check if the angel is valid*/
             if(speed<0 || speed>30){
-                //TODO: throw exception (speed is out of range)
+                throw CommandException("Speed is out of range.");
             }
         }
     }
-    catch (...) {
-        //TODO: throw exception
+    catch (const stringstream& ss) {
+        throw CommandException("InValide name or int.");
     }
     //TODO: need to see what to return here , cant make point of destination out of given arguments
     return make_pair(Point(deg,speed),speed);
@@ -265,8 +247,8 @@ pair<Point,int> positionValidation(const string& strLine){
     vector<string> vec(tokenizeLine(strLine));
     Point retVal;
     int speed=0;
-    if(vec.size()!=4 || vec.size()!=5)/*need to be 2 arguments for knight and peasant or 3 arguments for thug*/{
-        //TODO: throw exception (wrong number of arguments)
+    if(vec.size()==4 || vec.size()==5)/*need to be 2 arguments for knight and peasant or 3 arguments for thug*/{
+        throw CommandException("Wrong number of arguments.");
     }
     try {
         if(nameValidation(vec[0]));
@@ -277,47 +259,47 @@ pair<Point,int> positionValidation(const string& strLine){
             speed = intValidation(vec[4]);
         }
     }
-    catch (...) {
-        //TODO: throw exception(invalide name)
+    catch (const stringstream& ss) {
+        throw CommandException("InValide name , point or int.");
     }
     return make_pair(retVal,speed);
 }
 string destinationValidation(const string& strLine){
     vector<string> vec(tokenizeLine(strLine));
     if(vec.size()!=3){
-        //TODO: throw exception (wrong number of arguments)
+        throw CommandException("Wrong number of arguments.");
     }
     try {
         if(nameValidation(vec[0]) && nameValidation(vec[2]));
     }
-    catch (...) {
-        //TODO: throw exception(invalide name)
+    catch (const stringstream& ss) {
+        throw CommandException("InValide name.");
     }
-    return "";
+    return vec[2];
 }
 bool stopValidation(const string& strLine){
     vector<string> vec(tokenizeLine(strLine));
     if(vec.size()!=2){
-        //TODO: throw exception (wrong number of arguments)
+        throw CommandException("Wrong number of arguments.");
     }
     try {
         if(nameValidation(vec[0]));
     }
-    catch (...) {
-        //TODO: throw exception(invalide name)
+    catch (const stringstream& ss) {
+        throw CommandException("InValide name.");
     }
     return true;
 }
 string attackValidation(const string& strLine){
     vector<string> vec(tokenizeLine(strLine));
     if(vec.size()!=3){
-        //TODO: throw exception (wrong number of arguments)
+        throw CommandException("Wrong number of arguments.");
     }
     try {
         if(nameValidation(vec[0]) && nameValidation(vec[2]));
     }
-    catch (...) {
-        //TODO: throw exception(invalide name)
+    catch (const stringstream& ss) {
+        throw CommandException("InValide name.");
     }
     return vec[1];
 }
