@@ -20,7 +20,7 @@ public:
 
 private:
     shared_ptr<View> view_ptr;
-    shared_ptr<Model> model_ptr;
+    
 };
 
 #endif /* Controller_h */

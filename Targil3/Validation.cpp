@@ -104,7 +104,7 @@ vector<string> tokenizeLine(const string& strLine){
 
 bool defaultValidation(const string& strLine){
     vector<string> vec(tokenizeLine(strLine));
-    if(vec.size()!=1){
+    if(vec.size() != 1){
         throw CommandException("Wrong number of arguments.");
     }
     else

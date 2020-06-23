@@ -1,5 +1,12 @@
 #include "Model.h"
 
+shared_ptr<Model> Model::inst = nullptr;
+
+shared_ptr<Model> Model::getInstance() {
+    if (inst == nullptr)
+        inst.reset(new Model);
+    return inst;
+}
 
 Model::Model()
 :time(0)
