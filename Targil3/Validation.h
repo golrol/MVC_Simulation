@@ -47,7 +47,7 @@ public:
         data = str;
     }
     ~CommandException(){}
-    void what(){
+    void what() const{
         cout << data << endl;
     }
 };

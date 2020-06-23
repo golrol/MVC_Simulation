@@ -29,20 +29,8 @@ int main(int argc, const char * argv[]) {
 
 
 
-
-    View v;
-    v.update_location("Yuval", Point(20, 30));
-    v.draw();
-    v.update_remove("Yuval");
-    v.draw();
-    v.set_size(10);
-    v.draw();
-    v.set_scale(1);
-    v.draw();
-    v.set_origin(Point(-1,-1));
-    v.draw();
-    v.set_defaults();
-    v.draw();
+    Controller c;
+    c.run();
 
     return 0;
 }

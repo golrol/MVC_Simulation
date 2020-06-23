@@ -1,7 +1,7 @@
 #include "skeletonController.h"
 
 Controller::Controller()
-:view_ptr(new View), model_ptr(new Model){}
+:view_ptr(new View){}
 
 Controller::~Controller() {}
 
@@ -15,7 +15,11 @@ void Controller::run() {
     getline(ssLine, firstWord, ' ');
     
     if(firstWord == "default"){
+        try{
         defaultValidation(strLine);
+        }catch(const CommandException& e){
+            e.what();
+        }
         view_ptr->set_defaults();
     }
     else if(firstWord == "size"){
