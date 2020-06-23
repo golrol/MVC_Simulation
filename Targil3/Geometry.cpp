@@ -11,6 +11,27 @@ double to_degrees(double theta_r)
 {
 	return theta_r * 180.0 / pi;
 }
+Point polarToCartesian(const double& radius , const double& teta){
+    double x,y;
+    x = radius * cos(teta);
+    y = radius * sin(teta);
+    Point retVal(x,y);
+    return retVal;
+
+}
+pair<double,double>cartesianToPolar(const Point& point){
+    double r,t;
+    r = sqrt(pow(point.x,2) + pow(point.y,2)) ;
+    t = atan(point.y / point.x);
+    /*adjusting the value of t*/
+    if(point.x>0 && point.y>0);/*if in the first Quadrant do nothing*/
+    if(point.x>0 && point.y<0)/*if in the forth Quadrant*/
+        t+=360;
+    if((point.x<0 && point.y>0) || (point.x<0 && point.y<0))/*in the second or the third Quadrant*/
+        t+=180;
+    return make_pair(r,t);
+}
+
 // construct a Cartesian_vector from a Polar_vector
 Cartesian_vector::Cartesian_vector(const Polar_vector& pv) {
 	delta_x = pv.r * cos(pv.theta);
