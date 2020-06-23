@@ -43,6 +43,6 @@ int main(int argc, const char * argv[]) {
     v.draw();
     v.set_defaults();
     v.draw();
-    
+
     return 0;
 }
