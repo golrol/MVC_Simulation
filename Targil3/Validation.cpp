@@ -220,8 +220,9 @@ vector<string> createValidation(const string& strLine){
     catch (const stringstream& ss) {
         throw CommandException("InValide name or double");
     }
-    return retVal;
+    return vec;
 }
+
 pair<Point,int> courseValidation(const string& strLine){
     vector<string> vec(tokenizeLine(strLine));
     int deg , speed=0;
