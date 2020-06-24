@@ -8,6 +8,7 @@ void Controller::run() {
     view_ptr.reset(new View);
     Model::getInstance()->setViewPtr(view_ptr);
     while(true){
+        cout << "Time " << Model::getInstance()->getTime() << ": Enter Command: ";
         string strLine, firstWord, secondWord;
         stringstream ssLine;
         

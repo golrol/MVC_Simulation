@@ -103,3 +103,25 @@ void Model::status() const{
         it++;
     }
 }
+
+void Model::addStructure(const string& name, const Point& location, const int& inventory, const int& type){
+    //TODO: validation.
+    //TODO: check if exists??
+    
+    switch (type) {
+        case FARM:
+            structuresVec.emplace_back(shared_ptr<Structure>(new Farm(name, location, inventory)));
+            break;
+        
+        case CASTLE:
+//            structuresVec.emplace_back(shared_ptr<Structure>(new Castle(name, location, inventory))); //TODO: implement
+            break;
+        default:
+            break;
+    }
+}
+
+
+const int& Model::getTime(){
+    return time;
+}

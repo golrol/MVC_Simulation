@@ -8,6 +8,8 @@
 #include "Knight.h"
 #include "Peasant.h"
 #include "Thug.h"
+#include "Farm.h"
+#include "Castle.h"
 #include "Validation.h"
 
 class Model{
@@ -20,6 +22,7 @@ public:
     Model& operator=(const Structure&&) = delete;
     
     void addAgent(const vector<string>& vec);
+    void addStructure(const string& name, const Point& location, const int& inventory, const int& type);
     vector<shared_ptr<Agent>>::const_iterator findAgentByName(const string& name) const;
     vector<shared_ptr<Structure>>::const_iterator findStructureByName(const string& name) const;
     
@@ -30,6 +33,8 @@ public:
     Point getPointFromStructure(const string& structureName) const;
     void status() const;
     
+    
+    const int& getTime();
     
     class xNoSuchAgent{
     public:
