@@ -41,12 +41,12 @@ Point pointValidation(string str){
     ssPoint.str(tmpStr);
     getline(ssPoint, strX, ',');/*read the 'X' part of the point*/
     getline(ssPoint, strY);/*read the 'Y' part of the point*/
-    if (strY.at(0) == ' '){
-        strY = strY.substr(1, strY.size()-1);/*remove space at the beginning*/
-    }
-    else{
-        throw ssPoint ;/*throw stringstream*/
-    }
+//    if (strY.at(0) == ' '){
+//        strY = strY.substr(1, strY.size()-1);/*remove space at the beginning*/
+//    }
+//    else{
+//        throw ssPoint ;/*throw stringstream*/
+//    }
     try {
         x = doubleValidation(strX);
         y = doubleValidation(strY);
@@ -196,7 +196,7 @@ vector<string> createValidation(const string& strLine){
     if(vec.size() == 4 || vec.size() == 5){/*need to be 4 arguments for knight or 5 arguments for thug & peasant*/
         try {
             nameValidation(vec[1]);/*check if the second is a valid name*/
-            if(vec[2] != "Knight" || vec[2] != "Peasant" || vec[2] != "Thug"){
+            if(vec[2] != "Knight" && vec[2] != "Peasant" && vec[2] != "Thug"){
                 throw CommandException("Third argument is not valid type.");
             }
             if(vec[2] == "Knight"){
