@@ -6,4 +6,3 @@ Knight::Knight(const string &name, const Point& location)
 void Knight::updateDeg(const double &deg) { 
     setTetha(deg);
 }
-

@@ -34,9 +34,22 @@ vector<shared_ptr<Structure>>::const_iterator Model::findStructureByName(const s
 }
 
 void Model::addAgent(const vector<std::string> &vec) {
-    shared_ptr<Agent> aPtr(new Thug(vec[1], pointValidation(vec[3])));
-    agentsVec.push_back(aPtr);
-    view_ptr->update_location(vec[1], pointValidation(vec[3]));
+    string newName = vec[1];
+    Point newLocation = pointValidation(vec[3]);
+    string type = vec[2];
+    
+    if (type == "Knight"){
+        agentsVec.emplace_back(shared_ptr<Knight>(new Knight(newName, newLocation)));
+        view_ptr->update_location(newName, newLocation);
+    }
+    if (type == "Peasant"){
+        agentsVec.emplace_back(shared_ptr<Peasant>(new Peasant(newName, newLocation)));
+        view_ptr->update_location(newName, newLocation);
+    }
+    if (type == "Thug"){
+        agentsVec.emplace_back(shared_ptr<Agent>(new Thug(newName, newLocation)));
+        view_ptr->update_location(newName, newLocation);
+    }
 }
 
 void Model::updateAgentDegAndSpeed(const vector<shared_ptr<Agent> >::const_iterator &agent, const pair<int, int> &degAndSpeed) {
