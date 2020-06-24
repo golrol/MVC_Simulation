@@ -23,14 +23,21 @@ Point polarToCartesian(const double& radius , const double& theta){
 
 pair<double,double>cartesianToPolar(const Point& point){
     double r,t;
-    r = sqrt(pow(point.x,2) + pow(point.y,2));
-    t = atan(point.y / point.x);//TODO: divide by zero.
+    r = sqrt(pow(point.x,2) + pow(point.y,2)) ;
+    if(point.x != 0){/*to avoid dividing by 0*/
+        t = atan(point.y / point.x);
+    }
+    else{/*point.x is 0 go in "Straight" line */
+        if(point.y>0)
+            t = 90;/*"go above x axis"*/
+        else
+            t = 270;/*"go below x axis"*/
+    }
     /*adjusting the value of t*/
-//    if(point.x>0 && point.y>0);/*if in the first Quadrant do nothing*/
-    if(point.x>0 && point.y<0)/*if in the forth Quadrant*/
-        t+=360;
     if((point.x<0 && point.y>0) || (point.x<0 && point.y<0))/*in the second or the third Quadrant*/
         t+=180;
+    if(point.x>0 && point.y<0)/*if in the forth Quadrant*/
+        t+=360;
     return make_pair(r,t);
 }
 
