@@ -60,11 +60,9 @@ Point pointValidation(string str){
 
 /*Check if the string is valid Name and return true if its valid*/
 bool nameValidation(string str){
+    stringstream ss;
     if(str.size()>MAX_NAME_SIZE){
-        //TODO: remove cout
-        cout<<"Name is to long"<<endl;
-        return false;
-        //TODO: throw exception & end the function
+        throw ss;
     }
     return true;
 }
