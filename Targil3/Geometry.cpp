@@ -24,7 +24,7 @@ pair<double,double>cartesianToPolar(const Point& point){
     r = sqrt(pow(point.x,2) + pow(point.y,2)) ;
     t = atan(point.y / point.x);
     /*adjusting the value of t*/
-    if(point.x>0 && point.y>0);/*if in the first Quadrant do nothing*/
+//    if(point.x>0 && point.y>0);/*if in the first Quadrant do nothing*/
     if(point.x>0 && point.y<0)/*if in the forth Quadrant*/
         t+=360;
     if((point.x<0 && point.y>0) || (point.x<0 && point.y<0))/*in the second or the third Quadrant*/

@@ -14,7 +14,7 @@ public:
     Model& operator=(const Structure&) = delete;
     Model& operator=(const Structure&&) = delete;
     
-    void addAgent();
+    void addAgent(const vector<string>& vec);
     vector<shared_ptr<Agent>>::const_iterator findAgentByName(const string& name) const;
     vector<shared_ptr<Structure>>::const_iterator findStructureByName(const string& name) const;
     

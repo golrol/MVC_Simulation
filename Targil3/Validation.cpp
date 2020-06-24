@@ -75,12 +75,14 @@ int intValidation(string str){
     int i,retVal;
     for (i=0;i<str.size();i++){
         if(str.at(i)<'0' || str.at(i)>'9') {
-            if(str.at(i)=='-' && i==0)/*if the number is negative*/
+            if(str.at(i)=='-' && i==0){/*if the number is negative*/
                 continue;
             }
-        else{
-            throw ssInt ;/*throw stringstream*/
+            else{
+                throw ssInt ;/*throw stringstream*/
             }
+            
+        }
     }
     /*get to this code only if valid int*/
     ssInt.str(str);
@@ -196,12 +198,12 @@ Point createValidation(const string& strLine){
         throw CommandException("Wrong number of arguments.");
     }
     try {
-        if(nameValidation(vec[1]));/*check if the second is  a valid names*/
+        nameValidation(vec[1]);/*check if the second is  a valid names*/
         if(vec[2] != "Knight" || vec[2] != "Peasant" || vec[2] != "Thug"){
             throw CommandException("Third argument is not valid type.");
         }
         if(vec[2]=="Knight"){
-            if(nameValidation(vec[3]));/*check if the third argument is valid name of a fort*/
+            nameValidation(vec[3]);/*check if the third argument is valid name of a fort*/
         }
         else{/*its Peasant or thug*/
             if(vec.size() ==5){
@@ -223,7 +225,7 @@ pair<Point,int> courseValidation(const string& strLine){
         throw CommandException("Wrong number of arguments.");
     }
     try{
-        if(nameValidation(vec[0]));
+        nameValidation(vec[0]);
             deg = intValidation(vec[1]);/*check if the angel is valid*/
             if(deg<0 || deg>360){
                 throw CommandException("Deg is out of range.");
@@ -249,7 +251,7 @@ pair<Point,int> positionValidation(const string& strLine){
         throw CommandException("Wrong number of arguments.");
     }
     try {
-        if(nameValidation(vec[0]));
+        nameValidation(vec[0]);
         string strPoint = vec[2];
         strPoint.append(vec[3]);/*append the tow argument to oe str and send it to pointValidation to get point*/
         retVal = pointValidation(strPoint);
@@ -268,7 +270,8 @@ string destinationValidation(const string& strLine){
         throw CommandException("Wrong number of arguments.");
     }
     try {
-        if(nameValidation(vec[0]) && nameValidation(vec[2]));
+        nameValidation(vec[0]);
+        nameValidation(vec[2]);
     }
     catch (const stringstream& ss) {
         throw CommandException("InValide name.");
@@ -281,7 +284,7 @@ bool stopValidation(const string& strLine){
         throw CommandException("Wrong number of arguments.");
     }
     try {
-        if(nameValidation(vec[0]));
+        nameValidation(vec[0]);
     }
     catch (const stringstream& ss) {
         throw CommandException("InValide name.");
@@ -294,7 +297,8 @@ string attackValidation(const string& strLine){
         throw CommandException("Wrong number of arguments.");
     }
     try {
-        if(nameValidation(vec[0]) && nameValidation(vec[2]));
+        nameValidation(vec[0]);
+        nameValidation(vec[2]);
     }
     catch (const stringstream& ss) {
         throw CommandException("InValide name.");
