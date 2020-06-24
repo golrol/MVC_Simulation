@@ -358,5 +358,5 @@ Point checkExistingStructure(const vector<shared_ptr<Structure> >& structuresVec
             return (*it)->getLocation();
         it++;
     }
-    throw Model::xInvalidArgument("No such Structure '" + name + "'");
+    throw Model::xNoSuchStructure();
 }

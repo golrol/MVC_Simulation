@@ -36,6 +36,11 @@ public:
         void what() const{cerr << "No such Agent exists" << endl;}
     };
     
+    class xNoSuchStructure{
+    public:
+        void what() const{cerr << "No such Structure exists" << endl;}
+    };
+    
     class xInvalidArgument{
     public:
         xInvalidArgument(const string& str):str(str){}

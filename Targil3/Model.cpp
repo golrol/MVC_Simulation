@@ -38,22 +38,26 @@ void Model::addAgent(const vector<std::string> &vec) {
     string type = vec[2];
     
     //TODO: check if already exists in this name.
-    if (type == "Knight"){
-        string structureName = vec[3];
-        Point newLocation = checkExistingStructure(structuresVec, structureName);
-        
-        agentsVec.emplace_back(shared_ptr<Knight>(new Knight(newName, newLocation)));
-        view_ptr->update_location(newName, newLocation);
-    }
-    else if (type == "Peasant"){
-        Point newLocation = pointValidation(vec[3]);
-        agentsVec.emplace_back(shared_ptr<Peasant>(new Peasant(newName, newLocation)));
-        view_ptr->update_location(newName, newLocation);
-    }
-    else {/*type == "Thug"*/
-        Point newLocation = pointValidation(vec[3]);
-        agentsVec.emplace_back(shared_ptr<Agent>(new Thug(newName, newLocation)));
-        view_ptr->update_location(newName, newLocation);
+    try{
+        if (type == "Knight"){
+            string structureName = vec[3];
+            Point newLocation = checkExistingStructure(structuresVec, structureName);
+            
+            agentsVec.emplace_back(shared_ptr<Knight>(new Knight(newName, newLocation)));
+            view_ptr->update_location(newName, newLocation);
+        }
+        else if (type == "Peasant"){
+            Point newLocation = pointValidation(vec[3]);
+            agentsVec.emplace_back(shared_ptr<Peasant>(new Peasant(newName, newLocation)));
+            view_ptr->update_location(newName, newLocation);
+        }
+        else {/*type == "Thug"*/
+            Point newLocation = pointValidation(vec[3]);
+            agentsVec.emplace_back(shared_ptr<Agent>(new Thug(newName, newLocation)));
+            view_ptr->update_location(newName, newLocation);
+        }
+    }catch(const xNoSuchStructure& e){
+        e.what();
     }
 }
 
