@@ -13,14 +13,14 @@ void Agent::setSpeed(double speed) {
 }
 
 void Agent::go() { 
-    setRadius(getRadius() + getSpeed());
+    setRadius(getSpeed());
     setLocatoin(polarToCartesian(getRadius(), getTheta()));
 }
 
 void Agent::setLocatoin(Point location){
-    this->location = location;
+    Moving_object::setLocation(location);
 }
 
 Point Agent::getLocation() const{
-    return location;
+    return Moving_object::getLocation();
 }

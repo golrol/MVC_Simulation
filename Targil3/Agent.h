@@ -23,8 +23,6 @@ public:
 private:
     int health;
     int state;
-    Point location;
-    Point destination;
 
 };
 

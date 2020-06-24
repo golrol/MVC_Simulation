@@ -16,6 +16,7 @@ typedef struct Point {
 	Point();
 	void print() const;
 	bool operator==(const Point& rhs);
+    bool operator>=(const Point& rhs);
 } Point;
 Point polarToCartesian(const double& radius , const double& teta);
 pair<double,double>cartesianToPolar(const Point& point);

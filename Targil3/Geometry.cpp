@@ -13,15 +13,16 @@ double to_degrees(double theta_r)
 }
 Point polarToCartesian(const double& radius , const double& teta){
     double x,y;
-    x = radius * cos(teta); //TODO: check if it's radians (x180/PI).
-    y = radius * sin(teta);
+    double radTheta = to_radians(teta);
+    x = radius * cos(radTheta); //TODO: check if it's radians (x180/PI).
+    y = radius * sin(radTheta);
     Point retVal(x,y);
     return retVal;
-
 }
+
 pair<double,double>cartesianToPolar(const Point& point){
     double r,t;
-    r = sqrt(pow(point.x,2) + pow(point.y,2)) ;
+    r = sqrt(pow(point.x,2) + pow(point.y,2));
     t = atan(point.y / point.x);
     /*adjusting the value of t*/
 //    if(point.x>0 && point.y>0);/*if in the first Quadrant do nothing*/
@@ -87,4 +88,12 @@ void Point::print() const
 bool Point::operator==(const Point & rhs)
 {
 	return x == rhs.x && y == rhs.y;
+}
+
+bool Point::operator>=(const Point& rhs){
+    if (y == rhs.y){
+        if (x >= rhs.x)
+            return true;
+    }
+    return false;
 }

@@ -17,10 +17,13 @@ public:
     void setTetha(double theta);
     void setSpeed(double speed);
     void setRadius(double radius);
+    void setLocation(Point location);
     
+    Point getLocatoin() const;
     double getTheta() const;
     double getRadius() const;
     double getSpeed() const;
+    
     
 private:
     Point location;

@@ -64,7 +64,7 @@ void View::draw() const {
         while(j--){
             Point currentLocation(origin.x + (size-j)*scale - scale, origin.y + size*scale - i*scale - scale);
             if (setItarator != objectsSet.end()){
-                if (currentLocation == (*setItarator).first){
+                if (currentLocation >= (*setItarator).first){
                     cout << (*setItarator).second;
                     setItarator++;
                 }
@@ -106,6 +106,7 @@ View::View()
 :size(25), scale(1), origin(0, 0){}
 
 void View::update_location(const string &name, const Point& location) {
+    //TODO: update existing.
     string shortName = name.substr(0, 2); /*take only first two letters*/
     objectsSet.insert(make_pair(location, shortName));
 }

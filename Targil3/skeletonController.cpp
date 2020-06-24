@@ -66,8 +66,14 @@ void Controller::run() {
             v.push_back("create");
             v.push_back("Yuval");
             v.push_back("Peasant");
-            v.push_back("(3.00, 5.00)");
+            v.push_back("(-3.50, -4.00)");
             Model::getInstance()->addAgent(v);
+            vector<string> v2;
+            v2.push_back("create");
+            v2.push_back("Gal");
+            v2.push_back("Thug");
+            v2.push_back("(2.00, 2.00)");
+            Model::getInstance()->addAgent(v2);
 //            Model::getInstance()->addAgent();
             
         }

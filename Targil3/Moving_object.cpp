@@ -27,3 +27,14 @@ double Moving_object::getSpeed() const{
 double Moving_object::getTheta() const{
     return theta;
 }
+
+void Moving_object::setLocation(Point location) { 
+    this->location.x = this->location.x + location.x;
+    this->location.y = this->location.y + location.y;
+}
+
+
+Point Moving_object::getLocatoin() const { 
+    return location;
+}
+
