@@ -14,7 +14,7 @@ void Thug::updateDegAndSpeed(const pair<double, double> &degAndSpeed) {
 void Thug::broadcast_current_State() const { 
     cout << "Thug " << getName() << " at ";
     getLocation().print();
-    cout << ", " << getState();
+    cout << ", " << getState() << endl;
 }
 
 
