@@ -193,20 +193,17 @@ bool goValidation(const string& strLine){
 }
 vector<string> createValidation(const string& strLine){
     vector<string> vec(tokenizeLine(strLine));
-    if(vec.size()==4 || vec.size() ==5){/*need to be 4 arguments for knight or 5 arguments for thug & peasant*/
-        throw CommandException("Wrong number of arguments.");
-    }
-    try {
-        nameValidation(vec[1]);/*check if the second is  a valid names*/
-        if(vec[2] != "Knight" || vec[2] != "Peasant" || vec[2] != "Thug"){
-            throw CommandException("Third argument is not valid type.");
-        }
-        if(vec[2]=="Knight"){
-            nameValidation(vec[3]);/*check if the third argument is valid name of a fort*/
-            return vec;
-        }
-        else{/*its Peasant or thug*/
-            if(vec.size() ==5){
+    if(vec.size() == 4 || vec.size() == 5){/*need to be 4 arguments for knight or 5 arguments for thug & peasant*/
+        try {
+            nameValidation(vec[1]);/*check if the second is a valid name*/
+            if(vec[2] != "Knight" || vec[2] != "Peasant" || vec[2] != "Thug"){
+                throw CommandException("Third argument is not valid type.");
+            }
+            if(vec[2] == "Knight"){
+                nameValidation(vec[3]);/*check if the fourth argument is valid name of a Castle*/
+                return vec;
+            }
+            else{/*its Peasant or thug*/
                 string strPoint = vec[3];
                 strPoint.append(vec[4]);/*append the tow argument to oe str and send it to pointValidation to get point*/
                 pointValidation(strPoint);
@@ -216,37 +213,40 @@ vector<string> createValidation(const string& strLine){
                 return vec;
             }
         }
-    }
-    catch (const stringstream& ss) {
-        throw CommandException("InValide name or double");
-    }
-    return vec;
-}
-
-pair<Point,int> courseValidation(const string& strLine){
-    vector<string> vec(tokenizeLine(strLine));
-    int deg , speed=0;
-    if(vec.size()==2 || vec.size()==3)/*need to be 2 arguments for knight & peasant or 3 arguments for thug*/{
-        throw CommandException("Wrong number of arguments.");
-    }
-    try{
-        nameValidation(vec[0]);
-            deg = intValidation(vec[1]);/*check if the angel is valid*/
-            if(deg<0 || deg>360){
-                throw CommandException("Deg is out of range.");
-            }
-        if(vec.size()==3) {
-            speed = intValidation(vec[1]);/*check if the angel is valid*/
-            if(speed<0 || speed>30){
-                throw CommandException("Speed is out of range.");
-            }
+        catch (const stringstream& ss) {
+            throw CommandException("Invalide name or double");
         }
     }
-    catch (const stringstream& ss) {
-        throw CommandException("InValide name or int.");
+    else{
+        throw CommandException("Wrong number of arguments.");
     }
-    //TODO: need to see what to return here , cant make point of destination out of given arguments
-    return make_pair(Point(deg,speed),speed);
+}
+
+pair<double,double> courseValidation(const string& strLine){
+    vector<string> vec(tokenizeLine(strLine));
+    double deg , speed=0;
+    if(vec.size() == 3 || vec.size() == 4){/*need to be 2 arguments for knight or 3 arguments for thug*/
+        try{
+            nameValidation(vec[0]);
+            deg = doubleValidation(vec[2]);/*check if the angle is valid*/
+            if(deg < 0 || deg > 360){
+                throw CommandException("Deg is out of range.");
+            }
+            if(vec.size() == 4) {
+                speed = doubleValidation(vec[3]);/*check if the speed is valid*/
+                if(speed < 0 || speed > 30){
+                    throw CommandException("Speed is out of range.");
+                }
+            }
+        }
+        catch (const stringstream& ss) {
+            throw CommandException("InValide name or int.");
+        }
+    }
+    else{
+        throw CommandException("Wrong number of arguments.");
+    }
+    return make_pair(deg, speed);
 }
 pair<Point,int> positionValidation(const string& strLine){
     vector<string> vec(tokenizeLine(strLine));

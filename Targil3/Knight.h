@@ -3,10 +3,12 @@
 
 #include "Agent.h"
 
-class Knight : Agent{
+class Knight : public Agent{
 public:
     Knight(const string& name, const Point& location);
     virtual ~Knight(){};
+    
+    void updateDeg(const double& deg);
     
 private:
     

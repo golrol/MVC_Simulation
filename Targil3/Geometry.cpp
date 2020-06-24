@@ -13,7 +13,7 @@ double to_degrees(double theta_r)
 }
 Point polarToCartesian(const double& radius , const double& teta){
     double x,y;
-    x = radius * cos(teta);
+    x = radius * cos(teta); //TODO: check if it's radians (x180/PI).
     y = radius * sin(teta);
     Point retVal(x,y);
     return retVal;

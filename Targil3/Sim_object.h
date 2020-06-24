@@ -13,7 +13,6 @@ public:
     
     
     const string& getName() const{return name;}
-    virtual const Point& getLocation() const = 0;
     
     virtual void update() = 0;
     virtual void broadcast_current_State() const = 0;

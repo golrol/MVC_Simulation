@@ -6,6 +6,7 @@ Controller::~Controller() {}
 
 void Controller::run() {
     view_ptr.reset(new View);
+    Model::getInstance()->setViewPtr(view_ptr);
     while(true){
         string strLine, firstWord, secondWord;
         stringstream ssLine;
@@ -16,6 +17,10 @@ void Controller::run() {
         getline(cin, strLine);
         ssLine.str(strLine);
         getline(ssLine, firstWord, ' ');
+        
+        if(firstWord == "go"){
+            Model::getInstance()->go();
+        }
         
         if(firstWord == "default"){
             try{
@@ -56,17 +61,24 @@ void Controller::run() {
         }
         else if(firstWord == "create"){
             //TODO: check if already exists
-            createValidation(strLine);
-            
+//            createValidation(strLine);
+            vector<string> v;
+            v.push_back("create");
+            v.push_back("Yuval");
+            v.push_back("Peasant");
+            v.push_back("(3.00, 5.00)");
+            Model::getInstance()->addAgent(v);
 //            Model::getInstance()->addAgent();
             
         }
         else {/*case where the first word is an agent's name*/
-            //TODO: check if secont word is a name of existing agent
-            Model::getInstance()->findAgentByName(firstWord); /*//TODO: throws exception if not found*/
-            
             getline(ssLine, secondWord, ' ');
             if(secondWord == "course"){
+                pair<double,double> degAndSpeed = courseValidation(strLine);
+                
+                vector<shared_ptr<Agent>>::const_iterator agent = Model::getInstance()->findAgentByName(firstWord);
+                Model::getInstance()->updateAgentDegAndSpeed(agent, degAndSpeed);
+                
                 
             }
             else if(secondWord == "position"){

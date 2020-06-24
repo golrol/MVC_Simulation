@@ -13,9 +13,18 @@ public:
     virtual void update() = 0;
     virtual void broadcast_current_State() const = 0;
     
+    void setTetha(double theta);
+    void setSpeed(double speed);
+    void go();
+    void setLocatoin(Point location);
+    
+    Point getLocation() const;
+    
 private:
     int health;
     int state;
+    Point location;
+    Point destination;
 
 };
 
