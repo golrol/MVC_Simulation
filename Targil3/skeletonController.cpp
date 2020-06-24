@@ -18,95 +18,70 @@ void Controller::run() {
         ssLine.str(strLine);
         getline(ssLine, firstWord, ' ');
         
-        
-        if(firstWord == "status"){
-            Model::getInstance()->status();
-        }
-        
-        if(firstWord == "go"){
-            Model::getInstance()->go();
-        }
-        
-        if(firstWord == "default"){
-            try{
+        try{
+            if(firstWord == "status"){
+                Model::getInstance()->status();
+            }
+            else if(firstWord == "go"){
+                Model::getInstance()->go();
+            }
+            
+            else if(firstWord == "default"){
                 defaultValidation(strLine);
-            }catch(const CommandException& e){
-                e.what();
+                view_ptr->set_defaults();
             }
-            view_ptr->set_defaults();
-        }
-        else if(firstWord == "size"){
-            try{
+            else if(firstWord == "size"){
                 view_ptr->set_size(sizeValidation(strLine));
-            }catch(const CommandException& e){
-                e.what();
             }
-        }
-        else if(firstWord == "zoom"){
-            try{
+            else if(firstWord == "zoom"){
                 view_ptr->set_scale(zoomValidation(strLine));
-            }catch(const CommandException& e){
-                e.what();
             }
-        }
-        else if(firstWord == "pan"){
-            try{
+            else if(firstWord == "pan"){
                 view_ptr->set_origin(panValidation(strLine));
-            }catch(const CommandException& e){
-                e.what();
             }
-        }
-        else if(firstWord == "show"){
-            try{
+            else if(firstWord == "show"){
                 showValidation(strLine);
-            }catch(const CommandException& e){
-                e.what();
+                view_ptr->draw();
             }
-            view_ptr->draw();
-        }
-        else if(firstWord == "create"){
-            try{
+            else if(firstWord == "create"){
                 vector<string> vecLine = createValidation(strLine);
                 Model::getInstance()->addAgent(vecLine);
-            }catch(const CommandException& e){
-                e.what();
             }
-        }
-        else if(firstWord == "quit"){
-            break;
-        }
-        else {/*case where the first word is an agent's name*/
-            getline(ssLine, secondWord, ' ');
-            if(secondWord == "course"){
-                try{
+            else if(firstWord == "quit"){
+                break;
+            }
+            else {/*case where the first word is an agent's name*/
+                getline(ssLine, secondWord, ' ');
+                if(secondWord == "course"){
                     pair<double,double> degAndSpeed = courseValidation(strLine);
                     
                     vector<shared_ptr<Agent>>::const_iterator agent = Model::getInstance()->findAgentByName(firstWord);
                     Model::getInstance()->updateAgentDegAndSpeed(agent, degAndSpeed);
-                }catch(const CommandException& e){
-                    e.what();
-                }catch(const Model::xNoSuchAgent& e){
-                    e.what();
+                    
+                    
                 }
-                
-                
+                else if(secondWord == "position"){
+                    
+                }
+                else if(secondWord == "destination"){
+                    
+                }
+                else if(secondWord == "position") {
+                    
+                }
+                else if(secondWord == "stop") {
+                    
+                }
+                else if(secondWord == "attack") {
+                    
+                }
+                else
+                    throw CommandException("wrong input");
             }
-            else if(secondWord == "position"){
-                
-            }
-            else if(secondWord == "destination"){
-                
-            }
-            else if(secondWord == "position") {
-                
-            }
-            else if(secondWord == "stop") {
-                
-            }
-            else if(secondWord == "attack") {
-                
-            }
+        }catch(const CommandException& e){
+            e.what();
+        }catch(const Model::xNoSuchAgent& e){
+            e.what();
         }
-        
     }
 }
