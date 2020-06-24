@@ -191,9 +191,8 @@ bool goValidation(const string& strLine){
         return true;
     return false;
 }
-Point createValidation(const string& strLine){
+vector<string> createValidation(const string& strLine){
     vector<string> vec(tokenizeLine(strLine));
-    Point retVal;
     if(vec.size()==4 || vec.size() ==5){/*need to be 4 arguments for knight or 5 arguments for thug & peasant*/
         throw CommandException("Wrong number of arguments.");
     }
@@ -204,12 +203,17 @@ Point createValidation(const string& strLine){
         }
         if(vec[2]=="Knight"){
             nameValidation(vec[3]);/*check if the third argument is valid name of a fort*/
+            return vec;
         }
         else{/*its Peasant or thug*/
             if(vec.size() ==5){
                 string strPoint = vec[3];
                 strPoint.append(vec[4]);/*append the tow argument to oe str and send it to pointValidation to get point*/
-                retVal = pointValidation(strPoint);
+                pointValidation(strPoint);
+                vec.pop_back();
+                vec.pop_back();
+                vec.push_back(strPoint);
+                return vec;
             }
         }
     }
