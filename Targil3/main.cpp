@@ -9,6 +9,8 @@
 #include "skeletonController.h"
 #include "Validation.h"
 #include "Thug.h"
+#include "Structure.h"
+#include "Farm.h"
 #include <iostream>
 using namespace std;
 
@@ -27,6 +29,7 @@ int main(int argc, const char * argv[]) {
 //    string fileToTokenize = "merom_golan, (10,10.5), 15\ntel_adashim, (13,32), 20\nmetula, (0,0), 12";
 //    tokenizeFile(fileToTokenize);
 
+    
     Controller c;
     c.run();
     

@@ -9,7 +9,7 @@ public:
     virtual ~Thug();
     
     void update(){}
-    void broadcast_current_State() const{}
+    void broadcast_current_State() const;
     
     void updateDegAndSpeed(const pair<double, double>& degAndSpeed);
     

@@ -18,6 +18,11 @@ void Controller::run() {
         ssLine.str(strLine);
         getline(ssLine, firstWord, ' ');
         
+        
+        if(firstWord == "status"){
+            Model::getInstance()->status();
+        }
+        
         if(firstWord == "go"){
             Model::getInstance()->go();
         }
@@ -73,10 +78,16 @@ void Controller::run() {
         else {/*case where the first word is an agent's name*/
             getline(ssLine, secondWord, ' ');
             if(secondWord == "course"){
-                pair<double,double> degAndSpeed = courseValidation(strLine);
-                
-                vector<shared_ptr<Agent>>::const_iterator agent = Model::getInstance()->findAgentByName(firstWord);
-                Model::getInstance()->updateAgentDegAndSpeed(agent, degAndSpeed);
+                try{
+                    pair<double,double> degAndSpeed = courseValidation(strLine);
+                    
+                    vector<shared_ptr<Agent>>::const_iterator agent = Model::getInstance()->findAgentByName(firstWord);
+                    Model::getInstance()->updateAgentDegAndSpeed(agent, degAndSpeed);
+                }catch(const CommandException& e){
+                    e.what();
+                }catch(const Model::xNoSuchAgent& e){
+                    e.what();
+                }
                 
                 
             }

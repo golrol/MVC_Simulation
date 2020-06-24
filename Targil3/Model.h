@@ -27,6 +27,23 @@ public:
     
     void setViewPtr(shared_ptr<View> view_ptr);
     void go();
+    Point getPointFromStructure(const string& structureName) const;
+    void status() const;
+    
+    
+    class xNoSuchAgent{
+    public:
+        void what() const{cerr << "No such Agent exists" << endl;}
+    };
+    
+    class xInvalidArgument{
+    public:
+        xInvalidArgument(const string& str):str(str){}
+        ~xInvalidArgument(){};
+        void what() const{cerr << str << endl;}
+    private:
+        string str;
+    };
     
 private:
     static shared_ptr<Model> inst;

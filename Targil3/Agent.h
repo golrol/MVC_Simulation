@@ -9,11 +9,11 @@ enum{DEAD=0, STOPPED=1, MOVING=2, PEASANT_SPEED=5, PEASANT_HEALTH_MAX=20, PEASAN
 
 class Agent : public Sim_object{
 public:
-    Agent(const string& name, const Point& location, const Point& destination, const int& speed, const int& health, const int& state);
+    Agent(const string& name, const int& health, const int& state, const Point& location, const Point& destination, const int& speed);
     virtual ~Agent(){};
     
     virtual void update() = 0;
-    virtual void broadcast_current_State() const = 0;
+    void broadcast_current_State() const = 0;
     
     virtual void go();
     
@@ -22,6 +22,7 @@ public:
     double getSpeed() const;
     double getTheta() const;
     double getRadius() const;
+    int getState() const;
     
     void setLocation(Point location);
     void setSpeed(double speed);

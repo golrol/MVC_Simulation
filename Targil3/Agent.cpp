@@ -1,26 +1,46 @@
 #include "Agent.h"
 
 
-Agent::Agent(const string& name, const Point& location, const Point& destination, const int& speed, const int& health, const int& state)
-:Sim_object(name), Moving_object(location, destination, speed, cartesianToPolar(location).second, cartesianToPolar(location).first), health(health), state(state){}
+Agent::Agent(const string& name, const int& health, const int& state, const Point& location, const Point& destination, const int& speed)
+:Sim_object(name), health(health), state(state), location(location), destination(destination), speed(speed), theta(cartesianToPolar(location).second), radius(speed){}
+
+Point Agent::getLocation() const { 
+    return location;
+}
+
+double Agent::getSpeed() const { 
+    return speed;
+}
+
+double Agent::getTheta() const { 
+    return theta;
+}
+
+double Agent::getRadius() const { 
+    return radius;
+}
+
+int Agent::getState() const{
+    return state;
+}
+
+void Agent::setLocation(Point location) {/*adding the offset from the current location*/
+    this->location.x = this->location.x + location.x;
+    this->location.y = this->location.y + location.y;
+}
+
+void Agent::setSpeed(double speed) { 
+    this->speed = speed;
+}
 
 void Agent::setTetha(double theta) { 
-    Moving_object::setTetha(theta);
+    this->theta = theta;
 }
 
-void Agent::setSpeed(double speed) {
-    Moving_object::setSpeed(speed);
+void Agent::setRadius(double radius) { 
+    this->radius = radius;
 }
 
-void Agent::go() { 
-    setRadius(getSpeed());
-    setLocatoin(polarToCartesian(getRadius(), getTheta()));
-}
-
-void Agent::setLocatoin(Point location){
-    Moving_object::setLocation(location);
-}
-
-Point Agent::getLocation() const{
-    return Moving_object::getLocation();
+void Agent::go() {
+    setLocation(polarToCartesian(radius, theta));
 }

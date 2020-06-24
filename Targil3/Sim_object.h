@@ -12,7 +12,7 @@ public:
     virtual ~Sim_object(){}
     
     
-    const string& getName() const{return name;}
+    virtual const string& getName() const{return name;}
     
     virtual void update() = 0;
     virtual void broadcast_current_State() const = 0;

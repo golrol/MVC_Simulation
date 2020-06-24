@@ -6,7 +6,9 @@
 #define AOOP_TARGIL3_VALIDATION_H
 #include <iostream>
 #include "Geometry.h"
+#include "Model.h"
 #include "Agent.h"
+#include "Structure.h"
 #include <sstream>
 #include <vector>
 #include <fstream>
@@ -34,6 +36,10 @@ pair<Point,int> positionValidation(const string& strLine);
 string destinationValidation(const string& strLine);
 bool stopValidation(const string& strLine);
 string attackValidation(const string& strLine);
+
+
+/*GAL*/
+Point checkExistingStructure(const vector<shared_ptr<Structure> >& structuresVec, const string& name);
 
 
 void tokenizeFile(string fileName);

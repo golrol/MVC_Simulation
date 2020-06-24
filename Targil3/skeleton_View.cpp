@@ -65,7 +65,7 @@ void View::draw() const {
             Point currentLocation(origin.x + (size-j)*scale - scale, origin.y + size*scale - i*scale - scale);
             if (setItarator != objectsSet.end()){
                 if (currentLocation >= (*setItarator).first){
-                    cout << (*setItarator).second;
+                    cout << (*setItarator).second.substr(0, 2);/*take only first two letters*/
                     setItarator++;
                 }
                 else{
@@ -107,8 +107,15 @@ View::View()
 
 void View::update_location(const string &name, const Point& location) {
     //TODO: update existing.
-    string shortName = name.substr(0, 2); /*take only first two letters*/
-    objectsSet.insert(make_pair(location, shortName));
+    auto it = objectsSet.begin();
+    while (it != objectsSet.end()){
+        if ((*it).second == name){ /*updating existing agent's location*/
+            objectsSet.erase(it);
+            break;
+        }
+        it++;
+    }
+    objectsSet.insert(make_pair(location, name));
 }
 
 void View::update_remove(const string &name) {

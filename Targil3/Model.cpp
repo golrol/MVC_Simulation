@@ -21,7 +21,7 @@ vector<shared_ptr<Agent>>::const_iterator Model::findAgentByName(const string& n
             return it;
         it++;
     }
-    throw 6;//TODO: throw
+    throw xNoSuchAgent();
 }
 
 vector<shared_ptr<Structure>>::const_iterator Model::findStructureByName(const string& name) const{
@@ -35,18 +35,23 @@ vector<shared_ptr<Structure>>::const_iterator Model::findStructureByName(const s
 
 void Model::addAgent(const vector<std::string> &vec) {
     string newName = vec[1];
-    Point newLocation = pointValidation(vec[3]);
     string type = vec[2];
     
+    //TODO: check if already exists in this name.
     if (type == "Knight"){
+        string structureName = vec[3];
+        Point newLocation = checkExistingStructure(structuresVec, structureName);
+        
         agentsVec.emplace_back(shared_ptr<Knight>(new Knight(newName, newLocation)));
         view_ptr->update_location(newName, newLocation);
     }
-    if (type == "Peasant"){
+    else if (type == "Peasant"){
+        Point newLocation = pointValidation(vec[3]);
         agentsVec.emplace_back(shared_ptr<Peasant>(new Peasant(newName, newLocation)));
         view_ptr->update_location(newName, newLocation);
     }
-    if (type == "Thug"){
+    else {/*type == "Thug"*/
+        Point newLocation = pointValidation(vec[3]);
         agentsVec.emplace_back(shared_ptr<Agent>(new Thug(newName, newLocation)));
         view_ptr->update_location(newName, newLocation);
     }
@@ -66,7 +71,7 @@ void Model::updateAgentDegAndSpeed(const vector<shared_ptr<Agent> >::const_itera
     
     shared_ptr<Peasant> peasantPtr = dynamic_pointer_cast<Peasant>((*agent));
     if (peasantPtr != nullptr){
-        //TODO: throw exception
+        throw xInvalidArgument("Peasant doesn't support the 'course' command");
     }
 }
 
@@ -74,7 +79,8 @@ void Model::setViewPtr(shared_ptr<View> view_ptr) {
     this->view_ptr = view_ptr;
 }
 
-void Model::go() { 
+void Model::go() {
+    time++;
     auto it = agentsVec.begin();
     
     while(it != agentsVec.end()){
@@ -85,5 +91,11 @@ void Model::go() {
 }
 
 
-
-
+void Model::status() const{
+    auto it = agentsVec.begin();
+    
+    while (it != agentsVec.end()){
+        (*it)->broadcast_current_State();
+        it++;
+    }
+}

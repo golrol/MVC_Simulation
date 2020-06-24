@@ -347,3 +347,16 @@ void tokenizeFile(string fileName){
     }
 
 }
+
+
+
+
+Point checkExistingStructure(const vector<shared_ptr<Structure> >& structuresVec, const string& name){
+    auto it = structuresVec.begin();
+    while(it != structuresVec.end()){
+        if ((*it)->getName() == name)
+            return (*it)->getLocation();
+        it++;
+    }
+    throw Model::xInvalidArgument("No such Structure '" + name + "'");
+}

@@ -5,11 +5,13 @@
 
 class Structure : public Sim_object{
 public:
-    Structure();
+    Structure(const string& name, const Point& location);
     ~Structure();
     
-private:
+    const Point& getLocation() const;
     
+private:
+    Point location;
 };
 
 #endif /* Structure_h */
