@@ -13,6 +13,8 @@ public:
     const Point& getLocation() const;
     const int& getInventory() const;
     
+    void setInventory(const int& inventory);
+    
 private:
     Point location;
     int inventory;

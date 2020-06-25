@@ -22,7 +22,7 @@ public:
     Model& operator=(const Structure&&) = delete;
     
     void addAgent(const vector<string>& vec);
-    void addStructure(const string& name, const Point& location, const int& inventory, const int& type);
+    void addStructure(const string& name, const Point& location, const int& inventory, const int& type, const int& productionRate);
     vector<shared_ptr<Agent>>::const_iterator findAgentByName(const string& name) const;
     vector<shared_ptr<Structure>>::const_iterator findStructureByName(const string& name) const;
     
@@ -53,6 +53,11 @@ public:
         void what() const{cerr << str << endl;}
     private:
         string str;
+    };
+    
+    class xFileException{
+    public:
+        void what() const{cerr << "Can't open file" << endl;}
     };
     
 private:

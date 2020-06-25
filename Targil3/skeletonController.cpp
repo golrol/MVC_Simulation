@@ -56,7 +56,7 @@ void Controller::run() {
             else {/*case where the first word is an agent's name*/
                 getline(ssLine, secondWord, ' ');
                 if(secondWord == "course"){
-                    vector<shared_ptr<Agent>>::const_iterator agent = Model::getInstance()->findAgentByName(firstWord);
+                    vector<shared_ptr<Agent> >::const_iterator agent = Model::getInstance()->findAgentByName(firstWord);
                     pair<double,double> degAndSpeed = courseValidation(strLine, (*agent)->getType());
                     
                     Model::getInstance()->updateAgentDegAndSpeed(agent, degAndSpeed);

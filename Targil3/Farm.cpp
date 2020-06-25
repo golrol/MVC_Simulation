@@ -1,7 +1,7 @@
 #include "Farm.h"
 
-Farm::Farm(const string& name, const Point& location, const int& inventory)
-:Structure(name, location, inventory){}
+Farm::Farm(const string& name, const Point& location, const int& inventory, int const& productionRate)
+:Structure(name, location, inventory), productionRate(productionRate){}
 
 Farm::~Farm(){}
 
@@ -12,5 +12,5 @@ void Farm::broadcast_current_State() const {
 }
 
 void Farm::update(){
-    
+    setInventory(getInventory() + productionRate);
 }

@@ -12,3 +12,7 @@ const Point &Structure::getLocation() const {
 const int& Structure::getInventory() const{
     return inventory;
 }
+
+void Structure::setInventory(const int& inventory){
+    this->inventory = inventory;
+}

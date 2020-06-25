@@ -5,8 +5,11 @@
 
 class Castle : public Structure{
 public:
-    Castle();
+    Castle(const string& name, const Point& location, const int& inventory);
     ~Castle();
+    
+    void update();
+    void broadcast_current_State() const;
     
 private:
     

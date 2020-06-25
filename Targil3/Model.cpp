@@ -71,6 +71,7 @@ void Model::updateAgentDegAndSpeed(const vector<shared_ptr<Agent> >::const_itera
     shared_ptr<Thug> ThugPtr = dynamic_pointer_cast<Thug>((*agent));
     if (ThugPtr != nullptr){
         ThugPtr->updateDegAndSpeed(degAndSpeed);
+        return;
     }
     
     shared_ptr<Peasant> peasantPtr = dynamic_pointer_cast<Peasant>((*agent));
@@ -104,13 +105,13 @@ void Model::status() const{
     }
 }
 
-void Model::addStructure(const string& name, const Point& location, const int& inventory, const int& type){
+void Model::addStructure(const string& name, const Point& location, const int& inventory, const int& type, const int& productionRate){
     //TODO: validation.
     //TODO: check if exists??
     
     switch (type) {
         case FARM:
-            structuresVec.emplace_back(shared_ptr<Structure>(new Farm(name, location, inventory)));
+            structuresVec.emplace_back(shared_ptr<Structure>(new Farm(name, location, inventory, productionRate)));
             break;
         
         case CASTLE:

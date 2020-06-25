@@ -5,13 +5,14 @@
 
 class Farm : public Structure{
 public:
-    Farm(const string& name, const Point& location, const int& inventory);
+    Farm(const string& name, const Point& location, const int& inventory, int const& productionRate);
     virtual ~Farm();
     
     void update();
     void broadcast_current_State() const;
     
 private:
+    int productionRate;
     
 };
 
