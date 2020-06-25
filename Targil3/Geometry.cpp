@@ -16,7 +16,7 @@ Point polarToCartesian(const double& radius , const double& theta){
     double convertedTheta = fmod((360 - theta + 90), 360); /*so 0 will be north*/
     double radianTheta = to_radians(convertedTheta);
     
-    /*fix wierd behaviour of exactly 0, 90, 180, 270*/
+    /*fix weird behaviour of exactly 0, 90, 180, 270*/
     if ((radianTheta == to_radians(90)) || (radianTheta == to_radians(270)))
         x = 0;
     else if (radianTheta == to_radians(0))

@@ -21,9 +21,11 @@ void Controller::run() {
         
         try{
             if(firstWord == "status"){
+                statusValidation(strLine);
                 Model::getInstance()->status();
             }
             else if(firstWord == "go"){
+                goValidation(strLine);
                 Model::getInstance()->go();
             }
             

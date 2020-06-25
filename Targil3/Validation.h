@@ -31,7 +31,7 @@ bool showValidation(const string& strLine);
 bool statusValidation(const string& strLine);
 bool goValidation(const string& strLine);
 vector<string> createValidation(const string& strLine);
-pair<double,double> courseValidation(const string& strLine);
+pair<double,double> courseValidation(const string& strLine,const int& type);
 pair<Point,int> positionValidation(const string& strLine);
 string destinationValidation(const string& strLine);
 bool stopValidation(const string& strLine);
