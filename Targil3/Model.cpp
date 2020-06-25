@@ -80,28 +80,39 @@ void Model::updateAgentDegAndSpeed(const vector<shared_ptr<Agent> >::const_itera
     }
 }
 
-void Model::setViewPtr(shared_ptr<View> view_ptr) { 
+void Model::setViewPtr(shared_ptr<View> view_ptr) {
     this->view_ptr = view_ptr;
 }
 
 void Model::go() {
     time++;
-    auto it = agentsVec.begin();
     
-    while(it != agentsVec.end()){
-        (*it)->go();
-        view_ptr->update_location((*it)->getName(), (*it)->getLocation());
-        it++;
+    auto structuresIterator = structuresVec.begin();
+    while (structuresIterator != structuresVec.end()){
+        (*structuresIterator)->update();
+        structuresIterator++;
+    }
+    
+    auto agentsIterator = agentsVec.begin();
+    while(agentsIterator != agentsVec.end()){
+        (*agentsIterator)->go();
+        view_ptr->update_location((*agentsIterator)->getName(), (*agentsIterator)->getLocation());
+        agentsIterator++;
     }
 }
 
 
 void Model::status() const{
-    auto it = agentsVec.begin();
+    auto structuresIterator = structuresVec.begin();
+    while (structuresIterator != structuresVec.end()){
+        (*structuresIterator)->broadcast_current_State();
+        structuresIterator++;
+    }
     
-    while (it != agentsVec.end()){
-        (*it)->broadcast_current_State();
-        it++;
+    auto agentsIterator = agentsVec.begin();
+    while (agentsIterator != agentsVec.end()){
+        (*agentsIterator)->broadcast_current_State();
+        agentsIterator++;
     }
 }
 
@@ -115,7 +126,7 @@ void Model::addStructure(const string& name, const Point& location, const int& i
             break;
         
         case CASTLE:
-//            structuresVec.emplace_back(shared_ptr<Structure>(new Castle(name, location, inventory))); //TODO: implement
+            structuresVec.emplace_back(shared_ptr<Structure>(new Castle(name, location, inventory)));
             break;
         default:
             break;
