@@ -39,6 +39,12 @@ void Model::addAgent(const vector<std::string> &vec) {
     
     //TODO: check if already exists in this name.
     try{
+        auto it = agentsVec.begin();
+        while (it != agentsVec.end()) {
+            if ((*it)->getName() == newName)
+                throw xInvalidArgument("An agent with this name already exists");
+            it++;
+        }
         if (type == "Knight"){
             string structureName = vec[3];
             Point newLocation = checkExistingStructure(structuresVec, structureName);
@@ -57,6 +63,8 @@ void Model::addAgent(const vector<std::string> &vec) {
             view_ptr->update_location(newName, newLocation);
         }
     }catch(const xNoSuchStructure& e){
+        e.what();
+    }catch(const xInvalidArgument& e){
         e.what();
     }
 }
@@ -95,7 +103,7 @@ void Model::go() {
     
     auto agentsIterator = agentsVec.begin();
     while(agentsIterator != agentsVec.end()){
-        (*agentsIterator)->go();
+        (*agentsIterator)->update();
         view_ptr->update_location((*agentsIterator)->getName(), (*agentsIterator)->getLocation());
         agentsIterator++;
     }
@@ -136,4 +144,9 @@ void Model::addStructure(const string& name, const Point& location, const int& i
 
 const int& Model::getTime(){
     return time;
+}
+
+
+void Model::changeState(const vector<shared_ptr<Agent> >::const_iterator& agent, const int& state){
+    (*agent)->setState(state);
 }

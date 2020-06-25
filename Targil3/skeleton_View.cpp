@@ -66,7 +66,8 @@ void View::draw() const {
             if (setItarator != objectsSet.end()){
                 if (currentLocation >= (*setItarator).first){
                     cout << (*setItarator).second.substr(0, 2);/*take only first two letters*/
-                    setItarator++;
+                    while ((currentLocation >= (*setItarator).first) && setItarator != objectsSet.end())/*skip all others in the same place*/
+                        setItarator++;
                 }
                 else{
                     cout << ". ";

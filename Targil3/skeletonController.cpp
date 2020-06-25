@@ -59,7 +59,9 @@ void Controller::run() {
                     vector<shared_ptr<Agent> >::const_iterator agent = Model::getInstance()->findAgentByName(firstWord);
                     pair<double,double> degAndSpeed = courseValidation(strLine, (*agent)->getType());
                     
+                    Model::getInstance()->changeState(agent, MOVING);
                     Model::getInstance()->updateAgentDegAndSpeed(agent, degAndSpeed);
+                    
                     
                     
                 }

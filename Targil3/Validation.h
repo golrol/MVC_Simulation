@@ -54,7 +54,7 @@ public:
     }
     ~CommandException(){}
     void what() const{
-        cout << data << endl;
+        cerr << data << endl;
     }
 };
 
