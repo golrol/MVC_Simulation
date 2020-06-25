@@ -196,14 +196,11 @@ vector<string> createValidation(const string& strLine){
     if(vec.size() == 4 || vec.size() == 5){/*need to be 4 arguments for knight or 5 arguments for thug & peasant*/
         try {
             nameValidation(vec[1]);/*check if the second is a valid name*/
-            if(vec[2] != "Knight" && vec[2] != "Peasant" && vec[2] != "Thug"){
-                throw CommandException("Third argument is not valid type.");
-            }
             if(vec[2] == "Knight"){
                 nameValidation(vec[3]);/*check if the fourth argument is valid name of a Castle*/
                 return vec;
             }
-            else{/*its Peasant or thug*/
+            else if(vec[2] == "Peasant" || vec[2] == "Thug"){/*its Peasant or thug*/
                 string strPoint = vec[3];
                 strPoint.append(vec[4]);/*append the tow argument to oe str and send it to pointValidation to get point*/
                 pointValidation(strPoint);
@@ -212,6 +209,8 @@ vector<string> createValidation(const string& strLine){
                 vec.push_back(strPoint);
                 return vec;
             }
+            else/*not Knigt, Peasnat or Thug*/
+                throw CommandException("Third argument is not valid type.");
         }
         catch (const stringstream& ss) {
             throw CommandException("Invalide name or double");
