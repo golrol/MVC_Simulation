@@ -2,5 +2,6 @@ Targil3.xcodeproj
 *.pdf
 *.jpg
 *.jpeg
+*.dat
 .DS_Store
 CMakeLists.txt

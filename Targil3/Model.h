@@ -63,7 +63,11 @@ public:
     
     class xFileException{
     public:
-        void what() const{cerr << "Can't open file" << endl;}
+        xFileException(const string& str):str(str){}
+        ~xFileException(){};
+        void what() const{cerr << str << endl;}
+    private:
+        string str;
     };
     
 private:
