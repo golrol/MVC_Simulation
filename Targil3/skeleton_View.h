@@ -29,6 +29,8 @@ struct classcomp {
         else if (lhs.first.y == rhs.first.y){
             if (lhs.first.x < lhs.first.x)
                 return true;
+            else if (lhs.first.x == lhs.first.x)
+                return lhs.second == lhs.second;
             else
                 return false;
         }

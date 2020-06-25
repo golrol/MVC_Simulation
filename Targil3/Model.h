@@ -29,6 +29,7 @@ public:
     vector<shared_ptr<Structure>>::const_iterator findStructureByName(const string& name) const;
     
     void updateAgentDegAndSpeed(const vector<shared_ptr<Agent>>::const_iterator& agent, const pair<int,int>& degAndSpeed);
+    void changeState(const vector<shared_ptr<Agent> >::const_iterator& agent, const int& state);
     
     void setViewPtr(shared_ptr<View> view_ptr);
     void go();

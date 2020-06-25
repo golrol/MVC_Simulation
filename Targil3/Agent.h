@@ -12,10 +12,8 @@ public:
     Agent(const string& name, const int& health, const int& state, const Point& location, const Point& destination, const int& speed, const int& type);
     virtual ~Agent(){};
     
-    virtual void update() = 0;
+    virtual void update();
     void broadcast_current_State() const = 0;
-    
-    virtual void go();
     
     
     Point getLocation() const;
@@ -29,7 +27,7 @@ public:
     void setSpeed(double speed);
     void setTetha(double theta);
     void setRadius(double radius);
-    
+    void setState(int state);
     
     
 private:

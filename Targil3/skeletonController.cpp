@@ -46,6 +46,14 @@ void Controller::run() {
                 showValidation(strLine);
                 view_ptr->draw();
             }
+            else if(firstWord == "aaa"){ //TODO: remove.
+                vector<string> vecLine1 = createValidation("create yuval Thug (2, 2)");
+                Model::getInstance()->addAgent(vecLine1);
+                vector<string> vecLine2 = createValidation("create gal Thug (2, 2)");
+                Model::getInstance()->addAgent(vecLine2);
+                vector<string> vecLine3 = createValidation("create ayal Thug (7, 1)");
+                Model::getInstance()->addAgent(vecLine3);
+            }
             else if(firstWord == "create"){
                 vector<string> vecLine = createValidation(strLine);
                 Model::getInstance()->addAgent(vecLine);
@@ -59,7 +67,9 @@ void Controller::run() {
                     vector<shared_ptr<Agent> >::const_iterator agent = Model::getInstance()->findAgentByName(firstWord);
                     pair<double,double> degAndSpeed = courseValidation(strLine, (*agent)->getType());
                     
+                    Model::getInstance()->changeState(agent, MOVING);
                     Model::getInstance()->updateAgentDegAndSpeed(agent, degAndSpeed);
+                    
                     
                     
                 }

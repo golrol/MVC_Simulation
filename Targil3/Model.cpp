@@ -39,6 +39,12 @@ void Model::addAgent(const vector<std::string> &vec) {
     
     //TODO: check if already exists in this name.
     try{
+        auto it = agentsVec.begin();
+        while (it != agentsVec.end()) {
+            if ((*it)->getName() == newName)
+                throw xInvalidArgument("An agent with this name already exists");
+            it++;
+        }
         if (type == "Knight"){
             string structureName = vec[3];
             Point newLocation = checkExistingStructure(structuresVec, structureName);
@@ -57,6 +63,8 @@ void Model::addAgent(const vector<std::string> &vec) {
             view_ptr->update_location(newName, newLocation);
         }
     }catch(const xNoSuchStructure& e){
+        e.what();
+    }catch(const xInvalidArgument& e){
         e.what();
     }
 }
@@ -80,32 +88,44 @@ void Model::updateAgentDegAndSpeed(const vector<shared_ptr<Agent> >::const_itera
     }
 }
 
-void Model::setViewPtr(shared_ptr<View> view_ptr) { 
+void Model::setViewPtr(shared_ptr<View> view_ptr) {
     this->view_ptr = view_ptr;
 }
 
 void Model::go() {
     time++;
-    auto it = agentsVec.begin();
     
-    while(it != agentsVec.end()){
-        (*it)->go();
-        view_ptr->update_location((*it)->getName(), (*it)->getLocation());
-        it++;
+    auto structuresIterator = structuresVec.begin();
+    while (structuresIterator != structuresVec.end()){
+        (*structuresIterator)->update();
+        structuresIterator++;
+    }
+
+    auto agentsIterator = agentsVec.begin();
+    while(agentsIterator != agentsVec.end()){
+        (*agentsIterator)->update();
+        view_ptr->update_location((*agentsIterator)->getName(), (*agentsIterator)->getLocation());
+        agentsIterator++;
     }
 }
 
 
 void Model::status() const{
-    auto it = agentsVec.begin();
+    auto structuresIterator = structuresVec.begin();
+    while (structuresIterator != structuresVec.end()){
+        (*structuresIterator)->broadcast_current_State();
+        structuresIterator++;
+    }
     
-    while (it != agentsVec.end()){
-        (*it)->broadcast_current_State();
-        it++;
+    auto agentsIterator = agentsVec.begin();
+    while (agentsIterator != agentsVec.end()){
+        (*agentsIterator)->broadcast_current_State();
+        agentsIterator++;
     }
 }
 
 void Model::addStructure(const string& name, const Point& location, const int& inventory, const int& type, const int& productionRate){
+    //TODO: validation.
     //TODO: check if exists??
     
     switch (type) {
@@ -114,7 +134,7 @@ void Model::addStructure(const string& name, const Point& location, const int& i
             break;
         
         case CASTLE:
-//            structuresVec.emplace_back(shared_ptr<Structure>(new Castle(name, location, inventory))); //TODO: implement
+            structuresVec.emplace_back(shared_ptr<Structure>(new Castle(name, location, inventory)));
             break;
         default:
             break;
@@ -124,6 +144,11 @@ void Model::addStructure(const string& name, const Point& location, const int& i
 
 const int& Model::getTime(){
     return time;
+}
+
+
+void Model::changeState(const vector<shared_ptr<Agent> >::const_iterator& agent, const int& state){
+    (*agent)->setState(state);
 }
 
 void Model::farmInit(const string &fileName) {

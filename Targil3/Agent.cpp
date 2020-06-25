@@ -41,11 +41,17 @@ void Agent::setRadius(double radius) {
     this->radius = radius;
 }
 
-void Agent::go() {
-    setLocation(polarToCartesian(radius, theta));
+void Agent::update() {
+    if (state == MOVING)
+        setLocation(polarToCartesian(radius, theta));
 }
 
 
 int Agent::getType() const{
     return type;
+}
+
+
+void Agent::setState(int state){
+    this->state = state;
 }

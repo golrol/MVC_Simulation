@@ -8,7 +8,6 @@ public:
     Knight(const string& name, const Point& location);
     virtual ~Knight(){};
     
-    void update(){}
     void broadcast_current_State() const;
     
     
