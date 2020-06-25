@@ -312,41 +312,24 @@ string attackValidation(const string& strLine){
 }
 
 
-/*Tokenize line by line from file*/
-void tokenizeFile(string fileName){
-    string token,tmpLine;
-    vector<string> tokens;
-    stringstream ssLine, ssFile;
-    int i,j=0;
-    /*conver to file working*/
-//    ifstream configFile(fileName);
-//    while(!configFile.eof()) {
-//        /*reset stringstreams*/
+///*Tokenize line from file*/
+//vector<string> tokenizeFile(string strLine){
+//    string token,tmpLine;
+//    vector<string> tokens;
+//    stringstream ssLine, ssFile;
+//    int i;
+//    ssFile.str(strLine);
+//    while(!ssFile.eof()) {
 //        ssLine.str("");
 //        ssLine.clear();
-//        getline(configFile, ssLine); /*get a line from the file*/
+//        getline(ssFile, tmpLine ,',');
+//        ssLine.str(tmpLine);
+//        while (getline(ssLine, token, ' ')) {
+//            tokens.push_back(token);/*put the string in the vector*/
+//        }
 //    }
-
-    ssFile.str(fileName);
-    while(!ssFile.eof()) {
-//        ssLine.str("");
-//        ssLine.clear();
-        getline(ssFile, tmpLine);
-        ssLine.str(tmpLine);
-        while (getline(ssLine, token, ' ')) {
-            tokens.push_back(token);/*put the string in the vector*/
-        }
-
-        for (i = 0; i < tokens.size(); i++) {
-            //TODO: remove cout
-            cout << tokens.at(i) << " size: " << tokens.at(i).size() << endl;
-        }
-        //TODO: remove cout
-        cout << "finish to tokenize line number"<< j << endl;
-        j++;
-    }
-
-}
+//    return tokens;
+//}
 
 
 

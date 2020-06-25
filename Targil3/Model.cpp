@@ -106,7 +106,6 @@ void Model::status() const{
 }
 
 void Model::addStructure(const string& name, const Point& location, const int& inventory, const int& type, const int& productionRate){
-    //TODO: validation.
     //TODO: check if exists??
     
     switch (type) {
@@ -125,4 +124,71 @@ void Model::addStructure(const string& name, const Point& location, const int& i
 
 const int& Model::getTime(){
     return time;
+}
+
+void Model::farmInit(const string &fileName) {
+    ifstream file(fileName);
+    if(!file){
+        throw xFileException();
+    }
+    string strLine , tmpPointStr;
+    stringstream ssLine;
+    Point location;
+    int inventory , production;
+    vector<string> vec;
+    while(!file.eof()){
+        getline(file,strLine);
+        vec = tokenizeLine(strLine);/*tokenize with ' ' del.*/
+        if(vec.size() == 5)
+        {
+            try{/*do substr(0,vec[0].size()-1) to remove the ',' from the end of the string*/
+                nameValidation(vec[0].substr(0,vec[0].size()-1));
+                tmpPointStr=vec[1].substr(0,vec[0].size()-1);
+                tmpPointStr.append(vec[2].substr(0,vec[0].size()-1));
+                location = pointValidation(tmpPointStr);
+                inventory = intValidation(vec[3].substr(0,vec[0].size()-1));
+                production = intValidation(vec[4]);
+            }
+            catch (const stringstream& ss) {
+                throw xFileException();
+            }
+        }
+        else
+            throw xFileException();
+        addStructure(vec[0].substr(0,vec[0].size()-1),location,FARM,inventory,production);
+    }
+    file.close();
+}
+
+void Model::castleInit(const string &fileName) {
+    ifstream file(fileName);
+    if(!file){
+        throw xFileException();
+    }
+    string strLine , tmpPointStr;
+    stringstream ssLine;
+    Point location;
+    int inventory;
+    vector<string> vec;
+    while(!file.eof()){
+        getline(file,strLine);
+        vec = tokenizeLine(strLine);/*tokenize with ' ' del.*/
+        if(vec.size() == 4)
+        {
+            try{/*do substr(0,vec[0].size()-1) to remove the ',' from the end of the string*/
+                nameValidation(vec[0].substr(0,vec[0].size()-1));
+                tmpPointStr=vec[1].substr(0,vec[0].size()-1);
+                tmpPointStr.append(vec[2].substr(0,vec[0].size()-1));
+                location = pointValidation(tmpPointStr);
+                inventory = intValidation(vec[3].substr(0,vec[0].size()-1));
+            }
+            catch (const stringstream& ss) {
+                throw xFileException();
+            }
+        }
+        else
+            throw xFileException();
+        addStructure(vec[0].substr(0,vec[0].size()-1),location,inventory,CASTLE,-1);
+    }
+    file.close();
 }

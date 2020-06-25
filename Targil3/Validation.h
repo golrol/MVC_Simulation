@@ -42,7 +42,7 @@ string attackValidation(const string& strLine);
 Point checkExistingStructure(const vector<shared_ptr<Structure> >& structuresVec, const string& name);
 
 
-void tokenizeFile(string fileName);
+vector<string> tokenizeFile(string strLine);
 
 /*inner calla of commandException to throw if found an error*/
 class CommandException{

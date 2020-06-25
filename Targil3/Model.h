@@ -11,6 +11,8 @@
 #include "Farm.h"
 #include "Castle.h"
 #include "Validation.h"
+#include <iostream>
+#include <fstream>
 
 class Model{
 public:
@@ -32,6 +34,9 @@ public:
     void go();
     Point getPointFromStructure(const string& structureName) const;
     void status() const;
+
+    void farmInit(const string& fileName);
+    void castleInit(const string& fileName);
     
     
     const int& getTime();
