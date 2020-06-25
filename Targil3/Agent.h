@@ -5,11 +5,11 @@
 #include "Moving_object.h"
 using namespace std;
 
-enum{DEAD=0, STOPPED=1, MOVING=2, PEASANT_SPEED=5, PEASANT_HEALTH_MAX=20, PEASANT_HEALTH=10, KNIGHT_SPEED=10, THUG_SPEED_MAX=30, THUG_HEALTH=5, THUG_HEALTH_MAX=20};
+enum{DEAD=0, STOPPED=1, MOVING=2, PEASANT_SPEED=5, PEASANT_HEALTH_MAX=20, PEASANT_HEALTH=10, KNIGHT_SPEED=10, THUG_SPEED_MAX=30, THUG_HEALTH=5, THUG_HEALTH_MAX=20, PEASANT, KNIGHT, THUG};
 
 class Agent : public Sim_object{
 public:
-    Agent(const string& name, const int& health, const int& state, const Point& location, const Point& destination, const int& speed);
+    Agent(const string& name, const int& health, const int& state, const Point& location, const Point& destination, const int& speed, const int& type);
     virtual ~Agent(){};
     
     virtual void update() = 0;
@@ -23,6 +23,7 @@ public:
     double getTheta() const;
     double getRadius() const;
     int getState() const;
+    int getType() const;
     
     void setLocation(Point location);
     void setSpeed(double speed);
@@ -39,6 +40,7 @@ private:
     double speed;
     double theta;
     double radius;
+    int type;
 
 };
 

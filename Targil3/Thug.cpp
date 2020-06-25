@@ -1,7 +1,7 @@
 #include "Thug.h"
 
 Thug::Thug(const std::string &name, const Point &location)
-:Agent(name, THUG_HEALTH, STOPPED, location, location, 0){}
+:Agent(name, THUG_HEALTH, STOPPED, location, location, 0, THUG){}
 
 Thug::~Thug(){}
 

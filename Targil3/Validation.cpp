@@ -225,7 +225,7 @@ vector<string> createValidation(const string& strLine){
 pair<double,double> courseValidation(const string& strLine){
     vector<string> vec(tokenizeLine(strLine));
     double deg , speed=0;
-    if(vec.size() == 3 || vec.size() == 4){/*need to be 2 arguments for knight or 3 arguments for thug*/
+    if(vec.size() == 3 || vec.size() == 4){/*need to be 3 arguments for knight or 4 arguments for thug*/
         try{
             nameValidation(vec[0]);
             deg = doubleValidation(vec[2]);/*check if the angle is valid*/
