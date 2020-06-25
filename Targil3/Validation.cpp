@@ -224,7 +224,8 @@ vector<string> createValidation(const string& strLine){
 pair<double,double> courseValidation(const string& strLine,const int& type){
     vector<string> vec(tokenizeLine(strLine));
     double deg , speed=0;
-    if((vec.size() == 3 && type == KNIGHT) || ( vec.size() == 4 && type == THUG)){/*need to be 3 arguments for knight or 4 arguments for thug*/
+    /*need to be 3 arguments for knight or peasant, or 4 arguments for thug*/
+    if((vec.size() == 3 && (type == KNIGHT || type == PEASANT) ) || (vec.size() == 4 && type == THUG)){
         try{
             nameValidation(vec[0]);
             deg = doubleValidation(vec[2]);/*check if the angle is valid*/
@@ -239,7 +240,7 @@ pair<double,double> courseValidation(const string& strLine,const int& type){
             }
         }
         catch (const stringstream& ss) {
-            throw CommandException("InValide name or int.");
+            throw CommandException("Invalide name or int.");
         }
     }
     else{
@@ -278,7 +279,7 @@ string destinationValidation(const string& strLine){
         nameValidation(vec[2]);
     }
     catch (const stringstream& ss) {
-        throw CommandException("InValide name.");
+        throw CommandException("Invalide name.");
     }
     return vec[2];
 }

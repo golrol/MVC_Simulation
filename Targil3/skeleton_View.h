@@ -72,6 +72,7 @@ public:
 	*/
     set<pair<Point, string> >::const_iterator findByName(const string& name) const;/*helper*/
     bool checkToPrint(const Point& currentLocation, const Point& objectLocation) const;/*helper*/
+    bool checkInBounds(const Point& objectLocation, const int& yBoundUp, const int& xBoundRight) const;/*helper*/
     
 private:
     int size;

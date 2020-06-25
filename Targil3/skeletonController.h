@@ -3,6 +3,7 @@
 #include "skeleton_View.h"
 #include "Validation.h"
 #include "Model.h"
+#include "Geometry.h"
 
 
 /* Controller

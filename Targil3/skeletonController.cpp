@@ -48,12 +48,23 @@ void Controller::run() {
                 view_ptr->draw();
             }
             else if(firstWord == "aaa"){ //TODO: remove.
-                vector<string> vecLine1 = createValidation("create yuval Thug (2, 2)");
-                Model::getInstance()->addAgent(vecLine1);
-                vector<string> vecLine2 = createValidation("create gal Thug (2, 2)");
-                Model::getInstance()->addAgent(vecLine2);
-                vector<string> vecLine3 = createValidation("create ayal Thug (7, 1)");
-                Model::getInstance()->addAgent(vecLine3);
+                vector<string> vecLine;
+                vecLine = createValidation("create Bug Peasant (0.00, 0.00)");
+                Model::getInstance()->addAgent(vecLine);
+                vecLine = createValidation("create Iriel Peasant (0.00, 0.00)");
+                Model::getInstance()->addAgent(vecLine);
+                vecLine = createValidation("create Merry Peasant (0.00, 0.00)");
+                Model::getInstance()->addAgent(vecLine);
+                vecLine = createValidation("create Pippin Peasant (0.00, 0.00)");
+                Model::getInstance()->addAgent(vecLine);
+                vecLine = createValidation("create Zug Peasant (0.00, 0.00)");
+                Model::getInstance()->addAgent(vecLine);
+                vecLine = createValidation("create Loki Thug (14.00, 14.00)");
+                Model::getInstance()->addAgent(vecLine);
+                vecLine = createValidation("create Gog Thug (24.00, 24.00)");
+                Model::getInstance()->addAgent(vecLine);
+                vecLine = createValidation("create Wallace Knight Rivendale");
+                Model::getInstance()->addAgent(vecLine);
             }
             else if(firstWord == "create"){
                 vector<string> vecLine = createValidation(strLine);
@@ -63,21 +74,26 @@ void Controller::run() {
                 break;
             }
             else {/*case where the first word is an agent's name*/
-                getline(ssLine, secondWord, ' ');
+                getline(ssLine, secondWord, ' '); /*read the command*/
+                
                 if(secondWord == "course"){
+                    /*find the existing agent*/
                     vector<shared_ptr<Agent> >::const_iterator agent = Model::getInstance()->findAgentByName(firstWord);
-                    pair<double,double> degAndSpeed = courseValidation(strLine, (*agent)->getType());
+                    pair<double,double> degAndSpeed = courseValidation(strLine, (*agent)->getType()); /*validation*/
                     
-                    Model::getInstance()->changeState(agent, MOVING);
-                    Model::getInstance()->updateAgentDegAndSpeed(agent, degAndSpeed);
-                    
-                    
-                    
+                    Model::getInstance()->changeState(agent, MOVING_ON_COURSE); /*change state*/
+                    Model::getInstance()->updateAgentDegAndSpeed(agent, degAndSpeed);/*update deg and speed for calculations*/
                 }
-                else if(secondWord == "position"){
-                    
-                }
+                
                 else if(secondWord == "destination"){
+                    /*find the existing agent*/
+                    vector<shared_ptr<Agent> >::const_iterator agent = Model::getInstance()->findAgentByName(firstWord);
+                    string structureName = destinationValidation(strLine);
+                    vector<shared_ptr<Structure> >::const_iterator structure = Model::getInstance()->findStructureByName(structureName);
+                    if ((*agent)->getType() != KNIGHT)
+                        throw CommandException("This agnet goesn't support this command");
+                    shared_ptr<Knight> knightPtr = dynamic_pointer_cast<Knight>((*agent));
+                    knightPtr->destination(structureName, (*structure)->getLocation());
                     
                 }
                 else if(secondWord == "position") {
@@ -95,6 +111,8 @@ void Controller::run() {
         }catch(const CommandException& e){
             e.what();
         }catch(const Model::xNoSuchAgent& e){
+            e.what();
+        }catch(const Model::xInvalidArgument& e){
             e.what();
         }
     }

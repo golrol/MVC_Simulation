@@ -5,11 +5,11 @@
 #include "Moving_object.h"
 using namespace std;
 
-enum{DEAD=0, STOPPED=1, MOVING=2, PEASANT_SPEED=5, PEASANT_HEALTH_MAX=20, PEASANT_HEALTH=10, KNIGHT_SPEED=10, THUG_SPEED_MAX=30, THUG_HEALTH=5, THUG_HEALTH_MAX=20, PEASANT, KNIGHT, THUG};
+enum{DEAD, STOPPED, MOVING_TO_DESTINATION, MOVING_ON_COURSE, PEASANT_SPEED=5, PEASANT_HEALTH_MAX=20, PEASANT_HEALTH=10, KNIGHT_SPEED=10, THUG_SPEED_MAX=30, THUG_HEALTH=5, THUG_HEALTH_MAX=20, PEASANT, KNIGHT, THUG};
 
 class Agent : public Sim_object{
 public:
-    Agent(const string& name, const int& health, const int& state, const Point& location, const Point& destination, const int& speed, const int& type);
+    Agent(const string& name, const int& health, const int& state, const Point& location, const double& speed, const int& type);
     virtual ~Agent(){};
     
     virtual void update();
@@ -21,13 +21,17 @@ public:
     double getTheta() const;
     double getRadius() const;
     int getState() const;
+    int getHealth() const;
     int getType() const;
+    string getDestinationName() const;
     
     void setLocation(Point location);
     void setSpeed(double speed);
     void setTetha(double theta);
     void setRadius(double radius);
     void setState(int state);
+    void setDestination(Point destination);
+    void setDestinationName(string StructureName);
     
     
 private:
@@ -35,6 +39,7 @@ private:
     int state;
     Point location;
     Point destination;
+    string destinationName;
     double speed;
     double theta;
     double radius;

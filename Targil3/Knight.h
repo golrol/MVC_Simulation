@@ -9,6 +9,7 @@ public:
     virtual ~Knight(){};
     
     void broadcast_current_State() const;
+    void destination(const string& StructureName, const Point& StructureLocation);
     
     
     void updateDeg(const double& deg);

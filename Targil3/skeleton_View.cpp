@@ -45,11 +45,17 @@ bool View::checkToPrint(const Point& currentLocation, const Point& objectLocatio
         return false;
     return ((int)currentLocation.y <= (int)objectLocation.y && currentLocation.x <= objectLocation.x && currentLocation.x+scale >= objectLocation.x);
 }
+bool View::checkInBounds(const Point& objectLocation, const int& yBoundUp, const int& xBoundRight) const{
+    if (objectLocation.x > xBoundRight || objectLocation.x < origin.x || objectLocation.y > yBoundUp || objectLocation.y < origin.y)
+        return true;
+    return false;
+}
 void View::draw() const {
     int i, j;
     int yMarks = origin.y + (size * scale) - scale; /*highest number to print*/
     int emptyLines = (size-1) % MARKS_SPACE;
-    int bound = yMarks + emptyLines;
+    int yBoundUp = yMarks;
+    int xBoundRight = origin.x + (size * scale) - scale;
     auto setItarator = objectsSet.begin();
     
     /*print headline*/
@@ -73,9 +79,12 @@ void View::draw() const {
         j=size;
         while(j--){
             Point currentLocation(origin.x + (size-j)*scale - scale, origin.y + size*scale - i*scale - scale);
+            if (currentLocation == Point(0,30)){
+                cout << (*setItarator).second << endl;
+            }
             if (setItarator != objectsSet.end()){
                 /*skip if object is out of bounds*/
-                if ((*setItarator).first.x > bound || (*setItarator).first.y > bound)
+                while (setItarator != objectsSet.end() && checkInBounds((*setItarator).first, yBoundUp, xBoundRight))
                     setItarator++;
                 if (setItarator != objectsSet.end() && checkToPrint(currentLocation, (*setItarator).first)){
                     cout << (*setItarator).second.substr(0, 2);/*take only first two letters*/
@@ -84,7 +93,7 @@ void View::draw() const {
                         setItarator++;
                 }
                 else{
-                    if (currentLocation.x < bound)/*don't print space at the end*/
+                    if (currentLocation.x < xBoundRight)/*don't print space at the end*/
                         cout << ". ";
                     else
                         cout << ".";
@@ -92,7 +101,7 @@ void View::draw() const {
                 
             }
             else{
-                if (currentLocation.x < bound) /*don't print space at the end*/
+                if (currentLocation.x < xBoundRight) /*don't print space at the end*/
                     cout << ". ";
                 else
                     cout << ".";
@@ -102,7 +111,7 @@ void View::draw() const {
         yMarks = yMarks - scale;
     }
     int x ;
-    x = size / MARKS_SPACE;
+    x = ceil((double)size / (double)MARKS_SPACE);
     int xMarks = origin.x;
     
     if (xMarks > -1 && xMarks < 10)
@@ -112,7 +121,7 @@ void View::draw() const {
     else if ((xMarks > -100 && xMarks < -9) || (xMarks > 99 && xMarks < 1000))
         cout << "  " << xMarks;
     xMarks += (scale*MARKS_SPACE);
-    //x--;
+    x--;
     while (x--){
         if (xMarks > -1 && xMarks < 10)
             cout << "     " << xMarks;

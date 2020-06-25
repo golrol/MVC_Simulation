@@ -1,8 +1,8 @@
 #include "Agent.h"
 
 
-Agent::Agent(const string& name, const int& health, const int& state, const Point& location, const Point& destination, const int& speed, const int& type)
-:Sim_object(name), health(health), state(state), location(location), destination(destination), speed(speed), theta(0), radius(speed), type(type){}
+Agent::Agent(const string& name, const int& health, const int& state, const Point& location, const double& speed, const int& type)
+:Sim_object(name), health(health), state(state), location(location), destinationName(""), speed(speed), theta(0), radius(speed/10.00), type(type){}
 
 Point Agent::getLocation() const { 
     return location;
@@ -42,7 +42,7 @@ void Agent::setRadius(double radius) {
 }
 
 void Agent::update() {
-    if (state == MOVING)
+    if (state == MOVING_TO_DESTINATION || state == MOVING_ON_COURSE)
         setLocation(polarToCartesian(radius, theta));
 }
 
@@ -55,3 +55,20 @@ int Agent::getType() const{
 void Agent::setState(int state){
     this->state = state;
 }
+
+void Agent::setDestinationName(string StructureName){
+    this->destinationName = StructureName;
+}
+
+void Agent::setDestination(Point destination){
+    this->destination = destination;
+}
+
+string Agent::getDestinationName() const{
+    return destinationName;
+}
+
+int Agent::getHealth() const { 
+    return health;
+}
+

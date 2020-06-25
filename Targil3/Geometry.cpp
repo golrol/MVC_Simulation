@@ -1,6 +1,5 @@
 #include "Geometry.h"
-#include <cmath>
-#include <ctgmath>
+
 const double pi = 2. * atan2(1., 0.);
 double to_radians(double theta_d)
 {
@@ -11,53 +10,7 @@ double to_degrees(double theta_r)
 {
 	return theta_r * 180.0 / pi;
 }
-Point polarToCartesian(const double& radius , const double& theta){
-    double x,y;
-    double convertedTheta = fmod((360 - theta + 90), 360); /*so 0 will be north*/
-    double radianTheta = to_radians(convertedTheta);
-    
-    /*fix weird behaviour of exactly 0, 90, 180, 270*/
-    if ((radianTheta == to_radians(90)) || (radianTheta == to_radians(270)))
-        x = 0;
-    else if (radianTheta == to_radians(0))
-        x = radius * 1;
-    else if (radianTheta == to_radians(180))
-        x = radius * -1;
-    else
-        x = radius * cos(radianTheta);
-    
-    if (radianTheta == to_radians(270))
-        y = radius * -1;
-    else if (radianTheta == to_radians(90))
-        y = radius * 1;
-    else if ((radianTheta == to_radians(180)) || (radianTheta == to_radians(0)))
-        y = 0;
-    else
-        y = radius * sin(radianTheta);
-    
-    Point retVal(x,y);
-    return retVal;
-}
 
-pair<double,double>cartesianToPolar(const Point& point){
-    double r,t;
-    r = sqrt(pow(point.x,2) + pow(point.y,2)) ;
-    if(point.x != 0){/*to avoid dividing by 0*/
-        t = atan(point.y / point.x);
-    }
-    else{/*point.x is 0 go in "Straight" line */
-        if(point.y>0)
-            t = 90;/*"go above x axis"*/
-        else
-            t = 270;/*"go below x axis"*/
-    }
-    /*adjusting the value of t*/
-    if((point.x<0 && point.y>0) || (point.x<0 && point.y<0))/*in the second or the third Quadrant*/
-        t+=180;
-    if(point.x>0 && point.y<0)/*if in the forth Quadrant*/
-        t+=360;
-    return make_pair(r,t);
-}
 
 // construct a Cartesian_vector from a Polar_vector
 Cartesian_vector::Cartesian_vector(const Polar_vector& pv) {
@@ -133,3 +86,58 @@ bool Point::operator==(const Point & rhs)
 //    }
 //    return false;
 //}
+
+Point polarToCartesian(const double& radius , const double& theta){
+    double x,y;
+    double convertedTheta = fmod((360 - theta + 90), 360); /*so 0 will be north*/
+    double radianTheta = to_radians(convertedTheta);
+    
+    /*fix weird behaviour of exactly 0, 90, 180, 270*/
+    if ((radianTheta == to_radians(90)) || (radianTheta == to_radians(270)))
+        x = 0;
+    else if (radianTheta == to_radians(0))
+        x = radius * 1;
+    else if (radianTheta == to_radians(180))
+        x = radius * -1;
+    else
+        x = radius * cos(radianTheta);
+    
+    if (radianTheta == to_radians(270))
+        y = radius * -1;
+    else if (radianTheta == to_radians(90))
+        y = radius * 1;
+    else if ((radianTheta == to_radians(180)) || (radianTheta == to_radians(0)))
+        y = 0;
+    else
+        y = radius * sin(radianTheta);
+    
+    Point retVal(x,y);
+    return retVal;
+}
+
+pair<double,double>cartesianToPolar(const Point& point){
+    double r,t;
+    r = sqrt(pow(point.x,2) + pow(point.y,2)) ;
+    if(point.x != 0){/*to avoid dividing by 0*/
+        t = atan(point.y / point.x);
+    }
+    else{/*point.x is 0 go in "Straight" line */
+        if(point.y>0)
+            t = 90;/*"go above x axis"*/
+        else
+            t = 270;/*"go below x axis"*/
+    }
+    /*adjusting the value of t*/
+    if((point.x<0 && point.y>0) || (point.x<0 && point.y<0))/*in the second or the third Quadrant*/
+        t+=180;
+    if(point.x>0 && point.y<0)/*if in the forth Quadrant*/
+        t+=360;
+    return make_pair(r,t);
+}
+
+double getDegFromTwoPoints(const Point& p1, const Point& p2){
+    double m = ((p1.y - p2.y) / (p1.x - p2.x));
+    double theta = atan(m);
+    
+    return theta;
+}

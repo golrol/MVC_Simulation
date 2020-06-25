@@ -3,6 +3,8 @@
 
 #include <iostream>
 #include <iomanip>
+#include <cmath>
+#include <ctgmath>
 using namespace std;
 // angle units conversion functions
 double to_radians(double theta_d);
@@ -19,8 +21,7 @@ typedef struct Point {
 //    bool operator>=(const Point& rhs);
 //    bool operator<=(const Point& rhs);
 } Point;
-Point polarToCartesian(const double& radius , const double& teta);
-pair<double,double>cartesianToPolar(const Point& point);
+
 struct Polar_vector;
 typedef struct Cartesian_vector {
 	Cartesian_vector(const struct Polar_vector & pv);
@@ -36,5 +37,10 @@ typedef struct Polar_vector {
 	double r;
 	double theta;
 } Polar_vector;
+
+/*----------------------------------------*/
+Point polarToCartesian(const double& radius , const double& teta);
+pair<double,double>cartesianToPolar(const Point& point);
+double getDegFromTwoPoints(const Point& p1, const Point& p2);
 
 #endif /* Geometry_h */

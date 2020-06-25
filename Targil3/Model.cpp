@@ -28,6 +28,7 @@ vector<shared_ptr<Structure>>::const_iterator Model::findStructureByName(const s
     while(it != structuresVec.end()){
         if ((*it)->getName() == name)
             return it;
+        it++;
     }
     throw 6;//TODO: throw
 }
@@ -52,7 +53,7 @@ void Model::addAgent(const vector<std::string> &vec) {
             view_ptr->update_location(newName, newLocation);
         }
         else if (type == "Peasant"){
-            Point newLocation = (*findStructureByName(vec[3]))->getLocation();
+            Point newLocation = pointValidation(vec[3]);
             agentsVec.emplace_back(shared_ptr<Peasant>(new Peasant(newName, newLocation)));
             view_ptr->update_location(newName, newLocation);
         }
@@ -83,7 +84,7 @@ void Model::updateAgentDegAndSpeed(const vector<shared_ptr<Agent> >::const_itera
     
     shared_ptr<Peasant> peasantPtr = dynamic_pointer_cast<Peasant>((*agent));
     if (peasantPtr != nullptr){
-        throw xInvalidArgument("Peasant doesn't support the 'course' command");
+        peasantPtr->updateDeg(degAndSpeed.first);
     }
 }
 
