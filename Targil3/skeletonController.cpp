@@ -46,6 +46,14 @@ void Controller::run() {
                 showValidation(strLine);
                 view_ptr->draw();
             }
+            else if(firstWord == "aaa"){ //TODO: remove.
+                vector<string> vecLine1 = createValidation("create yuval Thug (2, 2)");
+                Model::getInstance()->addAgent(vecLine1);
+                vector<string> vecLine2 = createValidation("create gal Thug (2, 2)");
+                Model::getInstance()->addAgent(vecLine2);
+                vector<string> vecLine3 = createValidation("create ayal Thug (7, 1)");
+                Model::getInstance()->addAgent(vecLine3);
+            }
             else if(firstWord == "create"){
                 vector<string> vecLine = createValidation(strLine);
                 Model::getInstance()->addAgent(vecLine);

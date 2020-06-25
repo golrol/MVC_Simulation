@@ -107,7 +107,6 @@ View::View()
 :size(25), scale(1), origin(0, 0){}
 
 void View::update_location(const string &name, const Point& location) {
-    //TODO: update existing.
     auto it = objectsSet.begin();
     while (it != objectsSet.end()){
         if ((*it).second == name){ /*updating existing agent's location*/
