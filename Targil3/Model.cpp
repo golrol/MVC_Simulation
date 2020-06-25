@@ -154,7 +154,7 @@ void Model::changeState(const vector<shared_ptr<Agent> >::const_iterator& agent,
 void Model::farmInit(const string &fileName) {
     ifstream file(fileName);
     if(!file){
-        throw xFileException();
+        throw xFileException("Can't open file");
     }
     string strLine , tmpPointStr;
     stringstream ssLine;
@@ -175,11 +175,11 @@ void Model::farmInit(const string &fileName) {
                 production = intValidation(vec[4]);
             }
             catch (const stringstream& ss) {
-                throw xFileException();
+                throw xFileException("Wrong input in the files");
             }
         }
         else
-            throw xFileException();
+            throw xFileException("Wrong input in the files");
         addStructure(vec[0].substr(0,vec[0].size()-1),location,FARM,inventory,production);
     }
     file.close();
@@ -188,7 +188,7 @@ void Model::farmInit(const string &fileName) {
 void Model::castleInit(const string &fileName) {
     ifstream file(fileName);
     if(!file){
-        throw xFileException();
+        throw xFileException("Can't open file");
     }
     string strLine , tmpPointStr;
     stringstream ssLine;
@@ -208,11 +208,11 @@ void Model::castleInit(const string &fileName) {
                 inventory = intValidation(vec[3].substr(0,vec[0].size()-1));
             }
             catch (const stringstream& ss) {
-                throw xFileException();
+                throw xFileException("Wrong input in the files");
             }
         }
         else
-            throw xFileException();
+            throw xFileException("Wrong input in the files");
         addStructure(vec[0].substr(0,vec[0].size()-1),location,inventory,CASTLE,-1);
     }
     file.close();

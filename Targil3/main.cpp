@@ -29,7 +29,12 @@ int main(int argc, const char * argv[]) {
 //    string fileToTokenize = "merom_golan, (10,10.5), 15\ntel_adashim, (13,32), 20\nmetula, (0,0), 12";
 //    tokenizeFile(fileToTokenize);
     
-    
+    try{
+        Model::getInstance()->farmInit("farms.dat");
+    }catch(const Model::xFileException& e){
+        e.what();
+        return 1;
+    }
     
     Controller c;
     c.run();
