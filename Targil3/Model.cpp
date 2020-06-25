@@ -168,10 +168,10 @@ void Model::farmInit(const string &fileName) {
         {
             try{/*do substr(0,vec[0].size()-1) to remove the ',' from the end of the string*/
                 nameValidation(vec[0].substr(0,vec[0].size()-1));
-                tmpPointStr=vec[1].substr(0,vec[0].size()-1);
-                tmpPointStr.append(vec[2].substr(0,vec[0].size()-1));
+                tmpPointStr=vec[1];
+                tmpPointStr.append(vec[2].substr(0,vec[2].size()-1));
                 location = pointValidation(tmpPointStr);
-                inventory = intValidation(vec[3].substr(0,vec[0].size()-1));
+                inventory = intValidation(vec[3].substr(0,vec[3].size()-1));
                 production = intValidation(vec[4]);
             }
             catch (const stringstream& ss) {
@@ -180,7 +180,7 @@ void Model::farmInit(const string &fileName) {
         }
         else
             throw xFileException();
-        addStructure(vec[0].substr(0,vec[0].size()-1),location,FARM,inventory,production);
+        addStructure(vec[0].substr(0,vec[0].size()-1),location,inventory,FARM,production);
     }
     file.close();
 }
@@ -202,10 +202,10 @@ void Model::castleInit(const string &fileName) {
         {
             try{/*do substr(0,vec[0].size()-1) to remove the ',' from the end of the string*/
                 nameValidation(vec[0].substr(0,vec[0].size()-1));
-                tmpPointStr=vec[1].substr(0,vec[0].size()-1);
-                tmpPointStr.append(vec[2].substr(0,vec[0].size()-1));
+                tmpPointStr=vec[1];
+                tmpPointStr.append(vec[2].substr(0,vec[2].size()-1));
                 location = pointValidation(tmpPointStr);
-                inventory = intValidation(vec[3].substr(0,vec[0].size()-1));
+                inventory = intValidation(vec[3]);
             }
             catch (const stringstream& ss) {
                 throw xFileException();

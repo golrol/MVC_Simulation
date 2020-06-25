@@ -28,8 +28,15 @@ int main(int argc, const char * argv[]) {
 
 //    string fileToTokenize = "merom_golan, (10,10.5), 15\ntel_adashim, (13,32), 20\nmetula, (0,0), 12";
 //    tokenizeFile(fileToTokenize);
-    
-    
+cout << argv[1] << endl;
+    try{
+        Model::getInstance()->farmInit(argv[1]);
+        Model::getInstance()->castleInit(argv[2]);
+    }
+    catch (Model::xFileException){
+        cout << "end program." << endl;
+    }
+
     
     Controller c;
     c.run();
