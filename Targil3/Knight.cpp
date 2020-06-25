@@ -6,3 +6,9 @@ Knight::Knight(const string &name, const Point& location)
 void Knight::updateDeg(const double &deg) { 
     setTetha(deg);
 }
+
+void Knight::broadcast_current_State() const{
+    cout << "Knight " << getName() << " at ";
+    getLocation().print();
+    cout << ", " << getState() << endl;
+}

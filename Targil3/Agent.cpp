@@ -2,7 +2,7 @@
 
 
 Agent::Agent(const string& name, const int& health, const int& state, const Point& location, const Point& destination, const int& speed)
-:Sim_object(name), health(health), state(state), location(location), destination(destination), speed(speed), theta(cartesianToPolar(location).second), radius(speed){}
+:Sim_object(name), health(health), state(state), location(location), destination(destination), speed(speed), theta(0), radius(speed){}
 
 Point Agent::getLocation() const { 
     return location;

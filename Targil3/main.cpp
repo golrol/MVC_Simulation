@@ -11,6 +11,8 @@
 #include "Thug.h"
 #include "Structure.h"
 #include "Farm.h"
+#include "Geometry.h"
+#include <cmath>
 #include <iostream>
 using namespace std;
 
@@ -30,8 +32,13 @@ int main(int argc, const char * argv[]) {
 //    tokenizeFile(fileToTokenize);
 
     
+    
+    double deg = to_radians(270.00);
+    cout << sin(deg) << endl;
     Controller c;
     c.run();
+    
+    
     
     
 

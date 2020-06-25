@@ -13,10 +13,28 @@ double to_degrees(double theta_r)
 }
 Point polarToCartesian(const double& radius , const double& theta){
     double x,y;
-    double convertedTheta = theta + 90; /*so 0 will be north*/ //TODO: invert 90 and 270.
+    double convertedTheta = fmod((360 - theta + 90), 360); /*so 0 will be north*/
     double radianTheta = to_radians(convertedTheta);
-    x = radius * cos(radianTheta);
-    y = radius * sin(radianTheta);
+    
+    /*fix wierd behaviour of exactly 0, 90, 180, 270*/
+    if ((radianTheta == to_radians(90)) || (radianTheta == to_radians(270)))
+        x = 0;
+    else if (radianTheta == to_radians(0))
+        x = radius * 1;
+    else if (radianTheta == to_radians(180))
+        x = radius * -1;
+    else
+        x = radius * cos(radianTheta);
+    
+    if (radianTheta == to_radians(270))
+        y = radius * -1;
+    else if (radianTheta == to_radians(90))
+        y = radius * 1;
+    else if ((radianTheta == to_radians(180)) || (radianTheta == to_radians(0)))
+        y = 0;
+    else
+        y = radius * sin(radianTheta);
+    
     Point retVal(x,y);
     return retVal;
 }
@@ -92,7 +110,7 @@ bool Point::operator==(const Point & rhs)
 }
 
 bool Point::operator>=(const Point& rhs){
-    if ((int)y == (int)rhs.y){
+    if ((int)y == (int)rhs.y){ /*cast to int to floor to nearest integer(just for display)*/
         if ((int)x >= (int)rhs.x)
             return true;
     }
