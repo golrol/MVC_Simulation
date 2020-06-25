@@ -27,16 +27,13 @@ struct classcomp {
         if (lhs.first.y > rhs.first.y)
             return true;
         else if (lhs.first.y == rhs.first.y){
-            if (lhs.first.x < lhs.first.x)
+            if (lhs.first.x < rhs.first.x)
                 return true;
-            else if (lhs.first.x == lhs.first.x)
-                return lhs.second == lhs.second;
             else
                 return false;
         }
-        else{
+        else
             return false;
-        }
     }
 };
 
@@ -74,6 +71,7 @@ public:
 		YOUR EXTRA DECLARATIONS GO HERE
 	*/
     set<pair<Point, string> >::const_iterator findByName(const string& name) const;/*helper*/
+    bool checkToPrint(const Point& currentLocation, const Point& objectLocation) const;/*helper*/
     
 private:
     int size;

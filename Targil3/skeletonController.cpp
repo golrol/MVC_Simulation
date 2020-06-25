@@ -1,12 +1,13 @@
 #include "skeletonController.h"
 
-Controller::Controller(){}
+Controller::Controller()
+:view_ptr(Model::getInstance()->getViewPtr()) {}
 
 Controller::~Controller() {}
 
 void Controller::run() {
-    view_ptr.reset(new View);
-    Model::getInstance()->setViewPtr(view_ptr);
+//    view_ptr.reset(new View);
+//    Model::getInstance()->setViewPtr(view_ptr);
     while(true){
         cout << "Time " << Model::getInstance()->getTime() << ": Enter Command: ";
         string strLine, firstWord, secondWord;
@@ -97,4 +98,9 @@ void Controller::run() {
             e.what();
         }
     }
+}
+
+
+void Controller::setViewPtr(shared_ptr<View> view_ptr){
+    this->view_ptr = view_ptr;
 }

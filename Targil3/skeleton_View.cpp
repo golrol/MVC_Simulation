@@ -40,12 +40,22 @@ set<pair<Point, string> >::const_iterator View::findByName(const string& name) c
 }
 
 
-
+bool View::checkToPrint(const Point& currentLocation, const Point& objectLocation) const{
+    if ((int)currentLocation.y <= (int)objectLocation.y && currentLocation.x <= objectLocation.x && currentLocation.x+scale == objectLocation.x)
+        return false;
+    return ((int)currentLocation.y <= (int)objectLocation.y && currentLocation.x <= objectLocation.x && currentLocation.x+scale >= objectLocation.x);
+}
 void View::draw() const {
     int i, j;
     int yMarks = origin.y + (size * scale) - scale; /*highest number to print*/
     int emptyLines = (size-1) % MARKS_SPACE;
+    int bound = yMarks + emptyLines;
     auto setItarator = objectsSet.begin();
+    
+    /*print headline*/
+    cout << "Display size: " << size << ", scale: " << scale << ", origin: ";
+    origin.print();
+    cout << endl;
     
     for (i=0 ; i<size ; i++){/*print lines with marks*/
         if (i % 3 == emptyLines){
@@ -64,17 +74,29 @@ void View::draw() const {
         while(j--){
             Point currentLocation(origin.x + (size-j)*scale - scale, origin.y + size*scale - i*scale - scale);
             if (setItarator != objectsSet.end()){
-                if (currentLocation >= (*setItarator).first){
+                /*skip if object is out of bounds*/
+                if ((*setItarator).first.x > bound || (*setItarator).first.y > bound)
+                    setItarator++;
+                if (setItarator != objectsSet.end() && checkToPrint(currentLocation, (*setItarator).first)){
                     cout << (*setItarator).second.substr(0, 2);/*take only first two letters*/
-                    while ((currentLocation >= (*setItarator).first) && setItarator != objectsSet.end())/*skip all others in the same place*/
+                    /*skip all others in the same place*/
+                    while (checkToPrint(currentLocation, (*setItarator).first) && setItarator != objectsSet.end())
                         setItarator++;
                 }
                 else{
-                    cout << ". ";
+                    if (currentLocation.x < bound)/*don't print space at the end*/
+                        cout << ". ";
+                    else
+                        cout << ".";
                 }
+                
             }
-            else
-                cout << ". ";
+            else{
+                if (currentLocation.x < bound) /*don't print space at the end*/
+                    cout << ". ";
+                else
+                    cout << ".";
+            }
         }
         cout << endl;
         yMarks = yMarks - scale;

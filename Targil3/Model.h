@@ -41,6 +41,8 @@ public:
     
     
     const int& getTime();
+    shared_ptr<View> getViewPtr() const;
+    
     
     class xNoSuchAgent{
     public:

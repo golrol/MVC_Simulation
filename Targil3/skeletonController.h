@@ -15,8 +15,9 @@ public:
 	Controller();
 	~Controller();
     
+    void setViewPtr(shared_ptr<View> view_ptr);
     
-	// creates View object, runs the program by accepting user commands, then destroys View object
+    
 	void run();
 
 private:

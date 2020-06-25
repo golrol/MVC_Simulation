@@ -116,10 +116,20 @@ bool Point::operator==(const Point & rhs)
 	return x == rhs.x && y == rhs.y;
 }
 
-bool Point::operator>=(const Point& rhs){
-    if ((int)y == (int)rhs.y){ /*cast to int to floor to nearest integer(just for display)*/
-        if ((int)x >= (int)rhs.x)
-            return true;
-    }
-    return false;
-}
+//bool Point::operator>=(const Point& rhs){
+////    return (y >= rhs.y && x>=rhs.x);
+//    if ((int)y == (int)rhs.y){ /*cast to int to floor to nearest integer(just for display)*/
+//        if ((int)x >= (int)rhs.x)
+//            return true;
+//    }
+//    return false;
+//}
+//
+//bool Point::operator<=(const Point& rhs){
+//    //    return (y >= rhs.y && x>=rhs.x);
+//    if ((int)y == (int)rhs.y){ /*cast to int to floor to nearest integer(just for display)*/
+//        if ((int)x <= (int)rhs.x)
+//            return true;
+//    }
+//    return false;
+//}

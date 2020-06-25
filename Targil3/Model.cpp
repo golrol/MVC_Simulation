@@ -9,8 +9,7 @@ shared_ptr<Model> Model::getInstance() {
 }
 
 Model::Model()
-:time(0)
-{}
+:time(0), view_ptr(new View){}
 
 Model::~Model() {}
 
@@ -53,7 +52,7 @@ void Model::addAgent(const vector<std::string> &vec) {
             view_ptr->update_location(newName, newLocation);
         }
         else if (type == "Peasant"){
-            Point newLocation = pointValidation(vec[3]);
+            Point newLocation = (*findStructureByName(vec[3]))->getLocation();
             agentsVec.emplace_back(shared_ptr<Peasant>(new Peasant(newName, newLocation)));
             view_ptr->update_location(newName, newLocation);
         }
@@ -139,6 +138,7 @@ void Model::addStructure(const string& name, const Point& location, const int& i
         default:
             break;
     }
+    view_ptr->update_location(name, location);
 }
 
 
@@ -216,4 +216,9 @@ void Model::castleInit(const string &fileName) {
         addStructure(vec[0].substr(0,vec[0].size()-1),location,inventory,CASTLE,-1);
     }
     file.close();
+}
+
+
+shared_ptr<View> Model::getViewPtr() const{
+    return view_ptr;
 }
