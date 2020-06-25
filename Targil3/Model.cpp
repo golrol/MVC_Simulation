@@ -30,7 +30,7 @@ vector<shared_ptr<Structure>>::const_iterator Model::findStructureByName(const s
             return it;
         it++;
     }
-    throw 6;//TODO: throw
+    throw xNoSuchStructure();
 }
 
 void Model::addAgent(const vector<std::string> &vec) {

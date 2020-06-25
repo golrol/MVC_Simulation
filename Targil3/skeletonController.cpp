@@ -112,6 +112,8 @@ void Controller::run() {
             e.what();
         }catch(const Model::xNoSuchAgent& e){
             e.what();
+        }catch(const Model::xNoSuchStructure& e){
+            e.what();
         }catch(const Model::xInvalidArgument& e){
             e.what();
         }

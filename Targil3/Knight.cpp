@@ -32,4 +32,5 @@ void Knight::destination(const string& StructureName, const Point& StructureLoca
     setDestination(StructureLocation);
     setDestinationName(StructureName);
     updateDeg(getDegFromTwoPoints(getLocation(), StructureLocation));
+    cout << "TEST" << getTheta() << endl;
 }
