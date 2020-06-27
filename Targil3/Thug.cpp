@@ -45,7 +45,3 @@ void Thug::position(const Point& location, const double& speed){
     /*update deltaX and deltaY according to the change need to be done in every step*/
     setDelta(Point((getDestination().x - getLocation().x) / numberOfsteps, (getDestination().y - getLocation().y) / numberOfsteps));
 }
-
-void Thug::goToNextDestination(){
-    
-}

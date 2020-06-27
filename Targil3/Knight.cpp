@@ -56,7 +56,7 @@ void Knight::addToQueue(const shared_ptr<Structure>& structure){
     structures.push(structure);
 }
 
-void Knight::goToNextDestination(){
+void Knight::goToNextDestination(){ //TODO: do we need to randomize?
     shared_ptr<Structure> nextStructure = structures.front();
     if (nextStructure->getName() == getDestinationName()){/*case first in queue is the same as just arrived*/
         structures.pop();

@@ -24,11 +24,6 @@ int Agent::getState() const{
     return state;
 }
 
-//void Agent::setLocationWithOffset(Point location) {/*adding the offset from the current location*/
-//    this->location.x = this->location.x + location.x;
-//    this->location.y = this->location.y + location.y;
-//}
-
 void Agent::setLocation(Point location){
     this->location = location;
 }

@@ -13,7 +13,7 @@ public:
     
     virtual void update();
     void broadcast_current_State() const = 0;
-    virtual void goToNextDestination() = 0;
+    virtual void goToNextDestination(){} //TODO: is that ok?
     
     
     Point getLocation() const;
@@ -27,7 +27,6 @@ public:
     string getDestinationName() const;
     Point getDelta() const;
     
-//    void setLocationWithOffset(Point location);
     void setLocation(Point location);
     void setSpeed(double speed);
     void setTetha(double theta);
