@@ -26,3 +26,7 @@ void Peasant::broadcast_current_State() const{
             break;
     }
 }
+
+void Peasant::loadBoxes(){
+    
+}

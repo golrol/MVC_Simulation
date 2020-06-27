@@ -24,9 +24,13 @@ int Agent::getState() const{
     return state;
 }
 
-void Agent::setLocation(Point location) {/*adding the offset from the current location*/
-    this->location.x = this->location.x + location.x;
-    this->location.y = this->location.y + location.y;
+//void Agent::setLocationWithOffset(Point location) {/*adding the offset from the current location*/
+//    this->location.x = this->location.x + location.x;
+//    this->location.y = this->location.y + location.y;
+//}
+
+void Agent::setLocation(Point location){
+    this->location = location;
 }
 
 void Agent::setSpeed(double speed) { 
@@ -42,8 +46,17 @@ void Agent::setRadius(double radius) {
 }
 
 void Agent::update() {
-    if (state == MOVING_TO_DESTINATION || state == MOVING_ON_COURSE)
-        setLocation(polarToCartesian(radius, theta));
+    if (state == MOVING_ON_COURSE)
+        setLocation(getLocation() + polarToCartesian(radius, theta));
+    if (state == MOVING_TO_DESTINATION){
+        if (findDistance(location, destinationLocation) <= speed/10.00){/*arriving to destination in this step*/
+            setLocation(destinationLocation); /*update location to destination*/
+            //TODO: set next destination if it's a Knight.
+        }
+        else{
+            setLocation(getLocation() + delta);
+        }
+    }
 }
 
 
@@ -61,7 +74,7 @@ void Agent::setDestinationName(string StructureName){
 }
 
 void Agent::setDestination(Point destination){
-    this->destination = destination;
+    this->destinationLocation = destination;
 }
 
 string Agent::getDestinationName() const{
@@ -70,5 +83,18 @@ string Agent::getDestinationName() const{
 
 int Agent::getHealth() const { 
     return health;
+}
+
+Point Agent::getDestination() const{
+    return destinationLocation;
+}
+
+Point Agent::getDelta() const { 
+    return delta;
+}
+
+
+void Agent::setDelta(Point delta) { 
+    this->delta = delta;
 }
 

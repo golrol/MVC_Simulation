@@ -1,6 +1,6 @@
 #ifndef Controller_h
 #define Controller_h
-#include "skeleton_View.h"
+#include "View.h"
 #include "Validation.h"
 #include "Model.h"
 #include "Geometry.h"

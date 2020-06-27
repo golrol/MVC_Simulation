@@ -2,7 +2,7 @@
 #define Model_h
 
 #include <vector>
-#include "skeleton_View.h"
+#include "View.h"
 #include "Agent.h"
 #include "Structure.h"
 #include "Knight.h"

@@ -1,4 +1,4 @@
-#include "skeleton_View.h"
+#include "View.h"
 /* *** Use this function to calculate the subscripts for the cell. */
 
 // Calculates the cell subscripts corresponding to the supplied location parameter, 

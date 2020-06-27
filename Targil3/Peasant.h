@@ -10,6 +10,7 @@ public:
     
     void updateDeg(const double &deg);
     void broadcast_current_State() const;
+    void loadBoxes();
     
 private:
     int inventory;

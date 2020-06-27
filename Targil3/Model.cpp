@@ -37,7 +37,6 @@ void Model::addAgent(const vector<std::string> &vec) {
     string newName = vec[1];
     string type = vec[2];
     
-    //TODO: check if already exists in this name.
     try{
         auto it = agentsVec.begin();
         while (it != agentsVec.end()) {
@@ -49,12 +48,13 @@ void Model::addAgent(const vector<std::string> &vec) {
             string structureName = vec[3];
             Point newLocation = checkExistingStructure(structuresVec, structureName);
             
-            agentsVec.emplace_back(shared_ptr<Knight>(new Knight(newName, newLocation)));
+            agentsVec.emplace_back(shared_ptr<Agent>(new Knight(newName, newLocation)));
+            //TODO: add all structures to the new Knigh's ququq.
             view_ptr->update_location(newName, newLocation);
         }
         else if (type == "Peasant"){
             Point newLocation = pointValidation(vec[3]);
-            agentsVec.emplace_back(shared_ptr<Peasant>(new Peasant(newName, newLocation)));
+            agentsVec.emplace_back(shared_ptr<Agent>(new Peasant(newName, newLocation)));
             view_ptr->update_location(newName, newLocation);
         }
         else {/*type == "Thug"*/
@@ -150,6 +150,7 @@ const int& Model::getTime(){
 
 void Model::changeState(const vector<shared_ptr<Agent> >::const_iterator& agent, const int& state){
     (*agent)->setState(state);
+    (*agent)->setDestinationName("");
 }
 
 void Model::farmInit(const string &fileName) {

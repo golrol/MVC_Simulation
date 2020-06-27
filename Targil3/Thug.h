@@ -9,6 +9,7 @@ public:
     virtual ~Thug();
     
     void broadcast_current_State() const;
+    void position(const Point& location, double speed);
     
     void updateDegAndSpeed(const pair<double, double>& degAndSpeed);
     

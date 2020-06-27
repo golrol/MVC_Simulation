@@ -1,4 +1,4 @@
-#include "skeletonController.h"
+#include "Controller.h"
 
 Controller::Controller()
 :view_ptr(Model::getInstance()->getViewPtr()) {}
@@ -91,13 +91,20 @@ void Controller::run() {
                     string structureName = destinationValidation(strLine);
                     vector<shared_ptr<Structure> >::const_iterator structure = Model::getInstance()->findStructureByName(structureName);
                     if ((*agent)->getType() != KNIGHT)
-                        throw CommandException("This agnet goesn't support this command");
+                        throw CommandException("This agent doesn't support this command");
                     shared_ptr<Knight> knightPtr = dynamic_pointer_cast<Knight>((*agent));
                     knightPtr->destination(structureName, (*structure)->getLocation());
                     
                 }
                 else if(secondWord == "position") {
-                    
+                    vector<shared_ptr<Agent> >::const_iterator agent = Model::getInstance()->findAgentByName(firstWord);
+                    pair<Point, double> destinationAndSpeed = positionValidation(strLine, (*agent)->getType());
+                    if ((*agent)->getType() == KNIGHT)
+                        dynamic_pointer_cast<Knight>((*agent))->position(destinationAndSpeed.first);
+                    else if ((*agent)->getType() == THUG)
+                        dynamic_pointer_cast<Thug>((*agent))->position(destinationAndSpeed.first, destinationAndSpeed.second);
+                    else
+                        throw CommandException("This agent doesn't support this command");
                 }
                 else if(secondWord == "stop") {
                     

@@ -135,22 +135,34 @@ pair<double,double>cartesianToPolar(const Point& point){
     return make_pair(r,t);
 }
 
-double getDegFromTwoPoints(const Point& p1, const Point& p2){ //TODO: TEST!!!!!
-    if (p1.x == p2.x){
-        if (p2.y < p1.y)
-            return 180;
-        else
-            return 0;
-    }
-    if (p1.y == p2.y){
-        if (p2.x < p1.x)
-            return 270;
-        else if (p2.x > p1.x)
-            return 90;
-    }
-    double m = ((p1.y - p2.y) / (p1.x - p2.x));
-    double theta = atan(m);
-    theta = to_degrees(theta);
-    theta = fmod((360 - theta + 90), 360);
-    return theta;
+//double getDegFromTwoPoints(const Point& p1, const Point& p2){ //TODO: TEST!!!!!
+//    if (p1.x == p2.x){
+//        if (p2.y < p1.y)
+//            return 180;
+//        else
+//            return 0;
+//    }
+//    if (p1.y == p2.y){
+//        if (p2.x < p1.x)
+//            return 270;
+//        else if (p2.x > p1.x)
+//            return 90;
+//    }
+//    double m = ((p1.y - p2.y) / (p1.x - p2.x));
+//    double theta = atan(m);
+//    theta = to_degrees(theta);
+//    theta = fmod((360 - theta + 90), 360);
+//    return theta;
+//}
+
+double findDistance(const Point& p1, const Point& p2){
+    double dx = (p2.x - p1.x);
+    double dy = (p2.y - p1.y);
+    return sqrt((dx * dx) + (dy * dy));
+}
+
+Point& Point::operator+(const Point& rhs){
+    this->x += rhs.x;
+    this->y += rhs.y;
+    return *this;
 }

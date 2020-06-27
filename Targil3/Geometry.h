@@ -18,6 +18,7 @@ typedef struct Point {
 	Point();
 	void print() const;
 	bool operator==(const Point& rhs);
+    Point& operator+(const Point& rhs);
 //    bool operator>=(const Point& rhs);
 //    bool operator<=(const Point& rhs);
 } Point;
@@ -41,6 +42,7 @@ typedef struct Polar_vector {
 /*----------------------------------------*/
 Point polarToCartesian(const double& radius , const double& teta);
 pair<double,double>cartesianToPolar(const Point& point);
-double getDegFromTwoPoints(const Point& p1, const Point& p2);
+//double getDegFromTwoPoints(const Point& p1, const Point& p2);
+double findDistance(const Point& p1, const Point& p2);
 
 #endif /* Geometry_h */

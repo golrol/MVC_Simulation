@@ -33,7 +33,7 @@ Point pointValidation(string str){
     /*Reset string stream*/
     ssPoint.str("");
     ssPoint.clear();
-
+    
     if(str.at(0)!='(' && str.at(str.size())!=')'){/*check the first char of the point string*/
         throw ssPoint ;/*throw stringstream*/
     }
@@ -41,12 +41,12 @@ Point pointValidation(string str){
     ssPoint.str(tmpStr);
     getline(ssPoint, strX, ',');/*read the 'X' part of the point*/
     getline(ssPoint, strY);/*read the 'Y' part of the point*/
-//    if (strY.at(0) == ' '){
-//        strY = strY.substr(1, strY.size()-1);/*remove space at the beginning*/
-//    }
-//    else{
-//        throw ssPoint ;/*throw stringstream*/
-//    }
+    //    if (strY.at(0) == ' '){
+    //        strY = strY.substr(1, strY.size()-1);/*remove space at the beginning*/
+    //    }
+    //    else{
+    //        throw ssPoint ;/*throw stringstream*/
+    //    }
     try {
         x = doubleValidation(strX);
         y = doubleValidation(strY);
@@ -100,7 +100,7 @@ vector<string> tokenizeLine(const string& strLine){
         commandVec.push_back(token);/*put the string in the vector*/
     }
     return commandVec;/*return vector of string made of the command line*/
-    }
+}
 
 bool defaultValidation(const string& strLine){
     vector<string> vec(tokenizeLine(strLine));
@@ -248,26 +248,27 @@ pair<double,double> courseValidation(const string& strLine,const int& type){
     }
     return make_pair(deg, speed);
 }
-pair<Point,int> positionValidation(const string& strLine){
+pair<Point,double> positionValidation(const string& strLine, const int& type){
     vector<string> vec(tokenizeLine(strLine));
     Point retVal;
-    int speed=0;
-    if(vec.size()==4 || vec.size()==5)/*need to be 2 arguments for knight and peasant or 3 arguments for thug*/{
-        throw CommandException("Wrong number of arguments.");
-    }
-    try {
-        nameValidation(vec[0]);
-        string strPoint = vec[2];
-        strPoint.append(vec[3]);/*append the tow argument to oe str and send it to pointValidation to get point*/
-        retVal = pointValidation(strPoint);
-        if(vec.size()==5){
-            speed = intValidation(vec[4]);
+    double speed=0.0;
+    if((vec.size() == 4 && type == KNIGHT) || (vec.size() == 5 && type == THUG)){/*need to be 4 arguments for knight and 5 arguments for thug*/
+        try {
+            nameValidation(vec[0]);
+            string strPoint = vec[2];
+            strPoint.append(vec[3]);/*append the tow argument to oe str and send it to pointValidation to get point*/
+            retVal = pointValidation(strPoint);
+            if(vec.size()==5){
+                speed = doubleValidation(vec[4]);
+            }
         }
+        catch (const stringstream& ss) {
+            throw CommandException("InValide name , point or int.");
+        }
+        return make_pair(retVal,speed);
     }
-    catch (const stringstream& ss) {
-        throw CommandException("InValide name , point or int.");
-    }
-    return make_pair(retVal,speed);
+    else
+        throw CommandException("Wrong number of arguments.");
 }
 string destinationValidation(const string& strLine){
     vector<string> vec(tokenizeLine(strLine));
