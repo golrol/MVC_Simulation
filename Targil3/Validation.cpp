@@ -34,7 +34,7 @@ Point pointValidation(string str){
     ssPoint.str("");
     ssPoint.clear();
     
-    if(str.at(0)!='(' && str.at(str.size())!=')'){/*check the first char of the point string*/
+    if(str.at(0) != '(' || str.at(str.size()-1) != ')'){/*check the first char of the point string*/
         throw ssPoint ;/*throw stringstream*/
     }
     tmpStr = str.substr(1,(str.size()-2));/*remove the '(' from the beginning and the ')' from the end of the string*/
@@ -224,8 +224,10 @@ vector<string> createValidation(const string& strLine){
 pair<double,double> courseValidation(const string& strLine,const int& type){
     vector<string> vec(tokenizeLine(strLine));
     double deg , speed=0;
-    /*need to be 3 arguments for knight or peasant, or 4 arguments for thug*/
-    if((vec.size() == 3 && (type == KNIGHT || type == PEASANT) ) || (vec.size() == 4 && type == THUG)){
+    if (type == PEASANT)
+        throw CommandException("This agent doesn't support this command");
+    /*need to be 3 arguments for knight or 4 arguments for thug*/
+    if((vec.size() == 3 && type == KNIGHT) || (vec.size() == 4 && type == THUG)){
         try{
             nameValidation(vec[0]);
             deg = doubleValidation(vec[2]);/*check if the angle is valid*/

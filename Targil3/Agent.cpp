@@ -51,7 +51,19 @@ void Agent::update() {
     if (state == MOVING_TO_DESTINATION){
         if (findDistance(location, destinationLocation) <= speed/10.00){/*arriving to destination in this step*/
             setLocation(destinationLocation); /*update location to destination*/
-            //TODO: set next destination if it's a Knight.
+            switch (type) {
+                case THUG:
+                    setState(STOPPED);
+                    break;
+                case PEASANT:
+                    setState(UNLOADING);
+                    break;
+                case KNIGHT:
+                    //TODO: set next destination if it's a Knight.
+                    break;
+                default:
+                    break;
+            }
         }
         else{
             setLocation(getLocation() + delta);

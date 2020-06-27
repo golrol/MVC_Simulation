@@ -13,10 +13,10 @@ public:
     void broadcast_current_State() const;
     void position(const Point& location);
     void destination(const string& StructureName, const Point& StructureLocation);
+    void addToQueue(const shared_ptr<Structure>& structure);
     
     
     void updateDeg(const double& deg);
-    void addToQueue(shared_ptr<Structure> structurePtr);
     
 private:
     queue<shared_ptr<Structure> > structures;

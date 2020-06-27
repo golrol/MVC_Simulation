@@ -8,7 +8,7 @@ public:
     Peasant(const string& name, const Point& location);
     virtual ~Peasant(){};
     
-    void updateDeg(const double &deg);
+//    void updateDeg(const double &deg);
     void broadcast_current_State() const;
     void loadBoxes();
     

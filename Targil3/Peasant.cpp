@@ -4,9 +4,9 @@ Peasant::Peasant(const string& name, const Point& location)
 :Agent(name, PEASANT_HEALTH, STOPPED, location, PEASANT_SPEED, PEASANT), inventory(0){}
 
 
-void Peasant::updateDeg(const double &deg) {
-    setTetha(deg);
-}
+//void Peasant::updateDeg(const double &deg) {
+//    setTetha(deg);
+//}
 
 void Peasant::broadcast_current_State() const{
     cout << "Peasant " << getName() << " at ";
@@ -20,8 +20,10 @@ void Peasant::broadcast_current_State() const{
             cout << "Heading on course " << getTheta() << " deg" << ", speed " << getSpeed() << " km/h, inventory: " << inventory << " health: " << getHealth() << endl;
             break;
         case MOVING_TO_DESTINATION:
-            cout << "Heading to " << getDestinationName() << ", speed " << getSpeed() << " km/h" << endl;
+            cout << "Heading to " << getDestinationName() << ", speed " << getSpeed() << " km/h, inventory: " << inventory << " health: " << getHealth() << endl;
             break;
+        case UNLOADING:
+            cout << "Unloading at " << getDestinationName() << ", inventory: " << inventory << " health: " << getHealth() << endl;
         default:
             break;
     }

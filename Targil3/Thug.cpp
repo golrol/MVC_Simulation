@@ -22,6 +22,14 @@ void Thug::broadcast_current_State() const {
         case MOVING_ON_COURSE:
             cout << "Heading on course " << getTheta() << " deg" << ", speed " << getSpeed() << " km/h" << endl;
             break;
+        case MOVING_TO_DESTINATION:
+            if (getDestinationName().size() > 0)
+                cout << "Heading to " << getDestinationName() << ", speed " << getSpeed() << " km/h" << endl;
+            else{
+                cout << "Heading to ";
+                getDestination().print();
+                cout << ", speed " << getSpeed() << " km/h" << endl;
+            }
         default:
             break;
     }

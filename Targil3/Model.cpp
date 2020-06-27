@@ -49,7 +49,10 @@ void Model::addAgent(const vector<std::string> &vec) {
             Point newLocation = checkExistingStructure(structuresVec, structureName);
             
             agentsVec.emplace_back(shared_ptr<Agent>(new Knight(newName, newLocation)));
-            //TODO: add all structures to the new Knigh's ququq.
+            shared_ptr<Knight> newKnight = dynamic_pointer_cast<Knight>(agentsVec.back());
+            for (auto it=structuresVec.begin() ; it!=structuresVec.end() ; it++){/*add all structures to Knight's queue*/
+                newKnight->addToQueue((*it));
+            }
             view_ptr->update_location(newName, newLocation);
         }
         else if (type == "Peasant"){
@@ -82,10 +85,10 @@ void Model::updateAgentDegAndSpeed(const vector<shared_ptr<Agent> >::const_itera
         return;
     }
     
-    shared_ptr<Peasant> peasantPtr = dynamic_pointer_cast<Peasant>((*agent));
-    if (peasantPtr != nullptr){
-        peasantPtr->updateDeg(degAndSpeed.first);
-    }
+//    shared_ptr<Peasant> peasantPtr = dynamic_pointer_cast<Peasant>((*agent));
+//    if (peasantPtr != nullptr){
+//        peasantPtr->updateDeg(degAndSpeed.first);
+//    }
 }
 
 void Model::setViewPtr(shared_ptr<View> view_ptr) {
