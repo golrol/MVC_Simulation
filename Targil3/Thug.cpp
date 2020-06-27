@@ -35,7 +35,7 @@ void Thug::broadcast_current_State() const {
     }
 }
 
-void Thug::position(const Point& location, double speed){
+void Thug::position(const Point& location, const double& speed){
     setState(MOVING_TO_DESTINATION);
     setDestination(location); /*update destination's location (Point)*/
     setSpeed(speed);
@@ -44,4 +44,8 @@ void Thug::position(const Point& location, double speed){
     
     /*update deltaX and deltaY according to the change need to be done in every step*/
     setDelta(Point((getDestination().x - getLocation().x) / numberOfsteps, (getDestination().y - getLocation().y) / numberOfsteps));
+}
+
+void Thug::goToNextDestination(){
+    
 }

@@ -79,9 +79,6 @@ void View::draw() const {
         j=size;
         while(j--){
             Point currentLocation(origin.x + (size-j)*scale - scale, origin.y + size*scale - i*scale - scale);
-            if (currentLocation == Point(0,30)){
-                cout << (*setItarator).second << endl;
-            }
             if (setItarator != objectsSet.end()){
                 /*skip if object is out of bounds*/
                 while (setItarator != objectsSet.end() && checkInBounds((*setItarator).first, yBoundUp, xBoundRight))

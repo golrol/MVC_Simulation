@@ -11,6 +11,10 @@ public:
 //    void updateDeg(const double &deg);
     void broadcast_current_State() const;
     void loadBoxes();
+    void unloadBoxes();
+    void goToNextDestination();
+//    void position(const Point& location, const double& speed);
+    void startWorking(const string& farmName, const string& castleName);
     
 private:
     int inventory;

@@ -55,3 +55,13 @@ void Knight::destination(const string& StructureName, const Point& StructureLoca
 void Knight::addToQueue(const shared_ptr<Structure>& structure){
     structures.push(structure);
 }
+
+void Knight::goToNextDestination(){
+    shared_ptr<Structure> nextStructure = structures.front();
+    if (nextStructure->getName() == getDestinationName()){/*case first in queue is the same as just arrived*/
+        structures.pop();
+        structures.push(nextStructure);
+        nextStructure = structures.front();
+    }
+    destination(nextStructure->getName(), nextStructure->getLocation());
+}

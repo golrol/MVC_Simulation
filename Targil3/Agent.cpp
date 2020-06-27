@@ -48,7 +48,7 @@ void Agent::setRadius(double radius) {
 void Agent::update() {
     if (state == MOVING_ON_COURSE)
         setLocation(getLocation() + polarToCartesian(radius, theta));
-    if (state == MOVING_TO_DESTINATION){
+    else if (state == MOVING_TO_DESTINATION){
         if (findDistance(location, destinationLocation) <= speed/10.00){/*arriving to destination in this step*/
             setLocation(destinationLocation); /*update location to destination*/
             switch (type) {
@@ -59,11 +59,17 @@ void Agent::update() {
                     setState(UNLOADING);
                     break;
                 case KNIGHT:
-                    //TODO: set next destination if it's a Knight.
+                    goToNextDestination();
                     break;
                 default:
                     break;
             }
+        }
+        else if (state == UNLOADING){
+            setState(LOADING);
+        }
+        else if (state == LOADING){
+            goToNextDestination();
         }
         else{
             setLocation(getLocation() + delta);

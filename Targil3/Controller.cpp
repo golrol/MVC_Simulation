@@ -91,7 +91,7 @@ void Controller::run() {
                     string structureName = destinationValidation(strLine);
                     vector<shared_ptr<Structure> >::const_iterator structure = Model::getInstance()->findStructureByName(structureName);
                     if ((*agent)->getType() != KNIGHT)
-                        throw CommandException("This agent doesn't support this command");
+                        throw CommandException("This agent doesn't support this command");//TODO: maybe move to validation?
                     shared_ptr<Knight> knightPtr = dynamic_pointer_cast<Knight>((*agent));
                     knightPtr->destination(structureName, (*structure)->getLocation());
                     
@@ -111,6 +111,10 @@ void Controller::run() {
                 }
                 else if(secondWord == "attack") {
                     
+                }
+                else if(secondWord == "start_working") {
+                    //TODO: validation.
+                    vector<shared_ptr<Agent> >::const_iterator agent = Model::getInstance()->findAgentByName(firstWord);
                 }
                 else
                     throw CommandException("wrong input");

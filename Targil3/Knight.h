@@ -14,6 +14,7 @@ public:
     void position(const Point& location);
     void destination(const string& StructureName, const Point& StructureLocation);
     void addToQueue(const shared_ptr<Structure>& structure);
+    void goToNextDestination();
     
     
     void updateDeg(const double& deg);

@@ -24,11 +24,37 @@ void Peasant::broadcast_current_State() const{
             break;
         case UNLOADING:
             cout << "Unloading at " << getDestinationName() << ", inventory: " << inventory << " health: " << getHealth() << endl;
+            break;
+        case LOADING:
+            cout << "Loading at " << getDestinationName() << ", inventory: " << inventory << " health: " << getHealth() << endl;
+            break;
         default:
             break;
     }
 }
 
 void Peasant::loadBoxes(){
+    
+}
+
+void Peasant::unloadBoxes(){
+    
+}
+
+void Peasant::startWorking(const string& farmName, const string& castleName){
+    
+}
+
+//void Peasant::position(const Point& location, const double& speed){
+//    setState(MOVING_TO_DESTINATION);
+//    setDestination(location); /*update destination's location (Point)*/
+//    double distance = findDistance(getLocation(), location); /*distance to destination*/
+//    double numberOfsteps = distance / (getSpeed()/10.00); /*number of steps until arriving to destination*/
+//    
+//    /*update deltaX and deltaY according to the change need to be done in every step*/
+//    setDelta(Point((getDestination().x - getLocation().x) / numberOfsteps, (getDestination().y - getLocation().y) / numberOfsteps));
+//}
+
+void Peasant::goToNextDestination(){
     
 }

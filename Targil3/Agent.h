@@ -2,7 +2,6 @@
 #define Agent_h
 
 #include "Sim_object.h"
-#include "Moving_object.h"
 using namespace std;
 
 enum{DEAD, STOPPED, MOVING_TO_DESTINATION, MOVING_ON_COURSE, LOADING, UNLOADING, PEASANT_SPEED=5, PEASANT_HEALTH_MAX=20, PEASANT_HEALTH=10, KNIGHT_SPEED=10, THUG_SPEED_MAX=30, THUG_HEALTH=5, THUG_HEALTH_MAX=20, PEASANT=0, KNIGHT=1, THUG=2};
@@ -14,6 +13,7 @@ public:
     
     virtual void update();
     void broadcast_current_State() const = 0;
+    virtual void goToNextDestination() = 0;
     
     
     Point getLocation() const;

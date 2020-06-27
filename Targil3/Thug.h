@@ -9,8 +9,8 @@ public:
     virtual ~Thug();
     
     void broadcast_current_State() const;
-    void position(const Point& location, double speed);
-    
+    void position(const Point& location, const double& speed);
+    void goToNextDestination();
     void updateDegAndSpeed(const pair<double, double>& degAndSpeed);
     
 private:
