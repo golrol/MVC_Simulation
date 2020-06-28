@@ -1,5 +1,5 @@
-#ifndef skeleton_View_h
-#define skeleton_View_h
+#ifndef View_h
+#define View_h
 
 #include <iostream>
 #include <vector>
@@ -82,4 +82,4 @@ private:
     
 };
 
-#endif /* skeleton_View_h */
+#endif /* View_h */

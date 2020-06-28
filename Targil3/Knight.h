@@ -11,7 +11,7 @@ public:
     virtual ~Knight(){};
     
     void broadcast_current_State() const;
-    void position(const Point& location);
+   // void position(const Point& location, const double& speed);
     void destination(const string& StructureName, const Point& StructureLocation);
     void addToQueue(const shared_ptr<Structure>& structure);
     void goToNextDestination();

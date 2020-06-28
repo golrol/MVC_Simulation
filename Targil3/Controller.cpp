@@ -98,7 +98,7 @@ void Controller::run() {
                     vector<shared_ptr<Agent> >::const_iterator agent = Model::getInstance()->findAgentByName(firstWord);
                     pair<Point, double> destinationAndSpeed = positionValidation(strLine, (*agent)->getType());
                     if ((*agent)->getType() == KNIGHT)
-                        dynamic_pointer_cast<Knight>((*agent))->position(destinationAndSpeed.first);
+                        dynamic_pointer_cast<Knight>((*agent))->position(destinationAndSpeed.first, (*agent)->getSpeed());
                     else if ((*agent)->getType() == THUG)
                         dynamic_pointer_cast<Thug>((*agent))->position(destinationAndSpeed.first, destinationAndSpeed.second);
                 }
@@ -121,7 +121,9 @@ void Controller::run() {
                     vector<shared_ptr<Structure> >::const_iterator castle = Model::getInstance()->findStructureByName(famrmAndCastle.second);
                     if ((*castle)->getType() != CASTLE)
                         throw Model::xInvalidArgument("Second structure isn't a castle");
+                    (*agent)->setDestination((*farm)->getLocation());
                     dynamic_pointer_cast<Peasant>((*agent))->startWorking((*farm)->getName(), (*farm)->getLocation(), (*castle)->getName(), (*castle)->getLocation());
+
                 }
                 else
                     throw CommandException("Wrong input");

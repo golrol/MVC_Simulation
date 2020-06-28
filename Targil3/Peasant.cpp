@@ -42,7 +42,10 @@ void Peasant::unloadBoxes(){
 }
 
 void Peasant::startWorking(const string& farmName, const Point& farmLocation, const string& castleName, const Point& castleLocation){
-    
+    setFarm(make_pair(farmName, farmLocation));
+    setCastle(make_pair(castleName, castleLocation));
+    setDestinationName(farmName);
+    position(farmLocation, getSpeed());
 }
 
 //void Peasant::position(const Point& location, const double& speed){
@@ -56,5 +59,26 @@ void Peasant::startWorking(const string& farmName, const Point& farmLocation, co
 //}
 
 void Peasant::goToNextDestination(){
-    
+    if (getLocation() == farm.second){
+        //in farm - load.
+    }
+    else if (getLocation() == castle.second){
+        //in castle - unload
+    }
+}
+
+const pair<string,Point> &Peasant::getFarm() const {
+    return farm;
+}
+
+void Peasant::setFarm(const pair<string,Point> &farm) {
+    Peasant::farm = farm;
+}
+
+const pair<string,Point> &Peasant::getCastle() const {
+    return castle;
+}
+
+void Peasant::setCastle(const pair<string,Point> &castle) {
+    Peasant::castle = castle;
 }

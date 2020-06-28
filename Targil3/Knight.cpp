@@ -33,19 +33,19 @@ void Knight::broadcast_current_State() const{
 }
 
 
-void Knight::position(const Point& location){
-    setState(MOVING_TO_DESTINATION);
-    setDestination(location); /*update destination's location (Point)*/
-    double distance = findDistance(getLocation(), location); /*distance to destination*/
-    double numberOfsteps = distance / (getSpeed()/10.00); /*number of steps until arriving to destination*/
-    
-    /*update deltaX and deltaY according to the change need to be done in every step*/
-    setDelta(Point((getDestination().x - getLocation().x) / numberOfsteps, (getDestination().y - getLocation().y) / numberOfsteps));
-}
+//void Knight::position(const Point& location, const double& speed){
+//    setState(MOVING_TO_DESTINATION);
+//    setDestination(location); /*update destination's location (Point)*/
+//    double distance = findDistance(getLocation(), location); /*distance to destination*/
+//    double numberOfsteps = distance / (getSpeed()/10.00); /*number of steps until arriving to destination*/
+//
+//    /*update deltaX and deltaY according to the change need to be done in every step*/
+//    setDelta(Point((getDestination().x - getLocation().x) / numberOfsteps, (getDestination().y - getLocation().y) / numberOfsteps));
+//}
 
 void Knight::destination(const string& StructureName, const Point& StructureLocation){
     setDestinationName(StructureName); /*update destination's name*/
-    position(StructureLocation); /*call position() to handle the update*/
+    position(StructureLocation, getSpeed()); /*call position() to handle the update*/
     
     
 //    updateDeg(getDegFromTwoPoints(getLocation(), StructureLocation));
