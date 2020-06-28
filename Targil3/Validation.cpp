@@ -314,28 +314,25 @@ string attackValidation(const string& strLine){
     return vec[1];
 }
 
-
-///*Tokenize line from file*/
-//vector<string> tokenizeFile(string strLine){
-//    string token,tmpLine;
-//    vector<string> tokens;
-//    stringstream ssLine, ssFile;
-//    int i;
-//    ssFile.str(strLine);
-//    while(!ssFile.eof()) {
-//        ssLine.str("");
-//        ssLine.clear();
-//        getline(ssFile, tmpLine ,',');
-//        ssLine.str(tmpLine);
-//        while (getline(ssLine, token, ' ')) {
-//            tokens.push_back(token);/*put the string in the vector*/
-//        }
-//    }
-//    return tokens;
-//}
-
-
-
+pair<string,string> start_workingValidation(const string& strLine, const int& type){
+    if(type != PEASANT)
+    {
+        throw CommandException("This agent doesn't support this command");
+    }
+    vector<string> vec(tokenizeLine(strLine));
+    if(vec.size() != 4){
+        throw CommandException("Wrong number of arguments.");
+    }
+    try {
+        nameValidation(vec[0]);/*check the peasant name*/
+        nameValidation(vec[2]);/*vec[2] ,vec[3] - check the farm & the castle names*/
+        nameValidation(vec[3]);
+    }
+    catch (const stringstream& ss) {
+        throw CommandException("InValide name.");
+    }
+    return make_pair(vec[2],vec[3]);/*return the name of the farm and the castle*/
+}
 
 Point checkExistingStructure(const vector<shared_ptr<Structure> >& structuresVec, const string& name){
     auto it = structuresVec.begin();
