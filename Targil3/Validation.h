@@ -36,6 +36,7 @@ pair<Point,double> positionValidation(const string& strLine, const int& type);
 string destinationValidation(const string& strLine, const int& type);
 bool stopValidation(const string& strLine);
 string attackValidation(const string& strLine);
+pair<string,string> startWorkingValidation(const string& strLine, const int& type);
 
 
 /*GAL*/
