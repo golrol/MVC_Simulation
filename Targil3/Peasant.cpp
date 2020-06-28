@@ -41,7 +41,7 @@ void Peasant::unloadBoxes(){
     
 }
 
-void Peasant::startWorking(const string& farmName, const string& castleName){
+void Peasant::startWorking(const string& farmName, const Point& farmLocation, const string& castleName, const Point& castleLocation){
     
 }
 

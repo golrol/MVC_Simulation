@@ -112,13 +112,19 @@ void Controller::run() {
                     
                 }
                 else if(secondWord == "start_working") {
-                    //TODO: validation.
                     /*find the existing agent*/
                     vector<shared_ptr<Agent> >::const_iterator agent = Model::getInstance()->findAgentByName(firstWord);
-                    
+                    pair<string, string> famrmAndCastle = startWorkingValidation(strLine, (*agent)->getType());
+                    vector<shared_ptr<Structure> >::const_iterator farm = Model::getInstance()->findStructureByName(famrmAndCastle.first);
+                    if ((*farm)->getType() != FARM)
+                        throw Model::xInvalidArgument("First structure isn't a farm");
+                    vector<shared_ptr<Structure> >::const_iterator castle = Model::getInstance()->findStructureByName(famrmAndCastle.second);
+                    if ((*castle)->getType() != CASTLE)
+                        throw Model::xInvalidArgument("Second structure isn't a castle");
+                    dynamic_pointer_cast<Peasant>((*agent))->startWorking((*farm)->getName(), (*farm)->getLocation(), (*castle)->getName(), (*castle)->getLocation());
                 }
                 else
-                    throw CommandException("wrong input");
+                    throw CommandException("Wrong input");
             }
         }catch(const CommandException& e){
             e.what();

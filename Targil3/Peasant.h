@@ -14,7 +14,7 @@ public:
     void unloadBoxes();
     void goToNextDestination();
 //    void position(const Point& location, const double& speed);
-    void startWorking(const string& farmName, const string& castleName);
+    void startWorking(const string& farmName, const Point& farmLocation, const string& castleName, const Point& castleLocation);
     
 private:
     int inventory;

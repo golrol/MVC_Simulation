@@ -1,7 +1,7 @@
 #include "Castle.h"
 
 Castle::Castle(const string& name, const Point& location, const int& inventory)
-:Structure(name, location, inventory){}
+:Structure(name, location, inventory, CASTLE){}
 
 Castle::~Castle(){}
 

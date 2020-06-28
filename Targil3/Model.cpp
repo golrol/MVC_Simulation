@@ -128,7 +128,6 @@ void Model::status() const{
 }
 
 void Model::addStructure(const string& name, const Point& location, const int& inventory, const int& type, const int& productionRate){
-    //TODO: validation.
     //TODO: check if exists??
     
     switch (type) {
@@ -185,7 +184,7 @@ void Model::farmInit(const string &fileName) {
         }
         else
             throw xFileException("Wrong input in the files");
-        addStructure(vec[0].substr(0,vec[0].size()-1),location,inventory,FARM,production);
+        addStructure(vec[0].substr(0, vec[0].size()-1), location, inventory, FARM, production);
     }
     file.close();
 }

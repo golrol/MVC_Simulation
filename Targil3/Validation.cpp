@@ -318,7 +318,7 @@ string attackValidation(const string& strLine){
     return vec[1];
 }
 
-pair<string,string> start_workingValidation(const string& strLine, const int& type){
+pair<string,string> startWorkingValidation(const string& strLine, const int& type){
     if(type != PEASANT)
     {
         throw CommandException("This agent doesn't support this command");
