@@ -33,7 +33,7 @@ bool goValidation(const string& strLine);
 vector<string> createValidation(const string& strLine);
 pair<double,double> courseValidation(const string& strLine,const int& type);
 pair<Point,double> positionValidation(const string& strLine, const int& type);
-string destinationValidation(const string& strLine);
+string destinationValidation(const string& strLine, const int& type);
 bool stopValidation(const string& strLine);
 string attackValidation(const string& strLine);
 

@@ -43,6 +43,7 @@ void Agent::setRadius(double radius) {
 void Agent::update() {
     if (state == MOVING_ON_COURSE)
         setLocation(getLocation() + polarToCartesian(radius, theta));
+    
     else if (state == MOVING_TO_DESTINATION){
         if (findDistance(location, destinationLocation) <= speed/10.00){/*arriving to destination in this step*/
             setLocation(destinationLocation); /*update location to destination*/
@@ -51,7 +52,7 @@ void Agent::update() {
                     setState(STOPPED);
                     break;
                 case PEASANT:
-                    setState(UNLOADING);
+                    goToNextDestination();
                     break;
                 case KNIGHT:
                     goToNextDestination();
@@ -60,15 +61,12 @@ void Agent::update() {
                     break;
             }
         }
-        else if (state == UNLOADING){
-            setState(LOADING);
-        }
-        else if (state == LOADING){
-            goToNextDestination();
-        }
         else{
             setLocation(getLocation() + delta);
         }
+    }
+    else if (state == UNLOADING || state == LOADING){
+        goToNextDestination();
     }
 }
 

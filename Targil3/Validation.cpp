@@ -223,7 +223,7 @@ vector<string> createValidation(const string& strLine){
 
 pair<double,double> courseValidation(const string& strLine,const int& type){
     vector<string> vec(tokenizeLine(strLine));
-    double deg , speed=0;
+    double deg , speed = -1;
     if (type == PEASANT)
         throw CommandException("This agent doesn't support this command");
     /*need to be 3 arguments for knight or 4 arguments for thug*/
@@ -254,6 +254,8 @@ pair<Point,double> positionValidation(const string& strLine, const int& type){
     vector<string> vec(tokenizeLine(strLine));
     Point retVal;
     double speed=0.0;
+    if (type == PEASANT)
+        throw CommandException("This agent doesn't support this command");
     if((vec.size() == 4 && type == KNIGHT) || (vec.size() == 5 && type == THUG)){/*need to be 4 arguments for knight and 5 arguments for thug*/
         try {
             nameValidation(vec[0]);
@@ -272,8 +274,10 @@ pair<Point,double> positionValidation(const string& strLine, const int& type){
     else
         throw CommandException("Wrong number of arguments.");
 }
-string destinationValidation(const string& strLine){
+string destinationValidation(const string& strLine, const int& type){
     vector<string> vec(tokenizeLine(strLine));
+    if (type != KNIGHT)
+        throw CommandException("This agent doesn't support this command");
     if(vec.size()!=3){
         throw CommandException("Wrong number of arguments.");
     }
@@ -295,7 +299,7 @@ bool stopValidation(const string& strLine){
         nameValidation(vec[0]);
     }
     catch (const stringstream& ss) {
-        throw CommandException("InValide name.");
+        throw CommandException("Invalide name.");
     }
     return true;
 }
@@ -309,7 +313,7 @@ string attackValidation(const string& strLine){
         nameValidation(vec[2]);
     }
     catch (const stringstream& ss) {
-        throw CommandException("InValide name.");
+        throw CommandException("Invalide name.");
     }
     return vec[1];
 }

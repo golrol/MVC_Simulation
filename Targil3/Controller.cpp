@@ -29,7 +29,6 @@ void Controller::run() {
                 goValidation(strLine);
                 Model::getInstance()->go();
             }
-            
             else if(firstWord == "default"){
                 defaultValidation(strLine);
                 view_ptr->set_defaults();
@@ -88,33 +87,35 @@ void Controller::run() {
                 else if(secondWord == "destination"){
                     /*find the existing agent*/
                     vector<shared_ptr<Agent> >::const_iterator agent = Model::getInstance()->findAgentByName(firstWord);
-                    string structureName = destinationValidation(strLine);
+                    string structureName = destinationValidation(strLine, (*agent)->getType());
                     vector<shared_ptr<Structure> >::const_iterator structure = Model::getInstance()->findStructureByName(structureName);
-                    if ((*agent)->getType() != KNIGHT)
-                        throw CommandException("This agent doesn't support this command");//TODO: maybe move to validation?
                     shared_ptr<Knight> knightPtr = dynamic_pointer_cast<Knight>((*agent));
                     knightPtr->destination(structureName, (*structure)->getLocation());
                     
                 }
                 else if(secondWord == "position") {
+                    /*find the existing agent*/
                     vector<shared_ptr<Agent> >::const_iterator agent = Model::getInstance()->findAgentByName(firstWord);
                     pair<Point, double> destinationAndSpeed = positionValidation(strLine, (*agent)->getType());
                     if ((*agent)->getType() == KNIGHT)
                         dynamic_pointer_cast<Knight>((*agent))->position(destinationAndSpeed.first);
                     else if ((*agent)->getType() == THUG)
                         dynamic_pointer_cast<Thug>((*agent))->position(destinationAndSpeed.first, destinationAndSpeed.second);
-                    else
-                        throw CommandException("This agent doesn't support this command");
                 }
                 else if(secondWord == "stop") {
-                    
+                    stopValidation(strLine);
+                    /*find the existing agent*/
+                    vector<shared_ptr<Agent> >::const_iterator agent = Model::getInstance()->findAgentByName(firstWord);
+                    (*agent)->setState(STOPPED);
                 }
                 else if(secondWord == "attack") {
                     
                 }
                 else if(secondWord == "start_working") {
                     //TODO: validation.
+                    /*find the existing agent*/
                     vector<shared_ptr<Agent> >::const_iterator agent = Model::getInstance()->findAgentByName(firstWord);
+                    
                 }
                 else
                     throw CommandException("wrong input");

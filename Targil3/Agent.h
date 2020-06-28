@@ -13,7 +13,7 @@ public:
     
     virtual void update();
     void broadcast_current_State() const = 0;
-    virtual void goToNextDestination(){} //TODO: is that ok?
+    virtual void goToNextDestination() = 0;
     
     
     Point getLocation() const;
