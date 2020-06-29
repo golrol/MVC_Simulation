@@ -59,11 +59,19 @@ void Peasant::startWorking(const shared_ptr<Structure>& farm, const shared_ptr<S
 //}
 
 void Peasant::goToNextDestination(){
-    if (getLocation() == farm->getLocation()){
-        //in farm - load.
+    if (getState() == MOVING_TO_DESTINATION){
+        if (getLocation() == farm->getLocation()){
+            //ariived in farm - load.
+        }
+        else if (getLocation() == castle->getLocation()){
+            //ariived in castle - unload.
+        }
     }
-    else if (getLocation() == castle->getLocation()){
-        //in castle - unload
+    else if (getState() == LOADING){
+        //finished loading- use position() to castle.
+    }
+    else if (getState() == UNLOADING){
+        //finished loading- use position() back to farm.
     }
 }
 
