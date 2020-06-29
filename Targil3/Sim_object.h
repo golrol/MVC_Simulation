@@ -12,7 +12,8 @@ public:
     virtual ~Sim_object(){}
     
     
-    virtual const string& getName() const{return name;}
+    const string& getName() const{return name;}
+    void setName(const string& name) {this->name = name;}
     
     virtual void update() = 0;
     virtual void broadcast_current_State() const = 0;

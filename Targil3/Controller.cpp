@@ -122,7 +122,7 @@ void Controller::run() {
                     if ((*castle)->getType() != CASTLE)
                         throw Model::xInvalidArgument("Second structure isn't a castle");
                     (*agent)->setDestination((*farm)->getLocation());
-                    dynamic_pointer_cast<Peasant>((*agent))->startWorking((*farm)->getName(), (*farm)->getLocation(), (*castle)->getName(), (*castle)->getLocation());
+                    dynamic_pointer_cast<Peasant>((*agent))->startWorking(*farm, *castle);
 
                 }
                 else

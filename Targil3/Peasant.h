@@ -2,6 +2,9 @@
 #define Peasant_h
 
 #include "Agent.h"
+#include "Structure.h"
+//#include "Farm.h"
+//#include "Castle.h"
 
 class Peasant : public Agent{
 public:
@@ -14,20 +17,16 @@ public:
     void unloadBoxes();
     void goToNextDestination();
 //    void position(const Point& location, const double& speed);
-    void startWorking(const string& farmName, const Point& farmLocation, const string& castleName, const Point& castleLocation);
-//    const Point &getSecondLocation() const;
-//    void setSecondLocation(const Point &secondLocation);
-//    const string &getSecondLocationName() const;
-//    void setSecondLocationName(const string &secondLocationName);
-    const pair<string,Point> &getFarm() const;
-    void setFarm(const pair<string,Point> &farm);
-    const pair<string,Point> &getCastle() const;
-    void setCastle(const pair<string,Point> &castle);
+    void startWorking(const shared_ptr<Structure>& farm, const shared_ptr<Structure>& castle);
+    void setFarm(const shared_ptr<Structure>& farm);
+    void setCastle(const shared_ptr<Structure>& castle);
+    const shared_ptr<Structure>& getFarm() const;
+    const shared_ptr<Structure>& getCastle() const;
 
 private:
     int inventory;
-    pair<string,Point> farm;
-    pair<string,Point> castle;
+    shared_ptr<Structure> farm;
+    shared_ptr<Structure> castle;
 
 };
 

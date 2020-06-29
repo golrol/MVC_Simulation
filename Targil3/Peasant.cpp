@@ -41,11 +41,11 @@ void Peasant::unloadBoxes(){
     
 }
 
-void Peasant::startWorking(const string& farmName, const Point& farmLocation, const string& castleName, const Point& castleLocation){
-    setFarm(make_pair(farmName, farmLocation));
-    setCastle(make_pair(castleName, castleLocation));
-    setDestinationName(farmName);
-    position(farmLocation, getSpeed());
+void Peasant::startWorking(const shared_ptr<Structure>& farm, const shared_ptr<Structure>& castle){
+    setFarm(farm);
+    setCastle(castle);
+    setDestinationName(farm->getName());
+    position(farm->getLocation(), getSpeed());
 }
 
 //void Peasant::position(const Point& location, const double& speed){
@@ -59,26 +59,27 @@ void Peasant::startWorking(const string& farmName, const Point& farmLocation, co
 //}
 
 void Peasant::goToNextDestination(){
-    if (getLocation() == farm.second){
+    if (getLocation() == farm->getLocation()){
         //in farm - load.
     }
-    else if (getLocation() == castle.second){
+    else if (getLocation() == castle->getLocation()){
         //in castle - unload
     }
 }
 
-const pair<string,Point> &Peasant::getFarm() const {
+void Peasant::setFarm(const shared_ptr<Structure> &farm) { 
+    this->farm = farm;
+}
+
+void Peasant::setCastle(const shared_ptr<Structure> &castle) { 
+    this->castle = castle;
+}
+
+const shared_ptr<Structure> &Peasant::getFarm() const { 
     return farm;
 }
 
-void Peasant::setFarm(const pair<string,Point> &farm) {
-    Peasant::farm = farm;
-}
-
-const pair<string,Point> &Peasant::getCastle() const {
+const shared_ptr<Structure> &Peasant::getCastle() const { 
     return castle;
 }
 
-void Peasant::setCastle(const pair<string,Point> &castle) {
-    Peasant::castle = castle;
-}
