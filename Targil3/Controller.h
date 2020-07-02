@@ -5,7 +5,6 @@
 #include "Model.h"
 #include "Geometry.h"
 
-
 /* Controller
 This class is responsible for controlling the Model and View according to interactions
 with the user.

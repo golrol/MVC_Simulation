@@ -9,7 +9,7 @@ shared_ptr<Model> Model::getInstance() {
 }
 
 Model::Model()
-:time(0), view_ptr(new View){}
+:view_ptr(new View), time(0){}
 
 Model::~Model() {}
 

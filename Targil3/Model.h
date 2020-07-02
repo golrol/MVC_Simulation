@@ -11,6 +11,7 @@
 #include "Farm.h"
 #include "Castle.h"
 #include "Validation.h"
+enum{NUMBER_OF_FILES=3};
 
 class Model{
 public:

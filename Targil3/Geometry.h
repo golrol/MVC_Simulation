@@ -5,6 +5,8 @@
 #include <iomanip>
 #include <cmath>
 #include <ctgmath>
+#include <memory>
+#include <string>
 using namespace std;
 
 

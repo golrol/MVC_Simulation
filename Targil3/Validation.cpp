@@ -7,7 +7,7 @@ double doubleValidation(string str){
     ssDouble.str("");
     ssDouble.clear();
     double retVal;
-    int i,pointsCount=0;
+    unsigned int i, pointsCount=0;
     for (i=0;i<str.size();i++){
         if(str.at(i)<'0' || str.at(i)>'9') {
             if(str.at(i)=='-' && i==0)/*if the number is negative*/
@@ -15,9 +15,8 @@ double doubleValidation(string str){
             if (str.at(i) == '.' && pointsCount < 1) {/*check if not digit only 1 point allowed*/
                 pointsCount++;
                 continue;
-            } else{
-                throw ssDouble ;/*throw stringstream*/
-            }
+            } else
+                throw CommandException("invalid double.");
         }
     }
     /*Get to this code only if valid double*/
@@ -35,7 +34,7 @@ Point pointValidation(string str){
     ssPoint.clear();
     
     if(str.at(0) != '(' || str.at(str.size()-1) != ')'){/*check the first char of the point string*/
-        throw ssPoint ;/*throw stringstream*/
+        throw CommandException("invalid location.") ;
     }
     tmpStr = str.substr(1,(str.size()-2));/*remove the '(' from the beginning and the ')' from the end of the string*/
     ssPoint.str(tmpStr);
@@ -47,13 +46,8 @@ Point pointValidation(string str){
     //    else{
     //        throw ssPoint ;/*throw stringstream*/
     //    }
-    try {
-        x = doubleValidation(strX);
-        y = doubleValidation(strY);
-    }
-    catch (const stringstream& ss) {/*catch the exception thrown from "doubleValidation"*/
-        throw ssPoint ;/*throw stringstream*/
-    }
+    x = doubleValidation(strX);
+    y = doubleValidation(strY);
     /*get to this code only if valid point*/
     return Point(x,y);
 }
@@ -62,7 +56,7 @@ Point pointValidation(string str){
 bool nameValidation(string str){
     stringstream ss;
     if(str.size()>MAX_NAME_SIZE){
-        throw ss;
+        throw CommandException("invalid name.");
     }
     return true;
 }
@@ -72,14 +66,15 @@ int intValidation(string str){
     /*reset string stream*/
     ssInt.str("");
     ssInt.clear();
-    int i,retVal;
+    unsigned int i;
+    int retVal;
     for (i=0;i<str.size();i++){
         if(str.at(i)<'0' || str.at(i)>'9') {
             if(str.at(i)=='-' && i==0){/*if the number is negative*/
                 continue;
             }
             else{
-                throw ssInt ;/*throw stringstream*/
+                throw CommandException("invalid int.");
             }
             
         }
@@ -117,12 +112,7 @@ int sizeValidation(const string& strLine){
         throw CommandException("Wrong number of arguments.");
     }
     else{
-        try {
-            retVal = intValidation(vec[1]);
-        }
-        catch (const stringstream& ss) {
-            throw CommandException("Second argument is not int.");
-        }
+        retVal = intValidation(vec[1]);
         if(retVal<=MIN_VIEW_SIZE || retVal > MAX_VIEW_SIZE) {
             throw CommandException("Second argument is out of range.");
         }
@@ -136,12 +126,7 @@ int zoomValidation(const string& strLine){
         throw CommandException("Wrong number of arguments.");
     }
     else{
-        try {
-            retVal = intValidation(vec[1]);
-        }
-        catch (const stringstream& ss) {
-            throw CommandException("Second argument is not int.");
-        }
+        retVal = intValidation(vec[1]);
         if(retVal<1) {
             throw CommandException("Second argument is no positive number.");
         }
@@ -154,13 +139,8 @@ Point panValidation(const string& strLine){
     if(vec.size()!=3){
         throw CommandException("Wrong number of arguments.");
     }
-    try {
-        x = doubleValidation(vec[1]);
-        y = doubleValidation(vec[2]);
-    }
-    catch (const stringstream& ss) {
-        throw CommandException("Second or third argument is not double.");
-    }
+    x = doubleValidation(vec[1]);
+    y = doubleValidation(vec[2]);
     Point retVal(x,y);
     return retVal;
 }
@@ -194,27 +174,22 @@ bool goValidation(const string& strLine){
 vector<string> createValidation(const string& strLine){
     vector<string> vec(tokenizeLine(strLine));
     if(vec.size() == 4 || vec.size() == 5){/*need to be 4 arguments for knight or 5 arguments for thug & peasant*/
-        try {
-            nameValidation(vec[1]);/*check if the second is a valid name*/
-            if(vec[2] == "Knight"){
-                nameValidation(vec[3]);/*check if the fourth argument is valid name of a Castle*/
-                return vec;
-            }
-            else if(vec[2] == "Peasant" || vec[2] == "Thug"){/*its Peasant or thug*/
-                string strPoint = vec[3];
-                strPoint.append(vec[4]);/*append the tow argument to oe str and send it to pointValidation to get point*/
-                pointValidation(strPoint);
-                vec.pop_back();
-                vec.pop_back();
-                vec.push_back(strPoint);
-                return vec;
-            }
-            else/*not Knigt, Peasnat or Thug*/
-                throw CommandException("Third argument is not valid type.");
+        nameValidation(vec[1]);/*check if the second is a valid name*/
+        if(vec[2] == "Knight"){
+            nameValidation(vec[3]);/*check if the fourth argument is valid name of a Castle*/
+            return vec;
         }
-        catch (const stringstream& ss) {
-            throw CommandException("Invalide name or double");
+        else if(vec[2] == "Peasant" || vec[2] == "Thug"){/*its Peasant or thug*/
+            string strPoint = vec[3];
+            strPoint.append(vec[4]);/*append the tow argument to oe str and send it to pointValidation to get point*/
+            pointValidation(strPoint);
+            vec.pop_back();
+            vec.pop_back();
+            vec.push_back(strPoint);
+            return vec;
         }
+        else/*not Knigt, Peasnat or Thug*/
+            throw CommandException("Third argument is not valid type.");
     }
     else{
         throw CommandException("Wrong number of arguments.");
@@ -228,19 +203,14 @@ pair<double,double> courseValidation(const string& strLine, const int& type){
         throw CommandException("This agent doesn't support this command");
     /*need to be 3 arguments for knight or 4 arguments for thug*/
     if((vec.size() == 3 && type == KNIGHT) || (vec.size() == 4 && type == THUG)){
-        try{
-            nameValidation(vec[0]);
-            deg = doubleValidation(vec[2]);/*check if the angle is valid*/
-            if(deg < 0 || deg > 360)
-                throw CommandException("Deg is out of range.");
-            if(vec.size() == 4) {
-                speed = doubleValidation(vec[3]);/*check if the speed is valid*/
-                if(speed < 0 || speed > 30)
-                    throw CommandException("Speed is out of range.");
-            }
-        }
-        catch (const stringstream& ss) {
-            throw CommandException("Invalide name or int.");
+        nameValidation(vec[0]);
+        deg = doubleValidation(vec[2]);/*check if the angle is valid*/
+        if(deg < 0 || deg > 360)
+            throw CommandException("Deg is out of range.");
+        if(vec.size() == 4) {
+            speed = doubleValidation(vec[3]);/*check if the speed is valid*/
+            if(speed < 0 || speed > 30)
+                throw CommandException("Speed is out of range.");
         }
     }
     else{
@@ -255,19 +225,14 @@ pair<Point,double> positionValidation(const string& strLine, const int& type){
     if (type == PEASANT)
         throw CommandException("This agent doesn't support this command");
     if((vec.size() == 4 && type == KNIGHT) || (vec.size() == 5 && type == THUG)){/*need to be 4 arguments for knight and 5 arguments for thug*/
-        try {
-            nameValidation(vec[0]);
-            string strPoint = vec[2];
-            strPoint.append(vec[3]);/*append the tow argument to oe str and send it to pointValidation to get point*/
-            retVal = pointValidation(strPoint);
-            if(vec.size()==5){
-                speed = doubleValidation(vec[4]);
-                if(speed < 0 || speed > 30)
-                    throw CommandException("Speed is out of range.");
-            }
-        }
-        catch (const stringstream& ss) {
-            throw CommandException("InValide name , point or int.");
+        nameValidation(vec[0]);
+        string strPoint = vec[2];
+        strPoint.append(vec[3]);/*append the tow argument to oe str and send it to pointValidation to get point*/
+        retVal = pointValidation(strPoint);
+        if(vec.size()==5){
+            speed = doubleValidation(vec[4]);
+            if(speed < 0 || speed > 30)
+                throw CommandException("Speed is out of range.");
         }
         return make_pair(retVal,speed);
     }
@@ -281,13 +246,8 @@ string destinationValidation(const string& strLine, const int& type){
     if(vec.size()!=3){
         throw CommandException("Wrong number of arguments.");
     }
-    try {
-        nameValidation(vec[0]);
-        nameValidation(vec[2]);
-    }
-    catch (const stringstream& ss) {
-        throw CommandException("Invalide name.");
-    }
+    nameValidation(vec[0]);
+    nameValidation(vec[2]);
     return vec[2];
 }
 bool stopValidation(const string& strLine){
@@ -295,12 +255,7 @@ bool stopValidation(const string& strLine){
     if(vec.size()!=2){
         throw CommandException("Wrong number of arguments.");
     }
-    try {
-        nameValidation(vec[0]);
-    }
-    catch (const stringstream& ss) {
-        throw CommandException("Invalide name.");
-    }
+    nameValidation(vec[0]);
     return true;
 }
 string attackValidation(const string& strLine){
@@ -308,13 +263,8 @@ string attackValidation(const string& strLine){
     if(vec.size()!=3){
         throw CommandException("Wrong number of arguments.");
     }
-    try {
-        nameValidation(vec[0]);
-        nameValidation(vec[2]);
-    }
-    catch (const stringstream& ss) {
-        throw CommandException("Invalide name.");
-    }
+    nameValidation(vec[0]);
+    nameValidation(vec[2]);
     return vec[1];
 }
 
@@ -327,13 +277,8 @@ pair<string,string> startWorkingValidation(const string& strLine, const int& typ
     if(vec.size() != 4){
         throw CommandException("Wrong number of arguments.");
     }
-    try {
-        nameValidation(vec[0]);/*check the peasant name*/
-        nameValidation(vec[2]);/*vec[2] ,vec[3] - check the farm & the castle names*/
-        nameValidation(vec[3]);
-    }
-    catch (const stringstream& ss) {
-        throw CommandException("InValide name.");
-    }
+    nameValidation(vec[0]);/*check the peasant name*/
+    nameValidation(vec[2]);/*vec[2] ,vec[3] - check the farm & the castle names*/
+    nameValidation(vec[3]);
     return make_pair(vec[2],vec[3]);/*return the name of the farm and the castle*/
 }
