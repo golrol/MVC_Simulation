@@ -61,8 +61,7 @@ void Model::castleInit(const string &fileName) {
     while(!file.eof()){
         getline(file,strLine);
         vec = tokenizeLine(strLine);/*tokenize with ' ' del.*/
-        if(vec.size() == 4)
-        {
+        if(vec.size() == 4){
             try{/*do substr(0,vec[0].size()-1) to remove the ',' from the end of the string*/
                 nameValidation(vec[0].substr(0,vec[0].size()-1));
                 tmpPointStr=vec[1];
@@ -70,7 +69,7 @@ void Model::castleInit(const string &fileName) {
                 location = pointValidation(tmpPointStr);
                 inventory = intValidation(vec[3]);
             }
-            catch (const stringstream& ss) {
+            catch (const CommandException& ss) {
                 throw xFileException("Wrong input in the files");
             }
         }
