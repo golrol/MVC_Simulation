@@ -1,7 +1,7 @@
 #ifndef Model_h
 #define Model_h
 
-#include <vector>
+#include <fstream>
 #include "View.h"
 #include "Agent.h"
 #include "Structure.h"
@@ -11,8 +11,6 @@
 #include "Farm.h"
 #include "Castle.h"
 #include "Validation.h"
-#include <iostream>
-#include <fstream>
 
 class Model{
 public:

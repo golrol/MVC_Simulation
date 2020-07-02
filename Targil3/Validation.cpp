@@ -337,13 +337,3 @@ pair<string,string> startWorkingValidation(const string& strLine, const int& typ
     }
     return make_pair(vec[2],vec[3]);/*return the name of the farm and the castle*/
 }
-
-Point checkExistingStructure(const vector<shared_ptr<Structure> >& structuresVec, const string& name){
-    auto it = structuresVec.begin();
-    while(it != structuresVec.end()){
-        if ((*it)->getName() == name)
-            return (*it)->getLocation();
-        it++;
-    }
-    throw Model::xNoSuchStructure();
-}

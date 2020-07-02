@@ -95,7 +95,8 @@ void Model::addAgent(const vector<std::string> &vec) {
         }
         if (type == "Knight"){
             string structureName = vec[3];
-            Point newLocation = checkExistingStructure(structuresVec, structureName);/*validate structure name*/
+            vector<shared_ptr<Structure>>::const_iterator structure = findStructureByName(structureName);/*validate existing structure*/
+            Point newLocation = (*structure)->getLocation();
             
             agentsVec.emplace_back(shared_ptr<Agent>(new Knight(newName, newLocation))); /*add to agents vector*/
             shared_ptr<Knight> newKnight = dynamic_pointer_cast<Knight>(agentsVec.back());
@@ -122,7 +123,6 @@ void Model::addAgent(const vector<std::string> &vec) {
 }
 
 void Model::addStructure(const string& name, const Point& location, const int& inventory, const int& type, const int& productionRate){
-    //TODO: check if exists??
     /*all validations are made in init functions*/
     switch (type) {
         case FARM:

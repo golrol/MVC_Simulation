@@ -1,9 +1,5 @@
-//
-// Created by Admin on 19/06/2020.
-//
-
-#ifndef AOOP_TARGIL3_VALIDATION_H
-#define AOOP_TARGIL3_VALIDATION_H
+#ifndef Validation_h
+#define Validation_h
 #include <iostream>
 #include "Geometry.h"
 #include "Model.h"
@@ -39,10 +35,6 @@ string attackValidation(const string& strLine);
 pair<string,string> startWorkingValidation(const string& strLine, const int& type);
 
 
-/*GAL*/
-Point checkExistingStructure(const vector<shared_ptr<Structure> >& structuresVec, const string& name);
-
-
 vector<string> tokenizeFile(string strLine);
 
 /*inner class of commandException to throw if found an error*/
@@ -59,4 +51,4 @@ public:
     }
 };
 
-#endif //AOOP_TARGIL3_VALIDATION_H
+#endif /* Validation_h */
