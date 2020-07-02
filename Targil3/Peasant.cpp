@@ -62,16 +62,32 @@ void Peasant::goToNextDestination(){
     if (getState() == MOVING_TO_DESTINATION){
         if (getLocation() == farm->getLocation()){
             //ariived in farm - load.
+            setState(LOADING);
+            if (farm->getInventory() <= 5){ //TODO: magic number
+                setInventory(farm->getInventory());
+                farm->setInventory(0);
+            }
+            else{
+                farm->setInventory(farm->getInventory() - 5);
+                setInventory(5);
+            }
         }
         else if (getLocation() == castle->getLocation()){
             //ariived in castle - unload.
+            setState(UNLOADING);
+            castle->setInventory(castle->getInventory() + getInventory());
+            setInventory(0);
         }
     }
     else if (getState() == LOADING){
         //finished loading- use position() to castle.
+        setDestinationName(castle->getName());
+        position(castle->getLocation(), getSpeed());
     }
     else if (getState() == UNLOADING){
         //finished loading- use position() back to farm.
+        setDestinationName(farm->getName());
+        position(farm->getLocation(), getSpeed());
     }
 }
 
@@ -90,4 +106,13 @@ const shared_ptr<Structure> &Peasant::getFarm() const {
 const shared_ptr<Structure> &Peasant::getCastle() const { 
     return castle;
 }
+
+void Peasant::setInventory(const int &inventory) { 
+    this->inventory = inventory;
+}
+
+const int &Peasant::getInventory() const { 
+    return inventory;
+}
+
 

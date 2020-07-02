@@ -48,6 +48,8 @@ void Controller::run() {
             }
             else if(firstWord == "aaa"){ //TODO: remove.
                 vector<string> vecLine;
+                vecLine = createValidation("create Gal Peasant (10.00, 10.00)");
+                Model::getInstance()->addAgent(vecLine);
                 vecLine = createValidation("create Bug Peasant (0.00, 0.00)");
                 Model::getInstance()->addAgent(vecLine);
                 vecLine = createValidation("create Iriel Peasant (0.00, 0.00)");
@@ -69,7 +71,7 @@ void Controller::run() {
                 vector<string> vecLine = createValidation(strLine);
                 Model::getInstance()->addAgent(vecLine);
             }
-            else if(firstWord == "quit"){
+            else if(firstWord == "exit"){
                 break;
             }
             else {/*case where the first word is an agent's name*/

@@ -22,6 +22,8 @@ public:
     void setCastle(const shared_ptr<Structure>& castle);
     const shared_ptr<Structure>& getFarm() const;
     const shared_ptr<Structure>& getCastle() const;
+    void setInventory(const int& inventory);
+    const int& getInventory() const;
 
 private:
     int inventory;
