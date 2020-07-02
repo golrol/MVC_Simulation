@@ -40,6 +40,6 @@ int main(int argc, const char * argv[]) {
     Controller c;
     c.run();
     
-    
+    //TODO: allow point without space (e.g. (0,0) ) ?
     return 0;
 }

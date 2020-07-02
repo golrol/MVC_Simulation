@@ -25,7 +25,7 @@ double doubleValidation(string str){
     return retVal;
 }
 /*Check if the string is valid Point and return it as Point variable*/
-Point pointValidation(string str){
+Point pointValidation(string str){ //TODO: case were no ',' at all.
     stringstream ssPoint;
     string tmpStr,strX,strY;
     double x,y;
