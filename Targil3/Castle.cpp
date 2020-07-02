@@ -5,13 +5,8 @@ Castle::Castle(const string& name, const Point& location, const int& inventory)
 
 Castle::~Castle(){}
 
-void Castle::update() {
-    
-}
-
 void Castle::broadcast_current_State() const { 
     cout << "Castle " << getName() << " at position ";
     getLocation().print();
     cout <<", Inventory: " << getInventory() << endl;
 }
-

@@ -3,9 +3,7 @@
 Knight::Knight(const string &name, const Point& location)
 :Agent(name, 0, STOPPED, location, KNIGHT_SPEED, KNIGHT){}
 
-void Knight::updateDeg(const double &deg) { 
-    setTetha(deg);
-}
+Knight::~Knight(){}
 
 void Knight::broadcast_current_State() const{
     cout << "Knight " << getName() << " at ";
@@ -32,30 +30,6 @@ void Knight::broadcast_current_State() const{
     }
 }
 
-
-//void Knight::position(const Point& location, const double& speed){
-//    setState(MOVING_TO_DESTINATION);
-//    setDestination(location); /*update destination's location (Point)*/
-//    double distance = findDistance(getLocation(), location); /*distance to destination*/
-//    double numberOfsteps = distance / (getSpeed()/10.00); /*number of steps until arriving to destination*/
-//
-//    /*update deltaX and deltaY according to the change need to be done in every step*/
-//    setDelta(Point((getDestination().x - getLocation().x) / numberOfsteps, (getDestination().y - getLocation().y) / numberOfsteps));
-//}
-
-void Knight::destination(const string& StructureName, const Point& StructureLocation){
-    setDestinationName(StructureName); /*update destination's name*/
-    position(StructureLocation, getSpeed()); /*call position() to handle the update*/
-    
-    
-//    updateDeg(getDegFromTwoPoints(getLocation(), StructureLocation));
-//    cout << "TEST" << getTheta() << endl;
-}
-
-void Knight::addToQueue(const shared_ptr<Structure>& structure){
-    structures.push(structure);
-}
-
 void Knight::goToNextDestination(){ //TODO: do we need to randomize?
     shared_ptr<Structure> nextStructure = structures.front();
     if (nextStructure->getName() == getDestinationName()){/*case first in queue is the same as just arrived*/
@@ -64,4 +38,17 @@ void Knight::goToNextDestination(){ //TODO: do we need to randomize?
         nextStructure = structures.front();
     }
     destination(nextStructure->getName(), nextStructure->getLocation());
+}
+
+void Knight::destination(const string& StructureName, const Point& StructureLocation){
+    setDestinationName(StructureName); /*update destination's name*/
+    position(StructureLocation, getSpeed()); /*call position() to handle the update*/
+}
+
+void Knight::addToQueue(const shared_ptr<Structure>& structure){
+    structures.push(structure);
+}
+
+void Knight::updateDeg(const double &deg) {
+    setTetha(deg);
 }

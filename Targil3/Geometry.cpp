@@ -1,105 +1,81 @@
 #include "Geometry.h"
 
 const double pi = 2. * atan2(1., 0.);
-double to_radians(double theta_d)
-{
-	return theta_d * pi / 180.0;
-}
 
-double to_degrees(double theta_r)
-{
-	return theta_r * 180.0 / pi;
-}
-
-
-// construct a Cartesian_vector from a Polar_vector
-Cartesian_vector::Cartesian_vector(const Polar_vector& pv) {
-	delta_x = pv.r * cos(pv.theta);
-	delta_y = pv.r * sin(pv.theta);
-}
-Cartesian_vector::Cartesian_vector()
-{
-	delta_x = 0.0;
-	delta_y = 0.0;
-}
-void Cartesian_vector::operator=(const Polar_vector& pv)
-{
-	delta_x = pv.r * cos(pv.theta);
-	delta_y = pv.r * sin(pv.theta);
-}
-// construct a Polar_vector from a Cartesian_vector
-Polar_vector::Polar_vector(const Cartesian_vector& cv) {
-	r = sqrt((cv.delta_x * cv.delta_x) + (cv.delta_y * cv.delta_y));
-	/* atan2 will return a negative angle for Quadrant III, IV, must translate to I, II */
-	theta = atan2(cv.delta_y, cv.delta_x);
-	if (theta < 0.)
-		theta = 2. * pi + theta; // normalize theta positive
-}
-Polar_vector::Polar_vector()
-{
-	r = 0.0;
-	theta = 0.0;
-}
-void Polar_vector::operator=(const Cartesian_vector& cv)
-{
-	r = sqrt((cv.delta_x * cv.delta_x) + (cv.delta_y * cv.delta_y));
-	/* atan2 will return a negative angle for Quadrant III, IV, must translate to I, II */
-	theta = atan2(cv.delta_y, cv.delta_x);
-	if (theta < 0.)
-		theta = 2. * pi + theta; // normalize theta positive
-}
-
+/* class Point */
 Point::Point(double x, double y) : x(x), y(y)
-{
-}
+{}
 
 Point::Point()
-{
-	x = 0.0;
-	y = 0.0;
+:x(0.0), y(0.0)
+{}
+
+Point::~Point(){}
+
+Point::Point(const Point &other)
+:x(other.x), y(other.y){}
+
+Point::Point(Point &&other) noexcept
+:x(other.x), y(other.y){
+    other.x = 0.0;
+    other.y = 0.0;
 }
 
-void Point::print() const
-{
+Point &Point::operator=(const Point &rhs) {
+    if (*this == rhs)
+        return *this;
+    this->x = rhs.x;
+    this->y = rhs.y;
+    return *this;
+}
+
+Point &Point::operator=(Point &&rhs) noexcept{
+    if (*this == rhs)
+        return *this;
+    this->x = rhs.x;
+    this->y = rhs.y;
+    rhs.x = 0.0;
+    rhs.y = 0.0;
+    return *this;
+}
+
+void Point::print() const {
 	cout << setprecision(2) << "(" << x << ", " << y << ")";
 }
 
-bool Point::operator==(const Point & rhs)
-{
+bool Point::operator==(const Point & rhs) {
 	return x == rhs.x && y == rhs.y;
 }
 
-//bool Point::operator>=(const Point& rhs){
-////    return (y >= rhs.y && x>=rhs.x);
-//    if ((int)y == (int)rhs.y){ /*cast to int to floor to nearest integer(just for display)*/
-//        if ((int)x >= (int)rhs.x)
-//            return true;
-//    }
-//    return false;
-//}
-//
-//bool Point::operator<=(const Point& rhs){
-//    //    return (y >= rhs.y && x>=rhs.x);
-//    if ((int)y == (int)rhs.y){ /*cast to int to floor to nearest integer(just for display)*/
-//        if ((int)x <= (int)rhs.x)
-//            return true;
-//    }
-//    return false;
-//}
+Point& Point::operator+(const Point& rhs){
+    this->x += rhs.x;
+    this->y += rhs.y;
+    return *this;
+}
+
+/* helper functions */
+double to_radians(double theta_d) {
+    return theta_d * pi / 180.0;
+}
+
+double to_degrees(double theta_r) {
+    return theta_r * 180.0 / pi;
+}
 
 Point polarToCartesian(const double& radius , const double& theta){
+    /*get radius and angle, return a Point relative to (0, 0)*/
     double x,y;
     double convertedTheta = fmod((360 - theta + 90), 360); /*so 0 will be north*/
     double radianTheta = to_radians(convertedTheta);
     
     /*fix weird behaviour of exactly 0, 90, 180, 270*/
     if ((radianTheta == to_radians(90)) || (radianTheta == to_radians(270)))
-        x = 0;
+        x = radius * 0;
     else if (radianTheta == to_radians(0))
         x = radius * 1;
     else if (radianTheta == to_radians(180))
         x = radius * -1;
-    else
+    else /*radianTheta == any other angle*/
         x = radius * cos(radianTheta);
     
     if (radianTheta == to_radians(270))
@@ -107,62 +83,16 @@ Point polarToCartesian(const double& radius , const double& theta){
     else if (radianTheta == to_radians(90))
         y = radius * 1;
     else if ((radianTheta == to_radians(180)) || (radianTheta == to_radians(0)))
-        y = 0;
-    else
+        y = radius * 0;
+    else /*radianTheta == any other angle*/
         y = radius * sin(radianTheta);
     
     Point retVal(x,y);
     return retVal;
 }
 
-pair<double,double>cartesianToPolar(const Point& point){
-    double r,t;
-    r = sqrt(pow(point.x,2) + pow(point.y,2)) ;
-    if(point.x != 0){/*to avoid dividing by 0*/
-        t = atan(point.y / point.x);
-    }
-    else{/*point.x is 0 go in "Straight" line */
-        if(point.y>0)
-            t = 90;/*"go above x axis"*/
-        else
-            t = 270;/*"go below x axis"*/
-    }
-    /*adjusting the value of t*/
-    if((point.x<0 && point.y>0) || (point.x<0 && point.y<0))/*in the second or the third Quadrant*/
-        t+=180;
-    if(point.x>0 && point.y<0)/*if in the forth Quadrant*/
-        t+=360;
-    return make_pair(r,t);
-}
-
-//double getDegFromTwoPoints(const Point& p1, const Point& p2){ //TODO: TEST!!!!!
-//    if (p1.x == p2.x){
-//        if (p2.y < p1.y)
-//            return 180;
-//        else
-//            return 0;
-//    }
-//    if (p1.y == p2.y){
-//        if (p2.x < p1.x)
-//            return 270;
-//        else if (p2.x > p1.x)
-//            return 90;
-//    }
-//    double m = ((p1.y - p2.y) / (p1.x - p2.x));
-//    double theta = atan(m);
-//    theta = to_degrees(theta);
-//    theta = fmod((360 - theta + 90), 360);
-//    return theta;
-//}
-
 double findDistance(const Point& p1, const Point& p2){
     double dx = (p2.x - p1.x);
     double dy = (p2.y - p1.y);
     return sqrt((dx * dx) + (dy * dy));
-}
-
-Point& Point::operator+(const Point& rhs){
-    this->x += rhs.x;
-    this->y += rhs.y;
-    return *this;
 }

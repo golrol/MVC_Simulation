@@ -10,8 +10,9 @@ class Sim_object{
 public:
     Sim_object(const string& name);
     virtual ~Sim_object(){}
+    /*no need for operator=, copy c'tor and move c'tor- using unly pointers*/
     
-    
+    /*getters and setters*/
     const string& getName() const{return name;}
     void setName(const string& name) {this->name = name;}
     
@@ -20,6 +21,7 @@ public:
     
 private:
     string name;
+    
 };
 
 #endif /* Sim_object_h */

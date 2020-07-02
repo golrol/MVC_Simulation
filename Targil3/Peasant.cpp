@@ -3,10 +3,7 @@
 Peasant::Peasant(const string& name, const Point& location)
 :Agent(name, PEASANT_HEALTH, STOPPED, location, PEASANT_SPEED, PEASANT), inventory(0){}
 
-
-//void Peasant::updateDeg(const double &deg) {
-//    setTetha(deg);
-//}
+Peasant::~Peasant(){}
 
 void Peasant::broadcast_current_State() const{
     cout << "Peasant " << getName() << " at ";
@@ -33,43 +30,18 @@ void Peasant::broadcast_current_State() const{
     }
 }
 
-void Peasant::loadBoxes(){
-    
-}
-
-void Peasant::unloadBoxes(){
-    
-}
-
-void Peasant::startWorking(const shared_ptr<Structure>& farm, const shared_ptr<Structure>& castle){
-    setFarm(farm);
-    setCastle(castle);
-    setDestinationName(farm->getName());
-    position(farm->getLocation(), getSpeed());
-}
-
-//void Peasant::position(const Point& location, const double& speed){
-//    setState(MOVING_TO_DESTINATION);
-//    setDestination(location); /*update destination's location (Point)*/
-//    double distance = findDistance(getLocation(), location); /*distance to destination*/
-//    double numberOfsteps = distance / (getSpeed()/10.00); /*number of steps until arriving to destination*/
-//    
-//    /*update deltaX and deltaY according to the change need to be done in every step*/
-//    setDelta(Point((getDestination().x - getLocation().x) / numberOfsteps, (getDestination().y - getLocation().y) / numberOfsteps));
-//}
-
 void Peasant::goToNextDestination(){
     if (getState() == MOVING_TO_DESTINATION){
         if (getLocation() == farm->getLocation()){
             //ariived in farm - load.
             setState(LOADING);
-            if (farm->getInventory() <= 5){ //TODO: magic number
+            if (farm->getInventory() <= MAX_CARRY){
                 setInventory(farm->getInventory());
                 farm->setInventory(0);
             }
             else{
-                farm->setInventory(farm->getInventory() - 5);
-                setInventory(5);
+                farm->setInventory(farm->getInventory() - MAX_CARRY);
+                setInventory(MAX_CARRY);
             }
         }
         else if (getLocation() == castle->getLocation()){
@@ -91,6 +63,28 @@ void Peasant::goToNextDestination(){
     }
 }
 
+void Peasant::startWorking(const shared_ptr<Structure>& farm, const shared_ptr<Structure>& castle){
+    setFarm(farm);
+    setCastle(castle);
+    setDestinationName(farm->getName());
+    position(farm->getLocation(), getSpeed());
+}
+
+/* getters and setters */
+const int &Peasant::getInventory() const {
+    return inventory;
+}
+const shared_ptr<Structure> &Peasant::getFarm() const {
+    return farm;
+}
+
+const shared_ptr<Structure> &Peasant::getCastle() const {
+    return castle;
+}
+
+void Peasant::setInventory(const int &inventory) {
+    this->inventory = inventory;
+}
 void Peasant::setFarm(const shared_ptr<Structure> &farm) { 
     this->farm = farm;
 }
@@ -98,21 +92,3 @@ void Peasant::setFarm(const shared_ptr<Structure> &farm) {
 void Peasant::setCastle(const shared_ptr<Structure> &castle) { 
     this->castle = castle;
 }
-
-const shared_ptr<Structure> &Peasant::getFarm() const { 
-    return farm;
-}
-
-const shared_ptr<Structure> &Peasant::getCastle() const { 
-    return castle;
-}
-
-void Peasant::setInventory(const int &inventory) { 
-    this->inventory = inventory;
-}
-
-const int &Peasant::getInventory() const { 
-    return inventory;
-}
-
-

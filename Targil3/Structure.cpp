@@ -12,11 +12,11 @@ const Point &Structure::getLocation() const {
 const int& Structure::getInventory() const{
     return inventory;
 }
+const int& Structure::getType() const{
+    return type;
+}
+
 
 void Structure::setInventory(const int& inventory){
     this->inventory = inventory;
-}
-
-const int& Structure::getType() const{
-    return type;
 }

@@ -15,10 +15,9 @@ class Controller {
 public:	
 	Controller();
 	~Controller();
+    /*no need for operator=, copy c'tor and move c'tor- only one instance in the program*/
     
-    void setViewPtr(shared_ptr<View> view_ptr);
-    
-    
+    /*get command from user, validate and send to Model/View to execute*/
 	void run();
 
 private:

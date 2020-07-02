@@ -221,7 +221,7 @@ vector<string> createValidation(const string& strLine){
     }
 }
 
-pair<double,double> courseValidation(const string& strLine,const int& type){
+pair<double,double> courseValidation(const string& strLine, const int& type){
     vector<string> vec(tokenizeLine(strLine));
     double deg , speed = -1;
     if (type == PEASANT)
@@ -231,14 +231,12 @@ pair<double,double> courseValidation(const string& strLine,const int& type){
         try{
             nameValidation(vec[0]);
             deg = doubleValidation(vec[2]);/*check if the angle is valid*/
-            if(deg < 0 || deg > 360){
+            if(deg < 0 || deg > 360)
                 throw CommandException("Deg is out of range.");
-            }
             if(vec.size() == 4) {
                 speed = doubleValidation(vec[3]);/*check if the speed is valid*/
-                if(speed < 0 || speed > 30){
+                if(speed < 0 || speed > 30)
                     throw CommandException("Speed is out of range.");
-                }
             }
         }
         catch (const stringstream& ss) {
@@ -264,6 +262,8 @@ pair<Point,double> positionValidation(const string& strLine, const int& type){
             retVal = pointValidation(strPoint);
             if(vec.size()==5){
                 speed = doubleValidation(vec[4]);
+                if(speed < 0 || speed > 30)
+                    throw CommandException("Speed is out of range.");
             }
         }
         catch (const stringstream& ss) {

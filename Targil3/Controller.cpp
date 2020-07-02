@@ -6,8 +6,6 @@ Controller::Controller()
 Controller::~Controller() {}
 
 void Controller::run() {
-//    view_ptr.reset(new View);
-//    Model::getInstance()->setViewPtr(view_ptr);
     while(true){
         cout << "Time " << Model::getInstance()->getTime() << ": Enter Command: ";
         string strLine, firstWord, secondWord;
@@ -111,7 +109,7 @@ void Controller::run() {
                     (*agent)->setState(STOPPED);
                 }
                 else if(secondWord == "attack") {
-                    
+                    //TODO: implement.
                 }
                 else if(secondWord == "start_working") {
                     /*find the existing agent*/
@@ -140,9 +138,4 @@ void Controller::run() {
             e.what();
         }
     }
-}
-
-
-void Controller::setViewPtr(shared_ptr<View> view_ptr){
-    this->view_ptr = view_ptr;
 }

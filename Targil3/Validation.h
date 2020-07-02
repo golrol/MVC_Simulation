@@ -14,7 +14,7 @@
 #include <fstream>
 using namespace std;
 
-enum {MAX_NAME_SIZE = 16 , AGENT_ARGUMENT_NUM = 4 , CASTLES_ARGUMENT_NUM = 4 , FARM_ARGUMENT_NUM = 3 , MAX_VIEW_SIZE = 30 , MIN_VIEW_SIZE = 6};
+enum {MAX_NAME_SIZE = 16, AGENT_ARGUMENT_NUM = 4, CASTLES_ARGUMENT_NUM = 4, FARM_ARGUMENT_NUM = 3, MAX_VIEW_SIZE = 30, MIN_VIEW_SIZE = 6};
 
 double doubleValidation(string str);
 Point pointValidation(string str);
@@ -45,7 +45,7 @@ Point checkExistingStructure(const vector<shared_ptr<Structure> >& structuresVec
 
 vector<string> tokenizeFile(string strLine);
 
-/*inner calla of commandException to throw if found an error*/
+/*inner class of commandException to throw if found an error*/
 class CommandException{
 private:
     string data;
