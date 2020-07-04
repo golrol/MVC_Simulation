@@ -25,7 +25,7 @@ double doubleValidation(string str){
     return retVal;
 }
 /*Check if the string is valid Point and return it as Point variable*/
-Point pointValidation(string str){ //TODO: case were no ',' at all.
+Point pointValidation(string str){ //TODO: case where no ',' at all.
     stringstream ssPoint;
     string tmpStr,strX,strY;
     double x,y;
@@ -48,6 +48,7 @@ Point pointValidation(string str){ //TODO: case were no ',' at all.
     //    }
     x = doubleValidation(strX);
     y = doubleValidation(strY);
+    
     /*get to this code only if valid point*/
     return Point(x,y);
 }
@@ -265,7 +266,7 @@ string attackValidation(const string& strLine){
     }
     nameValidation(vec[0]);
     nameValidation(vec[2]);
-    return vec[1];
+    return vec[2];
 }
 
 pair<string,string> startWorkingValidation(const string& strLine, const int& type){

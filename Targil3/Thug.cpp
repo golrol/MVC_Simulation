@@ -24,6 +24,12 @@ void Thug::broadcast_current_State() const {
                 getDestination().print();
                 cout << ", speed " << getSpeed() << " km/h" << endl;
             }
+        case PREPARE_TO_ATTACK:
+            cout << "preparing to attack " << getPeasantToAttack()->getName() << endl;
+            break;
+        case READY_TO_ATTACK:
+            cout << "preparing to attack " << getPeasantToAttack()->getName() << endl;
+            break;
         default:
             break;
     }
@@ -37,4 +43,13 @@ void Thug::updateDegAndSpeed(const pair<double, double> &degAndSpeed) {
     setTetha(degAndSpeed.first);
     setSpeed(degAndSpeed.second);
     setRadius(degAndSpeed.second/10.00); /*radius always equals to speed/10 (for calculations)*/
+}
+
+void Thug::attack(shared_ptr<Agent> peasantToAttack) { 
+    this->peasantToAttack = peasantToAttack;
+    setState(PREPARE_TO_ATTACK);
+}
+
+shared_ptr<Agent> Thug::getPeasantToAttack() const{
+    return peasantToAttack;
 }

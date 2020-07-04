@@ -32,6 +32,9 @@ void Agent::update() {
     else if (state == UNLOADING || state == LOADING){
         goToNextDestination();
     }
+    else if (state == PREPARE_TO_ATTACK){
+        setState(READY_TO_ATTACK);
+    }
 }
 
 void Agent::position(const Point &location, const double &speed) {
@@ -80,7 +83,12 @@ Point Agent::getDelta() const {
     return delta;
 }
 
-void Agent::setState(int state){
+void Agent::setHealth(int health){
+    this->health = health;
+}
+void Agent::setState(int state){/*no zombies allowed*/
+    if (this->state == DEAD)
+        return;
     this->state = state;
 }
 void Agent::setLocation(Point location){

@@ -9,7 +9,8 @@
 #include "Farm.h"
 #include "Castle.h"
 #include "Validation.h"
-enum{NUMBER_OF_FILES=3};
+enum{PEASANT_RADIUS=1, NUMBER_OF_FILES=3};
+const double KNIGHT_RADIUS = 2.5;
 
 class Model{
 public:
@@ -35,6 +36,8 @@ public:
     void updateAgentDegAndSpeed(const vector<shared_ptr<Agent>>::const_iterator& agent, const pair<int,int>& degAndSpeed);
     void changeState(const vector<shared_ptr<Agent> >::const_iterator& agent, const int& state);
     void status() const; /*send status request for every Sim_object*/
+    void addAttckingThug(shared_ptr<Agent> thug);
+    void attack(shared_ptr<Agent> thug);/*helper func*/
     
     void go(); /*increment time and execute update() on every Sim_object*/
     
@@ -77,6 +80,7 @@ private:
     
     vector<shared_ptr<Agent> > agentsVec; /*all the agents in the program*/
     vector<shared_ptr<Structure> > structuresVec; /*all the structures in the program*/
+    vector<shared_ptr<Agent> > attackingThugs;
     int time;
     
     Model();/*private c'tor*/

@@ -18,8 +18,11 @@ public:
     /*change the agent's direction and speed*/
     void updateDegAndSpeed(const pair<double, double>& degAndSpeed);
     
-private:
+    void attack(shared_ptr<Agent> peasantToAttack);
+    shared_ptr<Agent> getPeasantToAttack() const;
     
+private:
+    shared_ptr<Agent> peasantToAttack;
 };
 
 #endif /* Thug_h */

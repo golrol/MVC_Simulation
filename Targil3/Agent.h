@@ -4,7 +4,7 @@
 #include "Sim_object.h"
 using namespace std;
 
-enum{DEAD, STOPPED, MOVING_TO_DESTINATION, MOVING_ON_COURSE, LOADING, UNLOADING, PEASANT_SPEED=5, PEASANT_HEALTH_MAX=20, PEASANT_HEALTH=10, KNIGHT_SPEED=10, THUG_SPEED_MAX=30, THUG_HEALTH=5, THUG_HEALTH_MAX=20, PEASANT=0, KNIGHT=1, THUG=2};
+enum{DEAD=0, STOPPED=1, MOVING_TO_DESTINATION=2, MOVING_ON_COURSE=3, LOADING=4, UNLOADING=5, PREPARE_TO_ATTACK=6, READY_TO_ATTACK=7, PEASANT_SPEED=5, PEASANT_HEALTH_MAX=20, PEASANT_HEALTH=10, KNIGHT_SPEED=10, THUG_SPEED_MAX=30, THUG_HEALTH=5, THUG_HEALTH_MAX=20, PEASANT=0, KNIGHT=1, THUG=2};
 
 class Agent : public Sim_object{
 public:
@@ -29,6 +29,7 @@ public:
     int getType() const;
     Point getDelta() const;
     
+    void setHealth(int health);
     void setState(int state);
     void setLocation(Point location);
     void setDestination(Point destination);

@@ -25,6 +25,11 @@ void Peasant::broadcast_current_State() const{
         case LOADING:
             cout << "Loading at " << getDestinationName() << ", inventory: " << inventory << " health: " << getHealth() << endl;
             break;
+        case DEAD:
+            cout << "Dead at ";
+            getLocation().print();
+            cout << endl;
+            break;
         default:
             break;
     }
@@ -58,6 +63,7 @@ void Peasant::goToNextDestination(){
     }
     else if (getState() == UNLOADING){
         //finished loading- use position() back to farm.
+        setHealth(getHealth() + 1); /*increase health by one*/
         setDestinationName(farm->getName());
         position(farm->getLocation(), getSpeed());
     }

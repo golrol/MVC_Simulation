@@ -46,24 +46,69 @@ void Controller::run() {
             }
             else if(firstWord == "aaa"){ //TODO: remove.
                 vector<string> vecLine;
-                vecLine = createValidation("create Gal Peasant (10.00, 10.00)");
+                vecLine = createValidation("create Gal Peasant (10.00, 23.00)");
                 Model::getInstance()->addAgent(vecLine);
-                vecLine = createValidation("create Bug Peasant (0.00, 0.00)");
+                vecLine = createValidation("create Yuval Thug (10.00, 23.00)");
                 Model::getInstance()->addAgent(vecLine);
-                vecLine = createValidation("create Iriel Peasant (0.00, 0.00)");
+                vecLine = createValidation("create Ayal Knight Blackness");
                 Model::getInstance()->addAgent(vecLine);
-                vecLine = createValidation("create Merry Peasant (0.00, 0.00)");
-                Model::getInstance()->addAgent(vecLine);
-                vecLine = createValidation("create Pippin Peasant (0.00, 0.00)");
-                Model::getInstance()->addAgent(vecLine);
-                vecLine = createValidation("create Zug Peasant (0.00, 0.00)");
-                Model::getInstance()->addAgent(vecLine);
+//                vecLine = createValidation("create Bug Peasant (0.00, 0.00)");
+//                Model::getInstance()->addAgent(vecLine);
+//                vecLine = createValidation("create Iriel Peasant (0.00, 0.00)");
+//                Model::getInstance()->addAgent(vecLine);
+//                vecLine = createValidation("create Merry Peasant (0.00, 0.00)");
+//                Model::getInstance()->addAgent(vecLine);
+//                vecLine = createValidation("create Pippin Peasant (0.00, 0.00)");
+//                Model::getInstance()->addAgent(vecLine);
+//                vecLine = createValidation("create Zug Peasant (0.00, 0.00)");
+//                Model::getInstance()->addAgent(vecLine);
                 vecLine = createValidation("create Loki Thug (14.00, 14.00)");
                 Model::getInstance()->addAgent(vecLine);
                 vecLine = createValidation("create Gog Thug (24.00, 24.00)");
                 Model::getInstance()->addAgent(vecLine);
-                vecLine = createValidation("create Wallace Knight Rivendale");
+                vecLine = createValidation("create Loki2 Thug (14.00, 14.00)");
                 Model::getInstance()->addAgent(vecLine);
+                vecLine = createValidation("create Gog2 Thug (24.00, 24.00)");
+                Model::getInstance()->addAgent(vecLine);
+//                vecLine = createValidation("create Wallace Knight Rivendale");
+//                Model::getInstance()->addAgent(vecLine);
+            }
+            else if (firstWord == "bbb"){
+                int i = 3;
+                while (i--){
+                    /*find the existing agent*/
+                    vector<shared_ptr<Agent> >::const_iterator agent = Model::getInstance()->findAgentByName("Gog");
+                    string peasantName = "Gal";
+                    /*find the peasant*/
+                    vector<shared_ptr<Agent>>::const_iterator peasantToAttack = Model::getInstance()->findAgentByName(peasantName);
+                    if ((*agent)->getType() != THUG)
+                        throw CommandException("This agent doesn't support this command");
+                    dynamic_pointer_cast<Thug>(*agent)->attack(*peasantToAttack);
+                    Model::getInstance()->addAttckingThug(*agent);/*add the thug to the attacking queue*/
+                    
+                    /*find the existing agent*/
+                    agent = Model::getInstance()->findAgentByName("Loki");
+                    peasantName = "Gal";
+                    /*find the peasant*/
+                    peasantToAttack = Model::getInstance()->findAgentByName(peasantName);
+                    if ((*agent)->getType() != THUG)
+                        throw CommandException("This agent doesn't support this command");
+                    dynamic_pointer_cast<Thug>(*agent)->attack(*peasantToAttack);
+                    Model::getInstance()->addAttckingThug(*agent);/*add the thug to the attacking queue*/
+                    
+                    /*find the existing agent*/
+                    agent = Model::getInstance()->findAgentByName("Loki2");
+                    peasantName = "Gal";
+                    /*find the peasant*/
+                    peasantToAttack = Model::getInstance()->findAgentByName(peasantName);
+                    if ((*agent)->getType() != THUG)
+                        throw CommandException("This agent doesn't support this command");
+                    dynamic_pointer_cast<Thug>(*agent)->attack(*peasantToAttack);
+                    Model::getInstance()->addAttckingThug(*agent);/*add the thug to the attacking queue*/
+                    
+                    Model::getInstance()->go();
+                    Model::getInstance()->go();
+                }
             }
             else if(firstWord == "create"){
                 vector<string> vecLine = createValidation(strLine);
@@ -109,7 +154,15 @@ void Controller::run() {
                     (*agent)->setState(STOPPED);
                 }
                 else if(secondWord == "attack") {
-                    //TODO: implement.
+                    /*find the existing agent*/
+                    vector<shared_ptr<Agent> >::const_iterator agent = Model::getInstance()->findAgentByName(firstWord);
+                    string peasantName = attackValidation(strLine);
+                    /*find the peasant*/
+                    vector<shared_ptr<Agent>>::const_iterator peasantToAttack = Model::getInstance()->findAgentByName(peasantName);
+                    if ((*agent)->getType() != THUG)
+                        throw CommandException("This agent doesn't support this command");
+                    dynamic_pointer_cast<Thug>(*agent)->attack(*peasantToAttack);
+                    Model::getInstance()->addAttckingThug(*agent);/*add the thug to the attacking queue*/
                 }
                 else if(secondWord == "start_working") {
                     /*find the existing agent*/

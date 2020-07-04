@@ -195,8 +195,79 @@ void Model::status() const{
     }
 }
 
+void Model::addAttckingThug(shared_ptr<Agent> thug){
+    attackingThugs.emplace_back(thug);
+}
+
+void Model::attack(shared_ptr<Agent> thug){
+    shared_ptr<Thug> thugPtr = dynamic_pointer_cast<Thug>(thug);
+    if (findDistance(thugPtr->getPeasantToAttack()->getLocation(), thugPtr->getLocation()) > PEASANT_RADIUS){
+        /*failed- peasant too far away*/
+        thugPtr->getPeasantToAttack()->setHealth(thugPtr->getPeasantToAttack()->getHealth() - 1);/*reduce peasant's health by one*/
+        if (thugPtr->getPeasantToAttack()->getHealth() == 0)
+            thugPtr->getPeasantToAttack()->setState(DEAD);
+        thugPtr->setState(STOPPED);
+        thugPtr->setHealth(thugPtr->getHealth() - 1);/*reduce thug's strength by one*/
+        if(thugPtr->getHealth() == 0)
+            thugPtr->setState(DEAD);
+        return;
+    }
+    
+    /*peasant is nearby- check strengths*/
+    if(thugPtr->getPeasantToAttack()->getHealth() > thugPtr->getHealth()){
+        /*failed- thug too weak*/
+        thugPtr->getPeasantToAttack()->setHealth(thugPtr->getPeasantToAttack()->getHealth() - 1);/*reduce peasant's health by one*/
+        if (thugPtr->getPeasantToAttack()->getHealth() == 0)
+            thugPtr->getPeasantToAttack()->setState(DEAD);
+        thugPtr->setState(STOPPED);
+        thugPtr->setHealth(thugPtr->getHealth() - 1);/*reduce thug's strength by one*/
+        if(thugPtr->getHealth() == 0)
+            thugPtr->setState(DEAD);
+        
+        thugPtr->setLocation(thugPtr->getPeasantToAttack()->getLocation());/*move thug to the locationg of the attack*/
+        return;
+    }
+    
+    /*thug is strong enough check for nearby knights*/
+    auto knight = agentsVec.begin();
+    while (knight != agentsVec.end()){
+        if ((*knight)->getType() == KNIGHT){
+            if(findDistance(thug->getLocation(), (*knight)->getLocation()) < KNIGHT_RADIUS){
+                /*failed- Knight in the area*/
+                thugPtr->getPeasantToAttack()->setHealth(thugPtr->getPeasantToAttack()->getHealth() - 1);/*reduce peasant's health by one*/
+                if (thugPtr->getPeasantToAttack()->getHealth() == 0)
+                    thugPtr->getPeasantToAttack()->setState(DEAD);
+                thugPtr->setState(STOPPED);
+                thugPtr->setHealth(thugPtr->getHealth() - 1);/*reduce thug's strength by one*/
+                if(thugPtr->getHealth() == 0)
+                    thugPtr->setState(DEAD);
+                
+                thugPtr->setLocation(thugPtr->getPeasantToAttack()->getLocation());/*move thug to the locationg of the attack*/
+                return;
+            }
+        }
+        knight++;
+    }
+    
+    /*thug can attack*/
+    thugPtr->getPeasantToAttack()->setHealth(thugPtr->getPeasantToAttack()->getHealth() - 1);/*reduce peasant's health by one*/
+    if (thugPtr->getPeasantToAttack()->getHealth() == 0)
+        thugPtr->getPeasantToAttack()->setState(DEAD);
+    dynamic_pointer_cast<Peasant>(thugPtr->getPeasantToAttack())->setInventory(0);/*peasant loses all of his inventory*/
+    thugPtr->setLocation(thugPtr->getPeasantToAttack()->getLocation());/*move thug to the locationg of the attack*/
+    thugPtr->setHealth(thugPtr->getHealth() + 1); /*increase thug's strength by one*/
+    thugPtr->setState(STOPPED);
+    thugPtr->getPeasantToAttack()->setState(STOPPED);
+}
 void Model::go() {
     time++;
+    /*attacks first*/
+    auto attackingIterator = attackingThugs.begin();
+    while(attackingIterator != attackingThugs.end()){
+        if ((*attackingIterator)->getState() == READY_TO_ATTACK)
+            attack(*attackingIterator);
+        attackingIterator++;
+    }
     
     auto structuresIterator = structuresVec.begin();
     while (structuresIterator != structuresVec.end()){
