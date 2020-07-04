@@ -1,11 +1,11 @@
 #ifndef Validation_h
 #define Validation_h
-#include <iostream>
+
 #include "Geometry.h"
 #include "Model.h"
-#include "Agent.h"
 #include "Structure.h"
 #include <sstream>
+#include <string>
 #include <vector>
 #include <fstream>
 using namespace std;

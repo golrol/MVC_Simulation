@@ -1,8 +1,6 @@
 #ifndef Sim_object_h
 #define Sim_object_h
 
-#include <stdio.h>
-#include <iostream>
 #include "Geometry.h"
 using namespace std;
 

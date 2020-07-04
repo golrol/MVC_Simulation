@@ -9,7 +9,7 @@
 using namespace std;
 
 int main(int argc, const char * argv[]) {
-    
+    cout << "copied" << endl;
     /*yuvals tests*/
     //    if(nameValidation("yuval zel-zion is the king"))
     //        cout << "ok" << endl;

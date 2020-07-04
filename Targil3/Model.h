@@ -3,8 +3,6 @@
 
 #include <fstream>
 #include "View.h"
-#include "Agent.h"
-#include "Structure.h"
 #include "Knight.h"
 #include "Peasant.h"
 #include "Thug.h"

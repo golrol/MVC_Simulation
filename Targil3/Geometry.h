@@ -2,13 +2,12 @@
 #define Geometry_h
 
 #include <iostream>
+#include <stdio.h>
 #include <iomanip>
 #include <cmath>
 #include <ctgmath>
 #include <memory>
-#include <string>
 using namespace std;
-
 
 /* class Point */
 typedef struct Point {
