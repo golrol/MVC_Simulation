@@ -24,6 +24,7 @@ void Thug::broadcast_current_State() const {
                 getDestination().print();
                 cout << ", speed " << getSpeed() << " km/h" << endl;
             }
+            break;
         case PREPARE_TO_ATTACK:
             cout << "preparing to attack " << getPeasantToAttack()->getName() << endl;
             break;
