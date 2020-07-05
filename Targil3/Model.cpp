@@ -69,7 +69,7 @@ void Model::castleInit(const string &fileName) {
                 location = pointValidation(tmpPointStr);
                 inventory = intValidation(vec[3]);
             }
-            catch (const CommandException& ss) {
+            catch (const xInvalidCommand& ss) {
                 throw xFileException("Wrong input in the files");
             }
         }

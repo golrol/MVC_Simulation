@@ -8,7 +8,7 @@
 #include <set>
 #include "Geometry.h"
 
-enum {MINUS_TRIPLE_DIGIT=-100, MINUS_DOUBLE_DIGIT=-10, MINUS_SINGLE_DIGIT=-9, MINUS_ONE=-1,ZERO=0, MARKS_SPACE=3, SINGLE_DIGIT=9, DOUBLE_DIGIT=10, BIG_DOUBLE_DIGIT=99, TRIPLE_DIGIT=100, QUADRUPLE_DIGITS=1000};//TODO: fix
+enum {MARKS_SPACE=3};
 
 /*a class to sort the objects according to the map drawing order*/
 struct classcomp {

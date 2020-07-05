@@ -82,7 +82,7 @@ void Controller::run() {
                     /*find the peasant*/
                     vector<shared_ptr<Agent>>::const_iterator peasantToAttack = Model::getInstance()->findAgentByName(peasantName);
                     if ((*agent)->getType() != THUG)
-                        throw CommandException("This agent doesn't support this command");
+                        throw xInvalidCommand("This agent doesn't support this command");
                     dynamic_pointer_cast<Thug>(*agent)->attack(*peasantToAttack);
                     Model::getInstance()->addAttckingThug(*agent);/*add the thug to the attacking queue*/
                     
@@ -92,7 +92,7 @@ void Controller::run() {
                     /*find the peasant*/
                     peasantToAttack = Model::getInstance()->findAgentByName(peasantName);
                     if ((*agent)->getType() != THUG)
-                        throw CommandException("This agent doesn't support this command");
+                        throw xInvalidCommand("This agent doesn't support this command");
                     dynamic_pointer_cast<Thug>(*agent)->attack(*peasantToAttack);
                     Model::getInstance()->addAttckingThug(*agent);/*add the thug to the attacking queue*/
                     
@@ -102,7 +102,7 @@ void Controller::run() {
                     /*find the peasant*/
                     peasantToAttack = Model::getInstance()->findAgentByName(peasantName);
                     if ((*agent)->getType() != THUG)
-                        throw CommandException("This agent doesn't support this command");
+                        throw xInvalidCommand("This agent doesn't support this command");
                     dynamic_pointer_cast<Thug>(*agent)->attack(*peasantToAttack);
                     Model::getInstance()->addAttckingThug(*agent);/*add the thug to the attacking queue*/
                     
@@ -160,7 +160,7 @@ void Controller::run() {
                     /*find the peasant*/
                     vector<shared_ptr<Agent>>::const_iterator peasantToAttack = Model::getInstance()->findAgentByName(peasantName);
                     if ((*agent)->getType() != THUG)
-                        throw CommandException("This agent doesn't support this command");
+                        throw xInvalidCommand("This agent doesn't support this command");
                     dynamic_pointer_cast<Thug>(*agent)->attack(*peasantToAttack);
                     Model::getInstance()->addAttckingThug(*agent);/*add the thug to the attacking queue*/
                 }
@@ -179,9 +179,9 @@ void Controller::run() {
 
                 }
                 else
-                    throw CommandException("Wrong input");
+                    throw xInvalidCommand("Wrong input");
             }
-        }catch(const CommandException& e){
+        }catch(const xInvalidCommand& e){
             e.what();
         }catch(const Model::xNoSuchAgent& e){
             e.what();

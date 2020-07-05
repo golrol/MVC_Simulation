@@ -30,7 +30,7 @@ void Knight::broadcast_current_State() const{
     }
 }
 
-void Knight::goToNextDestination(){ //TODO: do we need to randomize?
+void Knight::goToNextDestination(){
     shared_ptr<Structure> nextStructure = structures.front();
     if (nextStructure->getName() == getDestinationName()){/*case first in queue is the same as just arrived*/
         structures.pop();
