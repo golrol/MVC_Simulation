@@ -166,6 +166,8 @@ vector<string> createValidation(const string& strLine){/*returns vector with com
             return vec;
         }
         else if(vec[2] == "Peasant" || vec[2] == "Thug"){/*its Peasant or thug*/
+            if (vec.size() != 5)
+                throw xInvalidCommand("Wrong number of arguments");
             string strPoint = vec[3];
             strPoint.append(vec[4]);/*append the two arguments to be str and send it to pointValidation to get a Point*/
             pointValidation(strPoint);

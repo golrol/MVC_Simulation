@@ -10,7 +10,7 @@
 #include <fstream>
 using namespace std;
 
-enum {MAX_NAME_SIZE = 16, AGENT_ARGUMENT_NUM = 4, CASTLES_ARGUMENT_NUM = 4, FARM_ARGUMENT_NUM = 3, MAX_VIEW_SIZE = 30, MIN_VIEW_SIZE = 6};
+enum {MAX_NAME_SIZE=16, AGENT_ARGUMENT_NUM=4, CASTLES_ARGUMENT_NUM=4, FARM_ARGUMENT_NUM=3, MAX_VIEW_SIZE=30, MIN_VIEW_SIZE=6};
 
 /*variable types validation*/
 int intValidation(string str);

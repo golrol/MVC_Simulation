@@ -3,7 +3,7 @@
 
 #include "Sim_object.h"
 
-enum{FARM, CASTLE};
+enum{FARM=1, CASTLE=2};
 
 class Structure : public Sim_object{
 public:
