@@ -11,19 +11,19 @@ void Peasant::broadcast_current_State() const{
     cout << ", ";
     switch (getState()) {
         case STOPPED:
-            cout << "Stopped." << endl;
+            cout << "Stopped,"<< " inventory: " << inventory << ", health: " << getHealth() << endl;
             break;
         case MOVING_ON_COURSE:
-            cout << "Heading on course " << getTheta() << " deg" << ", speed " << getSpeed() << " km/h, inventory: " << inventory << " health: " << getHealth() << endl;
+            cout << "Heading on course " << getTheta() << " deg" << ", speed " << getSpeed() << " km/h, inventory: " << inventory << ", health: " << getHealth() << endl;
             break;
         case MOVING_TO_DESTINATION:
-            cout << "Heading to " << getDestinationName() << ", speed " << getSpeed() << " km/h, inventory: " << inventory << " health: " << getHealth() << endl;
+            cout << "Heading to " << getDestinationName() << ", speed " << getSpeed() << " km/h, inventory: " << inventory << ", health: " << getHealth() << endl;
             break;
         case UNLOADING:
-            cout << "Unloading at " << getDestinationName() << ", inventory: " << inventory << " health: " << getHealth() << endl;
+            cout << "Unloading at " << getDestinationName() << ", inventory: " << inventory << ", health: " << getHealth() << endl;
             break;
         case LOADING:
-            cout << "Loading at " << getDestinationName() << ", inventory: " << inventory << " health: " << getHealth() << endl;
+            cout << "Loading at " << getDestinationName() << ", inventory: " << inventory << ", health: " << getHealth() << endl;
             break;
         case DEAD:
             cout << "Dead at ";
@@ -38,32 +38,34 @@ void Peasant::broadcast_current_State() const{
 void Peasant::goToNextDestination(){
     if (getState() == MOVING_TO_DESTINATION){
         if (getLocation() == farm->getLocation()){
-            //ariived in farm - load.
+            /*ariived in farm - load.*/
             setState(LOADING);
-            if (farm->getInventory() <= MAX_CARRY){
-                setInventory(farm->getInventory());
-                farm->setInventory(0);
-            }
-            else{
-                farm->setInventory(farm->getInventory() - MAX_CARRY);
-                setInventory(MAX_CARRY);
-            }
         }
         else if (getLocation() == castle->getLocation()){
-            //ariived in castle - unload.
+            /*ariived in castle - unload.*/
             setState(UNLOADING);
-            castle->setInventory(castle->getInventory() + getInventory());
-            setInventory(0);
         }
     }
     else if (getState() == LOADING){
-        //finished loading- use position() to castle.
+        /*finished loading- use position() to castle.*/
+        if (farm->getInventory() <= MAX_CARRY){/*take only what is left in the farm*/
+            setInventory(farm->getInventory());
+            farm->setInventory(0);
+        }
+        else{
+            farm->setInventory(farm->getInventory() - MAX_CARRY);
+            setInventory(MAX_CARRY);
+        }
+        
         setDestinationName(castle->getName());
         position(castle->getLocation(), getSpeed());
     }
     else if (getState() == UNLOADING){
-        //finished loading- use position() back to farm.
+        /*finished unloading- use position() back to farm.*/
+        castle->setInventory(castle->getInventory() + getInventory());
+        setInventory(0);
         setHealth(getHealth() + 1); /*increase health by one*/
+        
         setDestinationName(farm->getName());
         position(farm->getLocation(), getSpeed());
     }
