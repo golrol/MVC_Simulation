@@ -55,13 +55,14 @@ bool nameValidation(string str){/*Check if the string is valid name*/
 Point pointValidation(string str){/*Check if the string is valid Point and return it as a Point variable*/
     stringstream ssPoint;
     string tmpStr,strX,strY;
+    unsigned int i;
     int commaCnt=0;
     double x,y;
     
     if(str.at(0) != '(' || str.at(str.size()-1) != ')')/*make sure starts and ends with '(' and ')'*/
         throw xInvalidCommand("invalid location.");
     
-    for (int i=0; i<str.size(); i++) {/*only one ',' allowed*/
+    for (i=0; i<str.size(); i++) {/*only one ',' allowed*/
         if (str[i] == ',')
             commaCnt++;
     }
