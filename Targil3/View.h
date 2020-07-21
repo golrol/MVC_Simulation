@@ -8,7 +8,7 @@
 #include <set>
 #include "Geometry.h"
 
-enum {MARKS_SPACE=3};
+enum {MARKS_SPACE=3, MAX_NUMBER_OF_CHARS=3, XMARKS_SPACES=6};
 
 /*a class to sort the objects according to the map drawing order*/
 struct classcomp {

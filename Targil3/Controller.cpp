@@ -73,7 +73,7 @@ void Controller::run() {
 //                vecLine = createValidation("create Wallace Knight Rivendale");
 //                Model::getInstance()->addAgent(vecLine);
             }
-            else if (firstWord == "bbb"){
+            else if (firstWord == "bbb"){ //TODO: remove.
                 int i = 3;
                 while (i--){
                     /*find the existing agent*/

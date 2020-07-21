@@ -18,12 +18,21 @@ void View::update_location(const string &name, const Point& location) {
     objectsSet.insert(make_pair(location, name));
 }
 
+int getNumberOfChars(const int& yMarks, const int& originY){
+    int numberOfChars, lengthUp, lengthDown;
+    lengthDown = (int)to_string((int)originY).length();
+    lengthUp = (int)to_string(yMarks).length();
+    numberOfChars = max(lengthDown, lengthUp);
+    
+    return numberOfChars;
+}
 void View::draw() const {
-    int i, j;
+    int i, j, length=1, numberOfMarks;
     int yMarks = origin.y + (size * scale) - scale; /*highest mark number to print*/
     int emptyLines = (size-1) % MARKS_SPACE; /*leading lines without marks*/
     int yBoundUp = yMarks;/*highest y value*/
     int xBoundRight = origin.x + (size * scale) - scale; /*highest x value*/
+    int numberOfChars = getNumberOfChars(yMarks, origin.y), numberOfSpaces; /* for formatting the marks */
     auto setItarator = objectsSet.begin();
     
     /*print headline*/
@@ -32,22 +41,25 @@ void View::draw() const {
     cout << endl;
     
     for (i=0 ; i<size ; i++){/*print lines with marks*/
-        if (i % 3 == emptyLines){ /*need to print a mark*/
-            //TODO: magic numbers
-            //TODO: make infinity compatible
+        if (i % MARKS_SPACE == emptyLines){ /*need to print a mark*/
             /*print according to number of digits*/
-            if (yMarks > -1 && yMarks < 10)
-                cout << "  " << yMarks << " ";
-            else if ((yMarks > 9 && yMarks < 100) || (yMarks > -10 && yMarks < 0))
-                cout << " " << yMarks << " ";
-            else if ((yMarks > -100 && yMarks < -9) || (yMarks > 99 && yMarks < 1000))
-                cout << yMarks << " ";
+            length = (int)to_string(yMarks).length(); /*get number of chars of current mark*/
+            if (length < numberOfChars){ /*format in correct position*/
+                numberOfSpaces = numberOfChars - length;
+                while (numberOfSpaces--)
+                    cout << " ";
+            }
+            cout << yMarks << " ";
+            
         }
         else{/*no need to print a mark*/
-            cout << "    ";
+            numberOfSpaces = numberOfChars + 1; /*print correct number of spaces*/
+            while (numberOfSpaces--)
+                cout << " ";
         }
+        
         j=size;
-        while(j--){
+        while(j--){ /*print the cells in the current line*/
             /*get location in the "world" from i and j*/
             Point currentLocation(origin.x + (size-j)*scale - scale, origin.y + size*scale - i*scale - scale);
             
@@ -84,27 +96,35 @@ void View::draw() const {
     }
     
     /* print x marks */
-    int numberOfMarks ;
+    if (to_string(xBoundRight).length() > MAX_NUMBER_OF_CHARS){ /*can't print too many chars in xMarks*/
+        //TODO: print something?
+//        numberOfSpaces = numberOfChars + 1;
+//        while (numberOfSpaces--)
+//            cout << " ";
+//        cout << "can't print xMarks" << endl;
+        cout << endl;
+        return;
+    }
+        
     numberOfMarks = ceil((double)size / (double)MARKS_SPACE);
-    int xMarks = origin.x;/*smallest x value==first mark*/
+    int xMarks = origin.x;/*smallest x value = first mark*/
     
-    /*print first mark according to number of digits*/
-    if (xMarks > -1 && xMarks < 10)
-        cout << "    " << xMarks;
-    else if ((xMarks > 9 && xMarks < 100) || (xMarks > -10 && xMarks < 0))
-        cout << "   " << xMarks;
-    else if ((xMarks > -100 && xMarks < -9) || (xMarks > 99 && xMarks < 1000))
-        cout << "  " << xMarks;
+    length = (int)to_string(xMarks).length(); /*get number of chars of current mark*/
+    
+    /*print first mark*/
+    numberOfSpaces = numberOfChars + 1;
+    while (numberOfSpaces--)
+        cout << " ";
+    cout << xMarks;
     
     xMarks += (scale*MARKS_SPACE); /*update the next mark to print*/
     numberOfMarks--;
     while (numberOfMarks--){/*print all the other marks according to number of digits*/
-        if (xMarks > -1 && xMarks < 10)
-            cout << "     " << xMarks;
-        else if ((xMarks > 9 && xMarks < 100) || (xMarks > -10 && xMarks < 0))
-            cout << "    " << xMarks;
-        else if ((xMarks > -100 && xMarks < -9) || (xMarks > 99 && xMarks < 1000))
-            cout << "   " << xMarks;
+        length = (int)to_string(xMarks).length(); /*get number of chars of current mark*/
+        numberOfSpaces = XMARKS_SPACES - length;
+        while (numberOfSpaces--)
+            cout << " ";
+        cout << xMarks;
         
         xMarks += (scale*MARKS_SPACE); /*update the next mark to print*/
     }
