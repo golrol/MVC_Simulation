@@ -29,6 +29,7 @@ int getNumberOfChars(const int& yMarks, const int& originY){
 void View::draw() const {
     int i, j, length=1, numberOfMarks;
     int yMarks = origin.y + (size * scale) - scale; /*highest mark number to print*/
+    int xMarks = origin.x;/*smallest x value = first mark*/
     int emptyLines = (size-1) % MARKS_SPACE; /*leading lines without marks*/
     int yBoundUp = yMarks;/*highest y value*/
     int xBoundRight = origin.x + (size * scale) - scale; /*highest x value*/
@@ -96,7 +97,7 @@ void View::draw() const {
     }
     
     /* print x marks */
-    if (to_string(xBoundRight).length() > MAX_NUMBER_OF_CHARS){ /*can't print too many chars in xMarks*/
+    if (to_string(xBoundRight).length() > MAX_NUMBER_OF_CHARS || to_string(xMarks).length() > MAX_NUMBER_OF_CHARS){ /*can't print too many chars in xMarks*/
         //TODO: print something?
 //        numberOfSpaces = numberOfChars + 1;
 //        while (numberOfSpaces--)
@@ -107,8 +108,6 @@ void View::draw() const {
     }
         
     numberOfMarks = ceil((double)size / (double)MARKS_SPACE);
-    int xMarks = origin.x;/*smallest x value = first mark*/
-    
     length = (int)to_string(xMarks).length(); /*get number of chars of current mark*/
     
     /*print first mark*/
