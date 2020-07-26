@@ -142,6 +142,7 @@ void Controller::run() {
                     /*find the existing agent*/
                     vector<shared_ptr<Agent> >::const_iterator agent = Model::getInstance()->findAgentByName(firstWord);
                     pair<Point, double> destinationAndSpeed = positionValidation(strLine, (*agent)->getType());
+                    (*agent)->setDestinationName(""); /*delete old destination if existed*/
                     if ((*agent)->getType() == KNIGHT)
                         dynamic_pointer_cast<Knight>((*agent))->position(destinationAndSpeed.first, (*agent)->getSpeed());
                     else if ((*agent)->getType() == THUG)
