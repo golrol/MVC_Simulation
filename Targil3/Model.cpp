@@ -162,7 +162,7 @@ vector<shared_ptr<Structure>>::const_iterator Model::findStructureByName(const s
 }
 
 /* sending command to agents */
-void Model::updateAgentDegAndSpeed(const vector<shared_ptr<Agent> >::const_iterator &agent, const pair<int, int> &degAndSpeed) {
+void Model::updateAgentDegAndSpeed(const vector<shared_ptr<Agent> >::const_iterator &agent, const pair<double, double> &degAndSpeed) {
     shared_ptr<Knight> knightPtr = dynamic_pointer_cast<Knight>((*agent));
     if (knightPtr != nullptr){
         knightPtr->updateDeg(degAndSpeed.first);

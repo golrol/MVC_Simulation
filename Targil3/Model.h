@@ -33,7 +33,7 @@ public:
     vector<shared_ptr<Structure>>::const_iterator findStructureByName(const string& name) const;
     
     /* sending command to agents */
-    void updateAgentDegAndSpeed(const vector<shared_ptr<Agent>>::const_iterator& agent, const pair<int,int>& degAndSpeed);
+    void updateAgentDegAndSpeed(const vector<shared_ptr<Agent>>::const_iterator& agent, const pair<double,double>& degAndSpeed);
     void changeState(const vector<shared_ptr<Agent> >::const_iterator& agent, const int& state);
     void status() const; /*send status request for every Sim_object*/
     void addAttckingThug(shared_ptr<Agent> thug);
