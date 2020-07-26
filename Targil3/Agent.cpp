@@ -38,6 +38,7 @@ void Agent::update() {
 }
 
 void Agent::position(const Point &location, const double &speed) {
+    setDestinationName(""); /*delete old destination if existed*/
     setState(MOVING_TO_DESTINATION);
     setDestination(location); /*update destination's location (Point)*/
     setSpeed(speed);
