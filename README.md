@@ -1,5 +1,8 @@
 # MVC time-dependent Simulation
 
+## Screenshot:
+<img width="1389" alt="Screenshot" src="https://user-images.githubusercontent.com/58071878/141595021-eb71a71a-8db1-45d1-b9cb-7d37c79e31f8.png">
+
 ## Buildings
 - **Farm**. Creates boxes of crop every time unit.
 - **Castle**. Can hold boxes of corp.
