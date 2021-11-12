@@ -11,8 +11,8 @@
 
 ## Commands
 - **default**. Resets the map to its original position.
-- **size** <num>. Changes the size of the map.
-- **zoom** <num>. Changes the scale of the map.
+- **size** /<num/>. Changes the size of the map.
+- **zoom** /<num/>. Changes the scale of the map.
 - **pan** <num> <num>. Moves the origin of the map.
 - **show**. print the map.
 - **status**. lists the status of all the building and characters in the simulation.
