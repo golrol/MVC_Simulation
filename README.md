@@ -13,15 +13,15 @@
 - **default**. Resets the map to its original position.
 - **size** \<num\>. Changes the size of the map.
 - **zoom** \<num\>. Changes the scale of the map.
-- **pan** <num> <num>. Moves the origin of the map.
+- **pan** \<num\> \<num\>. Moves the origin of the map.
 - **show**. print the map.
 - **status**. lists the status of all the building and characters in the simulation.
 - **go**. Inceremnt one time unit.
-- **create <name> <kind> <location>**. Creates a new character.
-- **<name> course <angle>**. Sets the direction of a specific character
-- **<name> destination <building name>**. Sets the direction of the character to the building.
-- **<name> stop**. Order the character to stop moving.
-- **<name> attack <name>**. Order a thug to attack a peasant.
+- **create \<name\> \<kind\> \<location\>**. Creates a new character.
+- **\<name\> course \<angle\>**. Sets the direction of a specific character
+- **\<name\> destination \<building name\>**. Sets the direction of the character to the building.
+- **\<name\> stop**. Order the character to stop moving.
+- **\<name\> attack \<name\>**. Order a thug to attack a peasant.
 
 
 ## Running instructions ##
